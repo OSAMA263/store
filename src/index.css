@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* debug */
+/* * {
+  box-sizing: border-box;
+  background-color: rgb(0 100 0 / 0.05) !important;
+} */
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+a,
+button {
+  transition: all 0.3s;
+}
+svg,
+img,
+input,
+select,
+option,
+textarea {
+  transition: all 0.4s;
+}
+textarea {
+  resize: none !important;
+}
+small {
+  color: #949393;
+}
+tr th:not(:first-child),
+td:not(:first-child) {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+/* input style */
+textarea,
+select,
+input {
+  outline: none;
+  padding: 4px;
+  text-transform: capitalize;
+  color: #7e7e7e;
+  border-bottom: 2px solid gray;
+}
+textarea:hover,
+select:hover,
+input:hover,
+textarea:focus,
+select:focus,
+input:focus {
+  border-color: black;
+}
+/*line under the link */
+.under-line {
+  position: relative;
+}
+.under-line::after {
+  bottom: 0;
+  content: "";
+  position: absolute;
+  width: 0%;
+  right: 0;
+  height: 1px;
+  margin-top: 2px;
+  background-color: black;
+  transition: all 0.3s;
+}
+.under-line:hover::after {
+  width: 100%;
+  left: 0;
+}
+/* swiper */
+.swiper-pagination {
+  margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.swiper-pagination-bullet:hover{
+  background-color:rgb(255, 255, 255)!important ;
+}
+.swiper-pagination-bullet {
+  transition: all 0.5s;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: rgb(35, 34, 34);
+  border: transparent 1px solid;
+}
+.swiper-pagination-bullet-active {
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  border: rgba(35, 34, 34, 0.453) 1px solid;
+}
