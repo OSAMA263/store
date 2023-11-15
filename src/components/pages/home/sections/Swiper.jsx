@@ -66,6 +66,7 @@ top-1/2
 const swiperProps = {
   loop: true,
   speed: 1500,
+  allowTouchMove:false,
   // autoplay:true,
   pagination: { clickable: true },
   navigation: {

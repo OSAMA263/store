@@ -1,9 +1,9 @@
 import ProductsTable from "../../ProductsTable";
 import PageHero from "../../PageHero";
 import { Td, Th } from "@chakra-ui/react";
-import tw from "tailwind-styled-components";
 import { FaCartShopping } from "react-icons/fa6";
 import NoProductsAdded from "./NoProductsAdded";
+import ProductQuantity from "../../ProductQTY";
 
 export default function Cart() {
   return (
@@ -57,25 +57,3 @@ const TFootContent = () => {
   );
 };
 
-const ProductQuantity = () => {
-  return (
-    <QuentityWrapper>
-      <button>-</button>
-      <h1>1</h1>
-      <button>+</button>
-    </QuentityWrapper>
-  );
-};
-
-const QuentityWrapper = tw.div`
-[&>button]:text-black
-[&>button]:text-2xl
-[&>button:hover]:text-thickRed
-flex 
-items-center 
-justify-between 
-text-xl 
-font-semibold 
-border-b 
-border-black
-`;

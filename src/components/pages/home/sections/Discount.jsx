@@ -1,5 +1,5 @@
 import tw from "tailwind-styled-components";
-import MainButton from "../../../MainButton";
+import MainButton from "../../../shared/MainButton";
 
 function Discount() {
   return (

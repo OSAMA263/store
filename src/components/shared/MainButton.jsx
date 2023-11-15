@@ -24,7 +24,9 @@ tracking-widest
 hover:bg-transparent
 hover:text-[#333333]
 w-fit
-mx-auto
+flex
+items-center
+self-center
 relative
 [&>#r-line]:hover:h-full
 [&>#b-line]:hover:w-full

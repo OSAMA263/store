@@ -20,9 +20,9 @@ export default function Card({ imgH }) {
   );
 }
 
-export const ItemImage = ({ imgH,shopOneColumn }) => {
+export const ItemImage = ({ imgH,fullHImg }) => {
   return (
-    <div className={`${shopOneColumn} h-[80%] overflow-hidden relative`}>
+    <div className={`${fullHImg} h-[80%] overflow-hidden relative`}>
       {/* images */}
       <div className={`${imgH} cursor-pointer relative`}>
         <Skeleton height="100%" isLoaded>

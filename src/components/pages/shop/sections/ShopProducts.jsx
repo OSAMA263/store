@@ -1,13 +1,13 @@
 import Card from "../../../Card";
 import tw from "tailwind-styled-components";
-import SingleProduct from "../../../SingleProduct";
+import ProductFullWidth from "../../../ProductFullWidth";
 
 export default function ShopProducts({ gridCols }) {
   return (
     <Container $columns={gridCols}>
       {Array.from({ length: 9 }).map((card, i) =>
         gridCols === 1 ? (
-          <SingleProduct key={"card" + i} />
+          <ProductFullWidth key={card+ i} />
         ) : (
           <Card key={"card" + i} imgH="h-[300px]" />
         )

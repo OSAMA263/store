@@ -34,10 +34,12 @@ textarea {
 small {
   color: #949393;
 }
+/* table styles */
 tr th:not(:first-child),
 td:not(:first-child) {
   text-align: center !important;
   vertical-align: middle !important;
+  
 }
 /* input style */
 textarea,

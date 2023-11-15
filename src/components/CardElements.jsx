@@ -31,12 +31,12 @@ export const CardOptions = () => {
       <OptionsBtns>
         {options.map(({ icon, label }, i) => (
           <Tooltip zIndex="66" hasArrow placement="left" label={label} key={i}>
-            <button onClick={label === "Quick view" && onOpen}>{icon}</button>
+            <span onClick={label === "Quick view" && onOpen}>{icon}</span>
           </Tooltip>
         ))}
       </OptionsBtns>
       {/* product modal */}
-      <ProductModal {...{isOpen, onClose}} />
+      <ProductModal {...{ isOpen, onClose }} />
     </>
   );
 };
@@ -56,8 +56,9 @@ flex
 gap-y-10 
 opacity-0 
 flex-col
-[&>button]:bg-white
-[&>button]:p-[6px]
+[&>span]:bg-white
+[&>span]:p-[6px]
+[&>span]:cursor-pointer
 `;
 
 const Badge = tw.span`

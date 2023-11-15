@@ -1,4 +1,4 @@
-import MainButton from "../../MainButton";
+import MainButton from "../../shared/MainButton";
 
 export default function NoProductsAdded({ Icon, title }) {
   return (

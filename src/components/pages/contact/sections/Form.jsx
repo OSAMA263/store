@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components";
 import PageHeader from "../../../PageHeader";
-import MainButton from "../../../MainButton";
+import MainButton from "../../../shared/MainButton";
 
 export default function Form() {
   return (

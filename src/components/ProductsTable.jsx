@@ -8,9 +8,9 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import MainButton from "./MainButton";
 import { AiOutlineClose } from "react-icons/ai";
 import tw from "tailwind-styled-components";
+import MainButton from "./shared/MainButton";
 
 export default function ProductsTable(props) {
   const { TBodyContent, THeadContent, ClearAllBtn, TFootContent } = props;

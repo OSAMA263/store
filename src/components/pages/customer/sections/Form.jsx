@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import tw from "tailwind-styled-components";
-import MainBtn from "../../../MainButton"
+import MainButton from "../../../shared/MainButton";
 
 export default function Form(props) {
   const { bg, title, text, btn, children } = props;
@@ -28,7 +28,7 @@ export default function Form(props) {
             });
           })}
         </InputsWrapper>
-        <MainBtn>{btn}</MainBtn>
+        <MainButton>{btn}</MainButton>
       </form>
     </Container>
   );
