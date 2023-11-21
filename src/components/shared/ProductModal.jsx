@@ -1,12 +1,26 @@
 import Modal from "../Modal";
-import { CardBodyFullWidth } from "../ProductFullWidth";
-import { ItemImage } from "../Card";
 import tw from "tailwind-styled-components";
-import { AiOutlineClose, AiOutlineHeart } from "react-icons/ai";
-import { LuGitCompare } from "react-icons/lu";
+import { AiOutlineClose } from "react-icons/ai";
 import ProductQuantity from "../ProductQTY";
+import { ProductBody } from "../pages/single product/sections/ProductFullDetails";
+import SwiperImages from "../Swiper";
+import { Pagination } from "swiper/modules";
+import { SwiperSlide } from "swiper/react";
+import LazyImage from "../LazyImage";
+import React from "react";
 
-export default function ProductModal({ onClose, isOpen }) {
+function ProductModal({ product, onClose, isOpen }) {
+  const swiperProps = {
+    swiperVariants: {
+      grabCursor: true,
+      slidesPerView: 1,
+      pagination: { clickable: true },
+      modules: [Pagination],
+    },
+    swiperStyles: "h-full [&_.swiper-pagination]:bg-[#35816eb8]",
+    swiperImages: [...product.images],
+  };
+
   return (
     <Modal {...{ onClose, isOpen }}>
       <ModalContainer>
@@ -14,38 +28,22 @@ export default function ProductModal({ onClose, isOpen }) {
         <CloseBtn onClick={onClose}>
           <AiOutlineClose />
         </CloseBtn>
-        <ItemImage fullHImg="!h-full" imgH="h-[600px]" />
+        {/* swiper images */}
+        <div className="h-full">
+          <SwiperImages swiperProps={swiperProps}>
+            {product.images.map((src) => (
+              <SwiperSlide key={src}>
+                <LazyImage src={src} placeholder="placeholder" />
+              </SwiperSlide>
+            ))}
+          </SwiperImages>
+        </div>
         {/* card body content */}
-        <CardBodyFullWidth
-          QTY={<ProductQuantity />}
-          moreOptionBtns={<SingleProductOptinsBtns />}
-        />
+        <ProductBody product={product} QTY={<ProductQuantity />} />
       </ModalContainer>
     </Modal>
   );
 }
-
-// wishlist && compare buttons
-export const SingleProductOptinsBtns = () => {
-  return (
-    <>
-      <OptionBtn>
-        <AiOutlineHeart />
-      </OptionBtn>
-      <OptionBtn>
-        <LuGitCompare />
-      </OptionBtn>
-    </>
-  );
-};
-
-const OptionBtn = tw.button`
-hover:bg-gray-500
-hover:text-white
-p-3
-border
-border-gray-500
-`;
 
 const CloseBtn = tw.button`
 absolute 
@@ -56,10 +54,11 @@ hover:[&>svg]:rotate-90
 `;
 
 const ModalContainer = tw.div`
-grid 
 relative
-items-center 
+grid 
 grid-cols-2 
+items-center 
 gap-x-6
 min-h-[600px] 
 `;
+export default React.memo(ProductModal)

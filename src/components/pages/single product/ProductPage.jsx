@@ -1,17 +1,23 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import PageHero from "../../PageHero";
-import { CardBodyFullWidth } from "../../ProductFullWidth";
 import ProductQuantity from "../../ProductQTY";
-import { SingleProductOptinsBtns } from "../../shared/ProductModal";
 import tw from "tailwind-styled-components";
 import { CardBadges } from "../../CardElements";
-
+import { ProductBody } from "./sections/ProductFullDetails";
+import { useSelector } from "react-redux";
+// fetch single product
 export default function ProductPage() {
+  const { productID } = useParams();
+  const products = useSelector((state) => state.products);
+  const findProduct = products.find(
+    (product) => product.id === Number(productID)
+  );
+
   return (
     <>
-      <PageHero title="the peoduct name">
+      <PageHero title={findProduct.title}>
         <NavLink to="/shop">Shop</NavLink>
-        <h1 className="!text-lightGray">the product name</h1>
+        <h1 className="!text-lightGray">{findProduct.brand}</h1>
       </PageHero>
       {/* container */}
       <Container>
@@ -21,7 +27,7 @@ export default function ProductPage() {
           <CardBadges />
         </div>
         {/* product details */}
-        <ProductDetails />
+        <ProductDetails  product={findProduct}/>
         {/* product thumbnail swiper */}
         <div className="h-20 bg-black"></div>
       </Container>
@@ -29,13 +35,10 @@ export default function ProductPage() {
   );
 }
 
-const ProductDetails = () => {
+const ProductDetails = ({ product }) => {
   return (
     <div className="space-y-8 h-fit">
-      <CardBodyFullWidth
-        QTY={<ProductQuantity />}
-        moreOptionBtns={<SingleProductOptinsBtns />}
-      ></CardBodyFullWidth>
+      <ProductBody QTY={<ProductQuantity />} product={product}></ProductBody>
       {/* ---- Social links and product type---- */}
       <div className="pt-10 border-t">
         <div className="flex-justify-between w-full">

@@ -14,8 +14,9 @@ export const fetchProducts = createAsyncThunk(
 );
 // products slice
 const ProductsSlice = createSlice({
-  initialState: [],
+  initialState: localStorage.products ? JSON.parse(localStorage.products) : [],
   name: "products",
+
   extraReducers: (builder) => {
     // pending
     builder.addCase(fetchProducts.pending, (state, action) => {});
@@ -24,7 +25,7 @@ const ProductsSlice = createSlice({
       const products = payload.filter(
         (item) => !unWantedProducts.includes(item.category)
       );
-      return (state = products);
+      return (state = [...products]);
     });
     // rejected
     builder.addCase(fetchProducts.rejected, (state, action) => {});

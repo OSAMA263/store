@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import {
@@ -10,8 +10,7 @@ import {
 import { MdKeyboardArrowRight } from "react-icons/md";
 import SideDrawer from "./SideDrawer";
 import ScrollTopButton from "./ScrollTopButton";
-
-export default function Navbar() {
+ function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [drawer, setDrawer] = useState("");
@@ -105,14 +104,13 @@ const Link = ({ link }) => {
 };
 // ---------tailwind
 const Header = tw.header`
-${({ $isSticky }) => $isSticky && "!bg-white shadow"}
+${({ $isSticky }) => $isSticky ? "!bg-white shadow":"backdrop-blur-sm"}
 transition-all
 duration-700
 fixed
 border-b
 border-b-gray-300
 w-full
-bg-transparent
 z-[69696969]
 
 `;
@@ -149,3 +147,5 @@ const navigation = [
   { label: "About", url: "/about-us" },
   { label: "Contact", url: "/contact-us" },
 ];
+
+export default React.memo(Navbar)

@@ -1,42 +1,78 @@
 import { Tooltip, useDisclosure } from "@chakra-ui/react";
-import { useState } from "react";
 import { AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { LuGitCompare } from "react-icons/lu";
 import tw from "tailwind-styled-components";
 import ProductModal from "./shared/ProductModal";
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from "../state/slices/client/UsersSlice";
+import { useDispatch } from "react-redux";
+import { useUserState } from "../state/useStates";
 
-export default function CardElements() {
+export default function CardElements({ product }) {
   return (
     <>
-      <CardBadges />
-      <CardOptions />
+      <CardBadges isNew={product.new} discount={product.discountPercentage} />
+      <CardOptions product={product} />
     </>
   );
 }
 
-export const CardBadges = () => {
+export const CardBadges = ({ discount, isNew }) => {
   return (
     <BadgeWrapper>
-      <Badge className="bg-[#98d8ca]">-10%</Badge>
-      <Badge className="bg-[#c61932]">new</Badge>
+      <Badge className="bg-[#7ab2a6]">-{Math.floor(discount)}%</Badge>
+      {isNew && <Badge className="bg-[#c61932]">new</Badge>}
     </BadgeWrapper>
   );
 };
 
-export const CardOptions = () => {
+export const CardOptions = ({ product }) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const { wishlist } = useUserState();
+  const inWishlist = wishlist.find((pro) => pro.id === Number(product.id));
+
+  const handleWishlist = () => {
+    inWishlist
+      ? dispatch(removeFromWishlist(product))
+      : dispatch(addToWishlist(product));
+  };
+
+  const handleClick = (action) => {
+    action === "view"
+      ? onOpen()
+      : action === "wishlist"
+      ? handleWishlist()
+      : console.log("compare");
+  };
 
   return (
     <>
       <OptionsBtns>
-        {options.map(({ icon, label }, i) => (
-          <Tooltip zIndex="66" hasArrow placement="left" label={label} key={i}>
-            <span onClick={label === "Quick view" && onOpen}>{icon}</span>
+        {options.map(({ icon, label, action }, i) => (
+          <Tooltip
+            zIndex="66"
+            hasArrow
+            placement="left"
+            label={
+              action === "wishlist" && inWishlist ? "Added in wishlist" : label
+            }
+            key={i}
+          >
+            <Btn
+              $action={action}
+              $inWishlist={inWishlist}
+              onClick={() => handleClick(action)}
+            >
+              {icon}
+            </Btn>
           </Tooltip>
         ))}
       </OptionsBtns>
       {/* product modal */}
-      <ProductModal {...{ isOpen, onClose }} />
+      <ProductModal {...{ product, isOpen, onClose }} />
     </>
   );
 };
@@ -46,40 +82,42 @@ options
 duration-700 
 transition-all 
 text-xl 
-mt-8
-mr-4
-right-0
+right-[7%]
+top-[4%]
 z-[6969]
-top-0
 absolute
 flex 
 gap-y-10 
 opacity-0 
 flex-col
-[&>span]:bg-white
-[&>span]:p-[6px]
-[&>span]:cursor-pointer
+`;
+
+const Btn = tw.span`
+${({ $action, $inWishlist }) =>
+  $action === "wishlist" && $inWishlist
+    ? "bg-[#333333] text-white"
+    : "bg-white "}
+    cursor-pointer
+    p-2
 `;
 
 const Badge = tw.span`
 rounded-full
-w-10
-h-10
+w-12
+h-12
 text-center
 flex 
 justify-center
 items-center
-text-sm
+text-xs
 text-white
 font-bold
 `;
 
 const BadgeWrapper = tw.div`
-top-0
+top-[5%]
+left-[5%]
 z-[69]
-mt-4
-ml-4
-left-0
 absolute
 flex
 gap-y-4 
@@ -87,7 +125,7 @@ flex-col
 `;
 
 const options = [
-  { icon: <AiOutlineHeart />, label: "Add to wishlist" },
-  { icon: <AiOutlineSearch />, label: "Quick view" },
-  { icon: <LuGitCompare />, label: "Add to compare" },
+  { action: "wishlist", icon: <AiOutlineHeart />, label: "Add to wishlist" },
+  { action: "view", icon: <AiOutlineSearch />, label: "Quick view" },
+  { action: "compare", icon: <LuGitCompare />, label: "Add to compare" },
 ];

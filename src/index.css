@@ -39,7 +39,6 @@ tr th:not(:first-child),
 td:not(:first-child) {
   text-align: center !important;
   vertical-align: middle !important;
-  
 }
 /* input style */
 textarea,
@@ -85,20 +84,25 @@ input:focus {
   justify-content: center;
   align-items: center;
 }
-.swiper-pagination-bullet:hover{
-  background-color:rgb(255, 255, 255)!important ;
+.swiper-pagination-bullet:hover {
+  background-color: rgb(255, 255, 255) !important ;
 }
 .swiper-pagination-bullet {
   transition: all 0.5s;
-  width: 14px;
-  height: 14px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background-color: rgb(35, 34, 34);
+  background-color: rgb(0, 0, 0);
   border: transparent 1px solid;
 }
 .swiper-pagination-bullet-active {
   background-color: white;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border: rgba(35, 34, 34, 0.453) 1px solid;
+}
+/* image placeholder */
+.lazy-load-image-background{
+height: 100%;
+width: 100%;
 }

@@ -4,9 +4,10 @@ import {
   TfiLayoutGrid4Alt,
   TfiMenuAlt,
 } from "react-icons/tfi";
-import { useState } from "react";
+import { useContext } from "react";
+import ShopContext from "../../../context/ShopContext";
 
-export default function ShopHeader({ setGridCols }) {
+export default function ShopHeader() {
   return (
     <Container>
       <Wrapper>
@@ -14,24 +15,19 @@ export default function ShopHeader({ setGridCols }) {
         {/* icons on the right */}
         <div className="flex items-center gap-x-10">
           <FilterPrice />
-          <ChangeGridStyle setGridCols={setGridCols} />
+          <ChangeGridStyle />
         </div>
       </Wrapper>
     </Container>
   );
 }
 
-const ChangeGridStyle = ({ setGridCols }) => {
+const ChangeGridStyle = () => {
+  const { setGridCols } = useContext(ShopContext);
   // update grid state value
   const handleClick = (e) => {
     setGridCols(Number(e.target.value));
   };
-
-  const icons = [
-    { svg: <TfiLayoutGrid3Alt />, val: 3 },
-    { svg: <TfiLayoutGrid4Alt />, val: 4 },
-    { svg: <TfiMenuAlt />, val: 1 },
-  ];
 
   return (
     <div className="flex gap-x-4 ">
@@ -43,7 +39,7 @@ const ChangeGridStyle = ({ setGridCols }) => {
             type="radio"
             name="grid"
             value={val}
-            defaultChecked={val === 3}
+            defaultChecked={val === 4}
             id={val + "column"}
           />
           {svg}
@@ -54,21 +50,35 @@ const ChangeGridStyle = ({ setGridCols }) => {
 };
 
 const FilterPrice = () => {
+  const { setShownProducts, shownProducts, products } = useContext(ShopContext);
+  const cloneproducts = [...products];
+
+  const handleFilter = (e) => {
+    const filteredProducts =
+      e.target.value === "low"
+        ? cloneproducts.sort((a, b) => a.price - b.price)
+        : e.target.value === "high"
+        ? cloneproducts.sort((a, b) => b.price - a.price)
+        : e.target.value === "recent"
+        ? shownProducts.filter((pro) => pro.new)
+        : cloneproducts;
+
+    setShownProducts([...filteredProducts]);
+  };
+
   return (
-    <>
-      <select>
-        <Option value={1}>Default</Option>
-        <Option value={12}>recent products</Option>
-        <Option value={13}>price - high to low</Option>
-        <Option value={14}>price - low to high</Option>
-      </select>
-    </>
+    <select className="cursor-pointer" onChange={handleFilter}>
+      <Option value="default">Default</Option>
+      <Option value="recent">recent products</Option>
+      <Option value="high">price - high to low</Option>
+      <Option value="low">price - low to high</Option>
+    </select>
   );
 };
 
-const Option=tw.option`
+const Option = tw.option`
 checked:!text-black
-`
+`;
 
 const GridBtn = tw.label`
 cursor-pointer
@@ -96,3 +106,8 @@ flex
 justify-between
 items-center
 `;
+const icons = [
+  { svg: <TfiLayoutGrid3Alt />, val: 3 },
+  { svg: <TfiLayoutGrid4Alt />, val: 4 },
+  { svg: <TfiMenuAlt />, val: 1 },
+];

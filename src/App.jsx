@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Suspense, lazy, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import Home from "./components/pages/home/Home";
 import Navbar from "./components/shared/Navbar";
@@ -31,19 +31,24 @@ const components = [
   { path: "/contact-us", component: <Contact /> },
   { path: "/FAQ", component: <FQA /> },
   { path: "/customer", component: <Customer /> },
-  { path: "/id", component: <ProductPage /> },
+  { path: "/shop/:productID", component: <ProductPage /> },
   { path: "/cart", component: <Cart /> },
   { path: "/wishlist", component: <Wishlist /> },
   { path: "*", component: <NotFound404 /> },
 ];
 
 function App() {
-  const products = useSelector((state) => state.products);
   const location = useLocation();
-  const dispatch = useDispatch();
+  const { cart, wishlist } = useSelector((state) => state.user);
+  // get th prodcut in cart & wishlist from the localStoagre
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+  }, [cart, wishlist]);
+
   // scroll top top when between routing
   useEffect(() => {
-    window.scrollTo({ top: 0});
+    window.scrollTo({ top: 0 });
   }, [location.pathname]);
 
   // after order u can cansel ur order read the FQA
