@@ -1,11 +1,12 @@
 import ProductsTable from "../../ProductsTable";
 import PageHero from "../../PageHero";
 import { Td, Th } from "@chakra-ui/react";
-import { FaCartShopping } from "react-icons/fa6";
-import NoProductsAdded from "./NoProductsAdded";
 import ProductQuantity from "../../ProductQTY";
+import { useUserState } from "../../../state/useStates";
 
 export default function Cart() {
+  const { cart } = useUserState();
+
   return (
     <>
       <PageHero title="My cart">
@@ -17,14 +18,10 @@ export default function Cart() {
             TBodyContent,
             THeadContent,
             TFootContent,
-            ClearAllBtn: "CLEAR CART",
+            products: cart,
           }}
         />
       </div>
-      <NoProductsAdded
-        title="No items found in cart"
-        Icon={<FaCartShopping />}
-      />
     </>
   );
 }
@@ -37,13 +34,14 @@ const THeadContent = () => {
     </>
   );
 };
-const TBodyContent = () => {
+const TBodyContent = ({product}) => {
+
   return (
     <>
       <Td>
-        <ProductQuantity />
+        <ProductQuantity product={product} />
       </Td>
-      <Td className="font-semibold">$1000.0</Td>
+      <Td className="font-semibold">${product.QTY*product.price}</Td>
     </>
   );
 };
@@ -56,4 +54,3 @@ const TFootContent = () => {
     </>
   );
 };
-

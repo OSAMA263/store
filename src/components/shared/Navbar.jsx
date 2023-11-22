@@ -10,14 +10,15 @@ import {
 import { MdKeyboardArrowRight } from "react-icons/md";
 import SideDrawer from "./SideDrawer";
 import ScrollTopButton from "./ScrollTopButton";
- function Navbar() {
+
+function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [drawer, setDrawer] = useState("");
 
   // which drawer is clicked
   const handleClick = (label) => {
-    label != "customer" && setIsOpen(!isOpen);
+    label != "customer" && setIsOpen(true);
     setDrawer(label);
   };
   useEffect(() => {
@@ -55,7 +56,7 @@ import ScrollTopButton from "./ScrollTopButton";
         </Nav>
       </Header>
       {/* DRAWER */}
-      <SideDrawer {...{ isOpen, setIsOpen, drawer }} />
+      <SideDrawer {...{ isOpen, setIsOpen, drawer, setDrawer }} />
     </>
   );
 }
@@ -104,7 +105,7 @@ const Link = ({ link }) => {
 };
 // ---------tailwind
 const Header = tw.header`
-${({ $isSticky }) => $isSticky ? "!bg-white shadow":"backdrop-blur-sm"}
+${({ $isSticky }) => ($isSticky ? "!bg-white shadow" : "backdrop-blur-sm")}
 transition-all
 duration-700
 fixed
@@ -148,4 +149,4 @@ const navigation = [
   { label: "Contact", url: "/contact-us" },
 ];
 
-export default React.memo(Navbar)
+export default React.memo(Navbar);

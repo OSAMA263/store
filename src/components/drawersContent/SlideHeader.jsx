@@ -1,11 +1,11 @@
 import { AiOutlineClose } from "react-icons/ai";
 import tw from "tailwind-styled-components";
 
-export default function SlideHeader({ handleClick, drawer }) {
+export default function SlideHeader({ handleCloseDrawer, drawer }) {
   return (
     <Container>
       <h1>{drawer === "cart" ? "Cart" : "Wishlist"}</h1>
-      <button onClick={handleClick} className="hover:[&>svg]:rotate-90">
+      <button onClick={handleCloseDrawer} className="hover:[&>svg]:rotate-90">
         <AiOutlineClose />
       </button>
     </Container>

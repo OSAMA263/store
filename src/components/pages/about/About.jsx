@@ -4,6 +4,8 @@ import PageHero from "../../PageHero";
 import { brandsData, contactData } from "./data";
 import Testimonial from "./sections/Testimonial";
 import Video from "./sections/Video";
+import { NavLink } from "react-router-dom";
+import MainButton from "../../shared/MainButton"
 
 export default function About() {
 
@@ -67,7 +69,9 @@ const ContactInfo = () => {
           consectetur cing elit. ipsum dolor sit amet, consectetur cing elit.
           Suspe ndisse suscipit sagittis leo sit es
         </h1>
-        <button>main btn</button>
+        <MainButton>
+<NavLink to="/shop">+ ONLINE STORE</NavLink>
+</MainButton>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export default function LazyImage(props) {
       loading="lazy"
       placeholder={placeholder&&<Loader/>}
       effect={effect&&"black-and-white"}
-      className={`${styles} !h-full w-full`}
+      className={`${styles} `}
     />
   );
 }
@@ -22,10 +22,10 @@ const Loader = () => {
   return (
     <Container>
       <Spinner
-        w={24}
-        h={24}
+        w={20}
+        h={20}
         speed=".4s"
-        thickness="3px"
+        thickness="2px"
         emptyColor="#000000"
       />
     </Container>

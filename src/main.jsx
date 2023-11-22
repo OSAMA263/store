@@ -11,7 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ChakraProvider disableGlobalStyle >
+        <ChakraProvider disableGlobalStyle={true} >
           <App />
         </ChakraProvider>
       </BrowserRouter>

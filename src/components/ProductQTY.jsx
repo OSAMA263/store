@@ -1,10 +1,11 @@
 import tw from "tailwind-styled-components";
 
-export default function ProductQuantity () {
+export default function ProductQuantity ({product}) {
+  
   return (
     <QuentityWrapper>
       <button>-</button>
-      <span>1</span>
+      <span>{product.QTY??1}</span>
       <button>+</button>
     </QuentityWrapper>
   );

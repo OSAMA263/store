@@ -1,22 +1,29 @@
 import { Slide } from "@chakra-ui/react";
 import tw from "tailwind-styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import SlideBody from "../drawersContent/SlideBody";
 import SlideCartFooter from "../drawersContent/SlideCartFooter";
 import SearchDrawer from "../drawersContent/SearchDrawer";
 import SlideHeader from "../drawersContent/SlideHeader";
+import React, { useEffect } from "react";
 
-export default function SideDrawer(props) {
-  const { isOpen, setIsOpen, drawer } = props;
+function SideDrawer(props) {
+  const { isOpen, setIsOpen, drawer, setDrawer } = props;
+  const { pathname } = useLocation();
 
-  const handleClick = () => {
+  const handleCloseDrawer = () => {
     setIsOpen(false);
+    setDrawer("");
   };
+
+  useEffect(() => {
+    handleCloseDrawer();
+  }, [pathname]);
 
   return (
     <>
       {drawer !== "search" && (
-        <Overlay $isOpen={isOpen} onClick={handleClick} />
+        <Overlay $isOpen={isOpen} onClick={handleCloseDrawer} />
       )}
       <Slide
         className={`z-[6969696996] !h-screen ${
@@ -26,25 +33,25 @@ export default function SideDrawer(props) {
         in={isOpen}
       >
         {drawer === "search" ? (
-          <SearchDrawer handleClick={handleClick} />
+          <SearchDrawer handleClick={handleCloseDrawer} />
         ) : (
           <SlideContainer>
             {/* HEADER */}
-            <SlideHeader {...{ handleClick, drawer }}></SlideHeader>
+            <SlideHeader {...{ handleCloseDrawer, drawer }}></SlideHeader>
             {/* BODY */}
-            <SlideBody drawer={drawer}></SlideBody>
+            <SlideBody {...{ drawer }}></SlideBody>
             {/* FOOTER */}
             <SlideFooter>
               {drawer === "wishlist" ? (
-                <NavLink onClick={handleClick} to="/wishlist">
+                <NavLink onClick={handleCloseDrawer} to="/wishlist">
                   VIEW WISHLIST
                 </NavLink>
               ) : (
                 <SlideCartFooter>
-                  <NavLink onClick={handleClick} to="/cart">
+                  <NavLink onClick={handleCloseDrawer} to="/cart">
                     VIEW CART
                   </NavLink>
-                  <NavLink onClick={handleClick} to="/">
+                  <NavLink onClick={handleCloseDrawer} to="/">
                     CHECKOUT
                   </NavLink>
                 </SlideCartFooter>
@@ -91,3 +98,4 @@ duration-300
 ${({ $isOpen }) =>
   $isOpen ? "bg-opacity-25" : "bg-opacity-0 invisible !-z-10"}
 `;
+export default React.memo(SideDrawer);

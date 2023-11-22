@@ -102,7 +102,24 @@ input:focus {
   border: rgba(35, 34, 34, 0.453) 1px solid;
 }
 /* image placeholder */
-.lazy-load-image-background{
-height: 100%;
-width: 100%;
+.lazy-load-image-background {
+  height: 100%;
+  width: 100%;
+}
+/* side drawer */
+
+.drawer-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 50px;
+  transition: background-color .9s;
+}
+.drawer-scrollbar::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 20px;
+}
+.drawer-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#5d545b, #222329);
+}
+.drawer-scrollbar:hover::-webkit-scrollbar-thumb {
+  background-color: black;
 }

@@ -35,7 +35,9 @@ export default function Form() {
           placeholder="Message"
           autoComplete="off"
         ></textarea>
-        <MainButton>SUBMIT</MainButton>
+        <MainButton>
+          <button>SUBMIT</button>
+        </MainButton>
       </FormWrapper>
     </Container>
   );

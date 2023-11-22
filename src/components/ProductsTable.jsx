@@ -11,73 +11,124 @@ import {
 import { AiOutlineClose } from "react-icons/ai";
 import tw from "tailwind-styled-components";
 import MainButton from "./shared/MainButton";
+import LazyImage from "./LazyImage";
+import NoProductsAdded from "./pages/Cart& Wishlist/NoProductsAdded";
+import { NavLink, useLocation } from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  clearCart,
+  removeFromCart,
+  removeFromWishlist,
+  clearWishlist,
+} from "../state/slices/client/UsersSlice";
+import { useDispatch } from "react-redux";
 
 export default function ProductsTable(props) {
-  const { TBodyContent, THeadContent, ClearAllBtn, TFootContent } = props;
-
+  const { TBodyContent, THeadContent, TFootContent, products } = props;
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  // remove one product
+  const removeProductHandler = (product) => {
+    pathname === "/cart"
+      ? dispatch(removeFromCart(product))
+      : dispatch(removeFromWishlist(product));
+  };
+  // remove all the products
+  const removeAllProductsHandler = () => {
+    pathname === "/cart" ? dispatch(clearCart()) : dispatch(clearWishlist());
+  };
   return (
     <>
-      <TableContainer
-        border="1px solid #dbd9d9"
-        borderRadius="20px"
-        w="60%"
-        mx="auto"
-      >
-        <Table
-          style={{ borderCollapse: "separate", borderSpacing: "1rem" }}
-          variant="simple"
-          colorScheme="blackAlpha"
+      {products.length > 0 ? (
+        <TableContainer
+          border="1px solid #dbd9d9"
+          borderRadius="20px"
+          w="60%"
+          mx="auto"
         >
-          {/* TABLE HEAD */}
-          <Thead>
-            <Tr>
-              <Th>PRODUCT</Th>
-              <Th>PRICE</Th>
-              {/* THE PROPS */}
-              <THeadContent/>
-            </Tr>
-          </Thead>
-          {/* TABLE BODY */}
-          <Tbody className="!space-y-10">
-            <Tr>
-              <Td>
-                <Product />
-              </Td>
-              <Td fontWeight="semibold">$100.0</Td>
-              {/* THE PROPS */}
-              <TBodyContent/>
-              <Td>
-                <RemoveButton>
-                  <AiOutlineClose />
-                </RemoveButton>
-              </Td>
-            </Tr>
-          </Tbody>
-          {/* TABLE FOOT */}
-          <Tfoot>
-            <Tr>
-              <Th></Th>
-              <Th></Th>
-              <Th></Th>
-              <TFootContent/>
-              <Th>
-                <MainButton>{ClearAllBtn}</MainButton>
-              </Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
+          <Table
+            style={{ borderCollapse: "separate", borderSpacing: "1rem" }}
+            variant="simple"
+            colorScheme="blackAlpha"
+          >
+            {/* TABLE HEAD */}
+            <Thead>
+              <Tr>
+                <Th>PRODUCT</Th>
+                <Th>PRICE</Th>
+                {/* THE PROPS */}
+                <THeadContent />
+              </Tr>
+            </Thead>
+            {/* -------------------TABLE---- BODY---------------- */}
+            <Tbody className="!space-y-10">
+              <AnimatePresence>
+                {products.map((pro) => (
+                  <Tr as={motion.tr} {...productVarints} layout key={pro.id}>
+                    <Td>
+                      <Product pro={pro} />
+                    </Td>
+                    <Td fontWeight="semibold">${pro.price}</Td>
+                    {/* THE PROPS */}
+                    <TBodyContent product={pro} />
+                    <Td>
+                      <RemoveButton onClick={() => removeProductHandler(pro)}>
+                        <AiOutlineClose />
+                      </RemoveButton>
+                    </Td>
+                  </Tr>
+                ))}
+              </AnimatePresence>
+            </Tbody>
+            {/* TABLE FOOT */}
+            <Tfoot>
+              <Tr>
+                <Th></Th>
+                <Th></Th>
+                <Th></Th>
+                <TFootContent />
+                <Th>
+                  {/* clrea all products */}
+                  <MainButton>
+                    <button onClick={removeAllProductsHandler}>
+                      {pathname === "/cart" ? "CLEAR CART" : "CLEAR WISHLIST"}
+                    </button>
+                  </MainButton>
+                </Th>
+              </Tr>
+            </Tfoot>
+          </Table>
+        </TableContainer>
+      ) : (
+        //no products was found
+        <NoProductsAdded />
+      )}
     </>
   );
 }
 
-const Product = () => {
+const Product = ({ pro }) => {
   return (
-    <div className="flex items-center gap-x-8">
-      <img src="/bg.png" className="w-24 h-32" alt="" />
-      <h1 className="font-semibold text-lightGray">product name</h1>
+    <div className="flex items-center gap-x-8 [&>span]:!w-auto ">
+      <NavLink to={"/shop/" + pro.id}>
+        <LazyImage
+          effect
+          styles="!w-24 !h-32 object-cover"
+          src={pro.thumbnail}
+        />
+      </NavLink>
+      <div>
+        <h1 className="font-semibold">{pro.title}</h1>
+        <h1 className="font-sm text-lightGray">{pro.brand}</h1>
+      </div>
     </div>
   );
+};
+
+const productVarints = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 const RemoveButton = tw.button`

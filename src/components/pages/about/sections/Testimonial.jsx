@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import tw from "tailwind-styled-components";
 import { sliderData } from "../data";
+import { Autoplay } from "swiper/modules";
 
 export default function Testimonial() {
   return (
@@ -17,14 +18,14 @@ export default function Testimonial() {
 const Slider = () => {
   return (
     <Swiper {...swiperProps}>
-      {sliderData.map(({ description, name, role }, i) => (
-        <SwiperSlide key={i}>
+      {sliderData.map(({ description, name, role, img }) => (
+        <SwiperSlide key={name}>
           <div className="grid grid-rows-2 space-y-10">
             <h1 className="font-semibold leading-loose text-lightGray">
               {description}
             </h1>
             <div className="flex gap-x-4">
-              <img src="/bg.png" className="w-16 h-16 rounded-full" alt="" />
+              <img src={img} className="w-16 h-16 rounded-full" alt="" />
               <div className="font-semibold">
                 <h1 className="font-bold">{name}</h1>
                 <h1 className="text-lightGray">/ {role}</h1>
@@ -43,9 +44,13 @@ const swiperProps = {
   spaceBetween: 40,
   loop: true,
   grabCursor: true,
+  autoplay: {
+    delay: 2000,
+  },
+  modules: [Autoplay],
 };
 
 const Container = tw.div`
 py-28
-bg-[url('/bg.png')]
+bg-[url('/about/testimonials-bg.png')]
 `;

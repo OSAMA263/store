@@ -23,7 +23,9 @@ const UserSlice = createSlice({
     removeFromCart: (state, { payload }) => {
       state.cart = state.cart.filter((product) => product.id !== payload.id);
     },
-    clearCart: (state) => (state.cart = []),
+    clearCart: (state) => {
+      state.cart = [];
+    },
     // wishlist actions---------
     addToWishlist: ({ wishlist }, { payload }) => {
       wishlist.push(payload);
@@ -33,17 +35,20 @@ const UserSlice = createSlice({
         (product) => product.id !== payload.id
       );
     },
-    clearWihlist: (state) => (state.wishlist = []),
+    clearWishlist: (state) => {
+      state.wishlist = [];
+    },
   },
 });
 
+// // add action to increse qty and dicress based on the qty number when u click on the btn
 export const {
   addToCart,
   removeFromCart,
   clearCart,
   addToWishlist,
   removeFromWishlist,
-  clearWihlist,
+  clearWishlist,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

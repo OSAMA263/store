@@ -1,11 +1,15 @@
 import tw from "tailwind-styled-components";
+import { useUserState } from "../../state/useStates";
 
-export default function SlideCartFooter({children}) {
+export default function SlideCartFooter({ children }) {
+  const { cart } = useUserState();
+
+  const TOTAL = cart.reduce((acc, pro) => acc + pro.price * pro.QTY,0);
   return (
     <>
       <Container>
         <h1>Subtotal:</h1>
-        <h1>$300.2</h1>
+        <h1>${TOTAL}</h1>
       </Container>
       {children}
       <h1 className="font-semibold text-lightGray">

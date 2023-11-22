@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import { useUserState } from "../state/useStates";
 import LazyImage from "./LazyImage";
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 
 function Card({ product, gridCols }) {
   const { id, title, discountPercentage, price, thumbnail } = product;
@@ -88,7 +88,7 @@ export const ItemDetails = (props) => {
 
   // check if the product is already added and update the button text
 
-  // a big function resuable 
+  // a big function resuable
   const findedProduct = cart.find((pro) => pro.id === Number(product.id));
   useEffect(() => {
     if (findedProduct) {
@@ -96,17 +96,19 @@ export const ItemDetails = (props) => {
       if (findedProduct.QTY === findedProduct.stock) {
         setBtnText("- Out of stock");
       }
+    } else {
+      setBtnText("+ Add to cart");
     }
-  }, [findedProduct]);
+  }, [findedProduct, cart]);
 
-  const handleAddToCart = (product,qty=1) => {
+  const handleAddToCart = (product, qty = 1) => {
     if (findedProduct) {
       if (findedProduct.QTY === findedProduct.stock) {
         console.log("out of stock");
         return;
       }
     }
-    dispatch(addToCart({product,qty}));
+    dispatch(addToCart({ product, qty }));
   };
 
   return (

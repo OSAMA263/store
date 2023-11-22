@@ -1,11 +1,12 @@
 import { Td, Th } from "@chakra-ui/react";
 import PageHero from "../../PageHero";
 import ProductsTable from "../../ProductsTable";
-import MainButton from "../../MainButton";
-import { MdFavorite } from "react-icons/md";
-import NoProductsAdded from "./NoProductsAdded";
+import { useUserState } from "../../../state/useStates";
+import MainButton from "../../shared/MainButton";
 
 export default function Wishlist() {
+  const { wishlist } = useUserState();
+
   return (
     <>
       <PageHero title="My wishlist">
@@ -17,11 +18,10 @@ export default function Wishlist() {
             TBodyContent,
             THeadContent,
             TFootContent,
-            ClearAllBtn: "CLEAR CART",
+            products: wishlist,
           }}
         />
       </div>
-      <NoProductsAdded title="No items found in wishlist" Icon={<MdFavorite />} />
     </>
   );
 }
@@ -34,12 +34,16 @@ const THeadContent = () => {
     </>
   );
 };
-const TBodyContent = () => {
+const TBodyContent = ({product}) => {
   return (
     <>
       {/* ADD BUTTON */}
-      <Td className="!text-center !align-middle">
-        <MainButton>ADD TO CART</MainButton>
+      <Td>
+        <span className="flex justify-center">
+          <MainButton>
+            <button>ADD TO CART</button>
+          </MainButton>
+        </span>
       </Td>
     </>
   );

@@ -27,7 +27,7 @@ export default function ProductPage() {
           <CardBadges />
         </div>
         {/* product details */}
-        <ProductDetails  product={findProduct}/>
+        <ProductDetails product={findProduct} />
         {/* product thumbnail swiper */}
         <div className="h-20 bg-black"></div>
       </Container>
@@ -38,7 +38,10 @@ export default function ProductPage() {
 const ProductDetails = ({ product }) => {
   return (
     <div className="space-y-8 h-fit">
-      <ProductBody QTY={<ProductQuantity />} product={product}></ProductBody>
+      <ProductBody
+        QTY={<ProductQuantity product={product} />}
+        product={product}
+      ></ProductBody>
       {/* ---- Social links and product type---- */}
       <div className="pt-10 border-t">
         <div className="flex-justify-between w-full">
