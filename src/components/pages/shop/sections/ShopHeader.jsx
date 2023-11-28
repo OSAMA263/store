@@ -8,10 +8,12 @@ import { useContext } from "react";
 import ShopContext from "../../../context/ShopContext";
 
 export default function ShopHeader() {
+  const {  visibleCards ,products} = useContext(ShopContext);
+
   return (
     <Container>
       <Wrapper>
-        <h1 className="text-lightGray">Showing 20 of 73 result</h1>
+        <h1 className="text-lightGray">Showing {visibleCards} of {products.length} result</h1>
         {/* icons on the right */}
         <div className="flex items-center gap-x-10">
           <FilterPrice />
@@ -61,6 +63,8 @@ const FilterPrice = () => {
         ? cloneproducts.sort((a, b) => b.price - a.price)
         : e.target.value === "recent"
         ? shownProducts.filter((pro) => pro.new)
+        : e.target.value === "low-stock"
+        ? cloneproducts.sort((a, b) => a.stock - b.stock)
         : cloneproducts;
 
     setShownProducts([...filteredProducts]);
@@ -69,7 +73,8 @@ const FilterPrice = () => {
   return (
     <select className="cursor-pointer" onChange={handleFilter}>
       <Option value="default">Default</Option>
-      <Option value="recent">recent products</Option>
+      <Option value="recent">recent</Option>
+      <Option value="low-stock">stocks - low to high</Option>
       <Option value="high">price - high to low</Option>
       <Option value="low">price - low to high</Option>
     </select>

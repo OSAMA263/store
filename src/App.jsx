@@ -7,36 +7,6 @@ import Footer from "./components/shared/Footer";
 import { AnimatePresence } from "framer-motion";
 import LoadingPage from "./components/shared/LoadingPage";
 
-const FQA = lazy(() => import("./components/pages/FAQs/FAQs"));
-const Customer = lazy(() => import("./components/pages/customer/Customer"));
-const About = lazy(() => import("./components/pages/about/About"));
-const Contact = lazy(() => import("./components/pages/contact/Contact"));
-const NotFound404 = lazy(() => import("./components/shared/NotFound404"));
-const Shop = lazy(() => import("./components/pages/shop/Shop"));
-const ProductPage = lazy(() =>
-  import("./components/pages/single product//ProductPage")
-);
-const Categories = lazy(() =>
-  import("./components/pages/categories/Categories")
-);
-const Wishlist = lazy(() =>
-  import("./components/pages/Cart& Wishlist/Wishlist")
-);
-const Cart = lazy(() => import("./components/pages/Cart& Wishlist/Cart"));
-const components = [
-  { path: "/", component: <Home /> },
-  { path: "/shop", component: <Shop /> },
-  { path: "/categories", component: <Categories /> },
-  { path: "/about-us", component: <About /> },
-  { path: "/contact-us", component: <Contact /> },
-  { path: "/FAQ", component: <FQA /> },
-  { path: "/customer", component: <Customer /> },
-  { path: "/shop/:productID", component: <ProductPage /> },
-  { path: "/cart", component: <Cart /> },
-  { path: "/wishlist", component: <Wishlist /> },
-  { path: "*", component: <NotFound404 /> },
-];
-
 function App() {
   const location = useLocation();
   const { cart, wishlist } = useSelector((state) => state.user);
@@ -48,10 +18,9 @@ function App() {
 
   // scroll top top when between routing
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
 
-  // after order u can cansel ur order read the FQA
   return (
     <>
       <Navbar />
@@ -68,5 +37,38 @@ function App() {
     </>
   );
 }
+
+const FQA = lazy(() => import("./components/pages/FAQs/FAQs"));
+const Customer = lazy(() => import("./components/pages/customer/Customer"));
+const About = lazy(() => import("./components/pages/about/About"));
+const Contact = lazy(() => import("./components/pages/contact/Contact"));
+const NotFound = lazy(() => import("./components/pages/404Error/NotFound"));
+const Shop = lazy(() => import("./components/pages/shop/Shop"));
+const ProductPage = lazy(() =>
+  import("./components/pages/single product//ProductPage")
+);
+const Categories = lazy(() =>
+  import("./components/pages/categories/Categories")
+);
+const Wishlist = lazy(() =>
+  import("./components/pages/Cart& Wishlist/Wishlist")
+);
+const Cart = lazy(() => import("./components/pages/Cart& Wishlist/Cart"));
+const Checkout = lazy(() => import("./components/pages/checkout/Checkout"));
+
+const components = [
+  { path: "/", component: <Home /> },
+  { path: "/shop", component: <Shop /> },
+  { path: "/categories", component: <Categories /> },
+  { path: "/about-us", component: <About /> },
+  { path: "/contact-us", component: <Contact /> },
+  { path: "/FAQ", component: <FQA /> },
+  { path: "/customer", component: <Customer /> },
+  { path: "/shop/:productID", component: <ProductPage /> },
+  { path: "/cart", component: <Cart /> },
+  { path: "/wishlist", component: <Wishlist /> },
+  { path: "/checkout", component: <Checkout /> },
+  { path: "*", component: <NotFound /> },
+];
 
 export default App;

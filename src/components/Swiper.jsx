@@ -1,6 +1,7 @@
 import { Swiper } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/thumbs";
 import tw from "tailwind-styled-components";
 import {
   MdKeyboardDoubleArrowRight,
@@ -12,7 +13,7 @@ export default function SwiperImages({ swiperProps, children }) {
 
   return (
     <Swiper
-      className={swiperStyles + " relative [&>.swiper-slide]:h-full"}
+      className={swiperStyles + " relative [&>.swiper-slide]:h-ful"}
       {...swiperVariants}
     >
       {children}

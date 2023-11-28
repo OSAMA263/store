@@ -1,5 +1,4 @@
 // login and create for users and also admin in dashboard
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const UserSlice = createSlice({
@@ -11,17 +10,23 @@ const UserSlice = createSlice({
 
   name: "user",
   reducers: {
-    // cart actions-----------
+    // ADD PRODUCT TO CART
     addToCart: ({ cart }, { payload }) => {
-      const { product, qty } = payload;
-      // if the product already in the fuckin cart
+      const { product, qty = 1 } = payload;
+      // check if the product already in the fuckin cart
       const findedProduct = cart.find((pro) => pro.id === product.id);
       findedProduct
         ? (findedProduct.QTY += qty)
         : cart.push({ ...product, QTY: qty });
     },
+    // REMOVE PRODUCT FROM THE CART
     removeFromCart: (state, { payload }) => {
-      state.cart = state.cart.filter((product) => product.id !== payload.id);
+      state.cart = state.cart.filter((product) => product.id !== payload);
+    },
+    // DECREACE QUANTITY PRODUCT IN THE CART
+    decreaseProductQTY: (state, { payload }) => {
+      const findProduct = state.cart.find((pro) => pro.id === payload);
+      findProduct.QTY -= 1;
     },
     clearCart: (state) => {
       state.cart = [];
@@ -32,7 +37,7 @@ const UserSlice = createSlice({
     },
     removeFromWishlist: (state, { payload }) => {
       state.wishlist = state.wishlist.filter(
-        (product) => product.id !== payload.id
+        (product) => product.id !== payload
       );
     },
     clearWishlist: (state) => {
@@ -41,7 +46,6 @@ const UserSlice = createSlice({
   },
 });
 
-// // add action to increse qty and dicress based on the qty number when u click on the btn
 export const {
   addToCart,
   removeFromCart,
@@ -49,6 +53,7 @@ export const {
   addToWishlist,
   removeFromWishlist,
   clearWishlist,
+  decreaseProductQTY,
 } = UserSlice.actions;
 
 export default UserSlice.reducer;

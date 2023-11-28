@@ -51,7 +51,7 @@ function SideDrawer(props) {
                   <NavLink onClick={handleCloseDrawer} to="/cart">
                     VIEW CART
                   </NavLink>
-                  <NavLink onClick={handleCloseDrawer} to="/">
+                  <NavLink onClick={handleCloseDrawer} to="/checkout">
                     CHECKOUT
                   </NavLink>
                 </SlideCartFooter>

@@ -30,8 +30,8 @@ export default function ProductsTable(props) {
   // remove one product
   const removeProductHandler = (product) => {
     pathname === "/cart"
-      ? dispatch(removeFromCart(product))
-      : dispatch(removeFromWishlist(product));
+      ? dispatch(removeFromCart(product.id))
+      : dispatch(removeFromWishlist(product.id));
   };
   // remove all the products
   const removeAllProductsHandler = () => {
@@ -43,8 +43,6 @@ export default function ProductsTable(props) {
         <TableContainer
           border="1px solid #dbd9d9"
           borderRadius="20px"
-          w="60%"
-          mx="auto"
         >
           <Table
             style={{ borderCollapse: "separate", borderSpacing: "1rem" }}
@@ -68,7 +66,7 @@ export default function ProductsTable(props) {
                     <Td>
                       <Product pro={pro} />
                     </Td>
-                    <Td fontWeight="semibold">${pro.price}</Td>
+                    <Td fontWeight="semibold">${pro.price.toLocaleString("en")}</Td>
                     {/* THE PROPS */}
                     <TBodyContent product={pro} />
                     <Td>

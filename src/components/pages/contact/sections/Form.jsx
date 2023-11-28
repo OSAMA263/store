@@ -44,19 +44,13 @@ export default function Form() {
 }
 
 const Container = tw.div`
-space-y-12
 text-center
-w-[60%]
-mx-auto
 [&_input]:w-full
 [&_textarea]:w-full
-my-28
 `;
 
 const FormWrapper = tw.form`
 flex
 flex-col
 gap-y-20
-w-[80%]
-mx-auto
 `;

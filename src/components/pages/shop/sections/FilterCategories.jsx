@@ -1,34 +1,43 @@
 import { InputGroup, InputRightElement } from "@chakra-ui/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TfiSearch } from "react-icons/tfi";
 import tw from "tailwind-styled-components";
 import ShopContext from "../../../context/ShopContext";
 
 export default function FilterCategories() {
   const { setShownProducts, products } = useContext(ShopContext);
+  const [cat, setCat] = useState("All Categories");
   // filter by category handler
   const handleFilterCategory = (e) => {
+    setCat(e.target.value);
     const FilteredProducts = products.filter(
       (pro) => pro.category === e.target.value
     );
     e.target.value === "All Categories"
-      ? setShownProducts([...products])
-      : setShownProducts([...FilteredProducts]);
-  };
-  // filter product by name handler
-  const handleFilterName = (e) => {
-    const FilteredProducts = products.filter((pro) =>
-      pro.title.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    e.target.value === ""
       ? setShownProducts(products)
-      : FilteredProducts.length == 0
-      ? setShownProducts("")
       : setShownProducts(FilteredProducts);
   };
 
+  // filter product by name handler
+  const handleFilterName = (e) => {
+    const FilteredProducts =
+      cat !== "All Categories"
+        ? products.filter(
+            (pro) =>
+              pro.category === cat &&
+              pro.title.toLowerCase().includes(e.target.value.toLowerCase())
+          )
+        : products.filter((pro) =>
+            pro.title.toLowerCase().includes(e.target.value.toLowerCase())
+          );
+
+    e.target.value === "" && cat === "All Categories"
+      ? setShownProducts(products)
+      : setShownProducts(FilteredProducts);
+  }
+
   return (
-    <div className="space-y-10 w-[20%] sticky top-40 h-fit">
+    <div className="space-y-10 pe-6 sticky top-40 h-fit">
       {/* search input */}
       <SerachInput handleFilterName={handleFilterName} />
       <h1 className="text-2xl">Categories</h1>

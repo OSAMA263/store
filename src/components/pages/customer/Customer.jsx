@@ -1,19 +1,24 @@
 import PageHero from "../../PageHero";
+import ContentContainer from "../../layout/ContentContainer";
+import NavigateAnimation from "../../layout/NavigateAnimation";
 import Form from "./sections/Form";
 import tw from "tailwind-styled-components";
 
 export default function Customer() {
   return (
-    <>
+    <NavigateAnimation>
       <PageHero title="Customer Login">
         <h1 className="text-lightGray">Register & Login</h1>
       </PageHero>
       {/* forms */}
-      <Container>
-        <LoginForm />
-        <RegisterForm />
-      </Container>
-    </>
+      <ContentContainer>
+        im still working on it mate:)
+        <Container>
+          <LoginForm />
+          <RegisterForm />
+        </Container>
+      </ContentContainer>
+    </NavigateAnimation>
   );
 }
 
@@ -51,9 +56,6 @@ const RegisterForm = () => {
 };
 
 const Container = tw.div`
-w-[60%]
-mx-auto
-my-28
 grid 
 grid-cols-2
 gap-x-20

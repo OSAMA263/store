@@ -5,31 +5,32 @@ import { brandsData, contactData } from "./data";
 import Testimonial from "./sections/Testimonial";
 import Video from "./sections/Video";
 import { NavLink } from "react-router-dom";
-import MainButton from "../../shared/MainButton"
+import MainButton from "../../shared/MainButton";
+import NavigateAnimation from "../../layout/NavigateAnimation";
+import ContentContainer from "../../layout/ContentContainer";
 
 export default function About() {
-
   return (
-    <>
+    <NavigateAnimation>
       <PageHero title="About Us">
         <h1 className="text-lightGray">About</h1>
       </PageHero>
       <MainContent />
-    </>
+    </NavigateAnimation>
   );
 }
 
 const MainContent = () => {
   return (
     <>
-      <div className="space-y-16 my-28 w-[60%] mx-auto">
+      <ContentContainer className="">
         <h1 className="text-[#333333] text-center font-semibold">
           SIMPLY OR WHITE
         </h1>
         <PageHeader title="Clever & unique ideas" />
         <Video />
         <ContactInfo />
-      </div>
+      </ContentContainer>
       <Testimonial />
       <Brands />
     </>
@@ -70,8 +71,8 @@ const ContactInfo = () => {
           Suspe ndisse suscipit sagittis leo sit es
         </h1>
         <MainButton>
-<NavLink to="/shop">+ ONLINE STORE</NavLink>
-</MainButton>
+          <NavLink to="/shop">+ ONLINE STORE</NavLink>
+        </MainButton>
       </div>
     </div>
   );

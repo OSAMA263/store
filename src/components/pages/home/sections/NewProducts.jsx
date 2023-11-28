@@ -14,12 +14,14 @@ export default function NewProducts() {
         title="New Products"
       />
       <Grid products={filteredProducts} />
-      {filteredProducts.length > 0 && (
+      {filteredProducts.length > 0 ? (
         <div className="flex justify-center">
           <button className="mt-10 font-bold transition-all hover:text-[#d7122a]">
             + SEE MORE ...
           </button>
         </div>
+      ) : (
+        <h1 className="text-3xl text-center">no new products available</h1>
       )}
 
       {/* the button will load more new products */}
@@ -44,8 +46,5 @@ gap-12
 `;
 
 const Container = tw.div`
-my-40
-w-[65%]
-mx-auto
 container
 `;

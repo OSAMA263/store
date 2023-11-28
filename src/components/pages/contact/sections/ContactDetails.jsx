@@ -29,9 +29,6 @@ const Container = tw.div`
 grid
 grid-cols-3
 gap-x-20
-w-[60%]
-mx-auto
-my-28
 `;
 
 const GridCol = tw.div`

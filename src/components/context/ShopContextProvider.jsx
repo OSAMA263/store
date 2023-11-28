@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ShopContext from "./ShopContext";
 import { useDispatch } from "react-redux";
 import { useProductsState } from "../../state/useStates";
@@ -9,6 +9,7 @@ export default function ShopContextProvider({ children }) {
   const products = useProductsState();
   const [gridCols, setGridCols] = useState(4);
   const [shownProducts, setShownProducts] = useState([...products]);
+  const [visibleCards, setVisibleCards] = useState(20);
   const [QTY, setQTY] = useState(1);
   // store the products in the ls
   // why?so we dont have to fetch the prodcut every time the user inther the fuckin page..iguess
@@ -27,6 +28,8 @@ export default function ShopContextProvider({ children }) {
         setShownProducts,
         QTY,
         setQTY,
+        visibleCards,
+        setVisibleCards,
         products,
       }}
     >

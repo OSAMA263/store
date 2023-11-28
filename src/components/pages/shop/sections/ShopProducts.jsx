@@ -3,29 +3,39 @@ import Card from "../../../Card";
 import tw from "tailwind-styled-components";
 import ShopContext from "../../../context/ShopContext";
 import { AnimatePresence } from "framer-motion";
+import { Spinner } from "@chakra-ui/react";
 
 export default function ShopProducts() {
-  const { shownProducts, gridCols } = useContext(ShopContext);
+  const { shownProducts, gridCols, products, visibleCards, setVisibleCards } =
+    useContext(ShopContext);
 
   return (
-    <Container $columns={gridCols}>
-      <AnimatePresence mode="sync">
-        {shownProducts !== "" ? (
-          // when filtering by title
+    <AnimatePresence mode="sync">
+      <Container $columns={gridCols}>
+        {products.length > 0 ? (
           shownProducts.length > 0 ? (
-            shownProducts
-              .slice(0, 23)
-              .map((product, i) => (
+            <>
+              {shownProducts.slice(0, visibleCards).map((product, i) => (
                 <Card {...{ gridCols, product }} key={"one-column" + i} />
-              ))
+              ))}
+              {shownProducts.length > visibleCards && (
+                <LoadMore>
+                  <button onClick={() => setVisibleCards((prev) => prev + 20)}>
+                    load more +
+                  </button>
+                </LoadMore>
+              )}
+            </>
           ) : (
-            <NoProducts>loading</NoProducts>
+            <NoProducts>no products were found.</NoProducts>
           )
         ) : (
-          <NoProducts>no pro</NoProducts>
+          <NoProducts>
+            <Spinner />
+          </NoProducts>
         )}
-      </AnimatePresence>
-    </Container>
+      </Container>
+    </AnimatePresence>
   );
 }
 
@@ -49,4 +59,15 @@ justify-center
 items-start
 text-4xl
 col-span-full
+`;
+
+const LoadMore = tw.div`
+[&>button]:text-thickRed
+[&>button:hover]:text-black
+flex 
+justify-center 
+items-center 
+col-span-full
+text-lg 
+font-medium
 `;

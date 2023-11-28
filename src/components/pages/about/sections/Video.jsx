@@ -37,7 +37,7 @@ export default function Video() {
           <iframe
             width="100%"
             height="100%"
-            src="https://www.youtube.com/embed/QX43QTYyV-8?&quality=low"
+            src="https://www.youtube.com/embed/QX43QTYyV-8?autoplay=1&quality=low"
             title="im sorry"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen

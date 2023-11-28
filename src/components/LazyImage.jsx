@@ -22,8 +22,6 @@ const Loader = () => {
   return (
     <Container>
       <Spinner
-        w={20}
-        h={20}
         speed=".4s"
         thickness="2px"
         emptyColor="#000000"

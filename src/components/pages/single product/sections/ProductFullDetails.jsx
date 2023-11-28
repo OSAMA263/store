@@ -10,6 +10,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { LuGitCompare } from "react-icons/lu";
 import tw from "tailwind-styled-components";
 import { useUserState } from "../../../../state/useStates";
+import ProductQuantity from "../../../ProductQTY";
+import { useState } from "react";
+import Toast from "../../../Toast";
 
 export default function ProductFullDetails() {
   const product = {
@@ -26,61 +29,99 @@ export default function ProductFullDetails() {
   );
 }
 
-export const ProductBody = ({ QTY, product }) => {
+export const ProductBody = ({ quantity, product }) => {
   const { title, discountPercentage, price, description, rating, brand } =
     product;
+  const { cart } = useUserState();
+  const [qty, setQty] = useState(1);
   const orignalPrice = Math.floor(
     price / (1 - Math.floor(discountPercentage) / 100)
   );
 
+  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
+  const availableQTY = foundInCart
+    ? foundInCart.stock - (foundInCart.QTY ?? 0)
+    : product.stock;
+
   return (
-    <div className="space-y-10">
+    <div className="space-y-6">
       {/* product name & price */}
       <div className="flex flex-col font-semibold gap-y-2">
         <Rating rating={rating} />
         <h2 className="text-3xl">{title}</h2>
         <small>{brand}</small>
+        <p>available stocks:{availableQTY}</p>
       </div>
-      <p className="space-x-3 font-semibold">
-        <span className="line-through text-lightGray">${orignalPrice}</span>
-        <span>${price}</span>
-      </p>
+      <h2 className="space-x-3 font-semibold">
+        <span className="line-through text-lightGray">
+          ${orignalPrice.toLocaleString("en")}
+        </span>
+        <span>${price.toLocaleString("en")}</span>
+      </h2>
+
       {/* product description */}
       <p className="font-medium leading-relaxed text-lightGray">
         {description}
       </p>
       {/* prodcut button options */}
       <div className="flex items-center gap-x-20">
-        {QTY && (
+        {quantity && (
           <>
             <h1 className="font-semibold">Quantity</h1>
-            <div>{QTY}</div>
+            <ProductQuantity {...{ qty, setQty, availableQTY, foundInCart }} />
           </>
         )}
       </div>
-      <ModalButtons product={product} />
+      <ModalButtons {...{ product, qty, setQty }} />
     </div>
   );
 };
 
-// modal buttons--------
-const ModalButtons = ({ product }) => {
+// modal action buttons--------
+const ModalButtons = ({ product, qty, setQty }) => {
   const dispatch = useDispatch();
   const { cart, wishlist } = useUserState();
-  const inCart = cart.find((pro) => pro.id === Number(product.id));
+  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
   const inWishlist = wishlist.find((pro) => pro.id === Number(product.id));
+  const toastProps = {
+    title: product.title,
+    state: "cart",
+    action: "add",
+    qty,
+  };
 
   const handleWishlist = () => {
-    inWishlist
-      ? dispatch(removeFromWishlist(product))
-      : dispatch(addToWishlist(product));
+    if (inWishlist) {
+      Toast({ ...toastProps, state: "wishlist", action: "remove" });
+      dispatch(removeFromWishlist(product.id));
+    } else {
+      Toast({ ...toastProps, state: "wishlist", action: "add" });
+      dispatch(addToWishlist(product));
+    }
+  };
+
+  // toast and adding th product and stuff ..yeah
+  const handleAddToCart = () => {
+    if (foundInCart) {
+      if (foundInCart.QTY === foundInCart.stock) {
+        Toast({ ...toastProps, action: "maxmum" });
+        return;
+      } else {
+        dispatch(addToCart({ product, qty }));
+        Toast({ ...toastProps, action: "added" });
+      }
+    } else {
+      dispatch(addToCart({ product, qty }));
+      Toast({ ...toastProps });
+    }
+    setQty(1);
   };
 
   return (
     <div className="flex justify-start gap-x-3">
       <MainButton>
-        <button onClick={() => dispatch(addToCart(product))}>
-          {inCart ? "ADDED TO CART" : "ADD TO CART"}
+        <button onClick={handleAddToCart}>
+          {foundInCart ? "ADDED IN CART" : "ADD TO CART"}
         </button>
       </MainButton>
       <OptionBtn

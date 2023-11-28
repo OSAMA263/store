@@ -9,6 +9,7 @@ import {
 } from "../state/slices/client/UsersSlice";
 import { useDispatch } from "react-redux";
 import { useUserState } from "../state/useStates";
+import Toast from "./Toast";
 
 export default function CardElements({ product }) {
   return (
@@ -33,11 +34,20 @@ export const CardOptions = ({ product }) => {
   const dispatch = useDispatch();
   const { wishlist } = useUserState();
   const inWishlist = wishlist.find((pro) => pro.id === Number(product.id));
+  const toastProps = {
+    title: product.title,
+    state: "wishlist",
+    action: "add",
+  };
 
   const handleWishlist = () => {
-    inWishlist
-      ? dispatch(removeFromWishlist(product))
-      : dispatch(addToWishlist(product));
+    if (inWishlist) {
+      Toast({ ...toastProps, action: "remove" });
+      dispatch(removeFromWishlist(product.id));
+    } else {
+      Toast({ ...toastProps, action: "add" });
+      dispatch(addToWishlist(product));
+    }
   };
 
   const handleClick = (action) => {

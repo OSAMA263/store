@@ -78,11 +78,18 @@ input:focus {
   left: 0;
 }
 /* swiper */
+.swiper-button-prev,.swiper-button-next{
+  color: black!important;
+  background-color: #fff;
+  padding-inline: 20px;
+  padding-block:30px;
+}
 .swiper-pagination {
   margin-bottom: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 20px;
 }
 .swiper-pagination-bullet:hover {
   background-color: rgb(255, 255, 255) !important ;

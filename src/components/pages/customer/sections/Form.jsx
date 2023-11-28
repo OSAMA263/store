@@ -17,8 +17,8 @@ export default function Form(props) {
   return (
     <Container className={bg}>
       {/* header text */}
-        <h1 className="text-4xl">{title}</h1>
-        <h1 className="text-lightGray">{text}</h1>
+      <h1 className="text-4xl">{title}</h1>
+      <h1 className="text-lightGray">{text}</h1>
       {/* form inputs */}
       <form onSubmit={handleSubmit} className="flex w-[80%] flex-col">
         <InputsWrapper>
@@ -28,7 +28,9 @@ export default function Form(props) {
             });
           })}
         </InputsWrapper>
-        <MainButton>{btn}</MainButton>
+        <MainButton>
+          <button>{btn}</button>
+        </MainButton>
       </form>
     </Container>
   );
@@ -54,4 +56,3 @@ gap-y-14
 mt-8
 mb-16
 `;
-

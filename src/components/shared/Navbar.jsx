@@ -10,8 +10,9 @@ import {
 import { MdKeyboardArrowRight } from "react-icons/md";
 import SideDrawer from "./SideDrawer";
 import ScrollTopButton from "./ScrollTopButton";
+import { useUserState } from "../../state/useStates";
 
-function Navbar() {
+const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [drawer, setDrawer] = useState("");
@@ -44,7 +45,9 @@ function Navbar() {
       <ScrollTopButton isSticky={isSticky} />
       <Header $isSticky={isSticky}>
         <Nav>
-          <span>logo</span>
+          <NavLink to="/">
+            <img height={60} width={60} src="/logo.png" alt="logo" />
+          </NavLink>
           {/* navbar links */}
           <ul className="flex py-6 gap-x-10">
             {navigation.map((link) => (
@@ -59,9 +62,11 @@ function Navbar() {
       <SideDrawer {...{ isOpen, setIsOpen, drawer, setDrawer }} />
     </>
   );
-}
+};
 
 const NavbarButtons = ({ handleClick }) => {
+  const { wishlist, cart } = useUserState();
+
   return (
     <div className="flex text-xl gap-x-6">
       {navIcons.map(({ label, svg }, i) => (
@@ -77,9 +82,14 @@ const NavbarButtons = ({ handleClick }) => {
           ) : (
             <button
               onClick={() => handleClick(label)}
-              className="hover:scale-110"
+              className="hover:scale-110 relative"
               aria-label={label}
             >
+              {label === "cart" ? (
+                <ItemsNum>{cart.length}</ItemsNum>
+              ) : label === "wishlist" ? (
+                <ItemsNum>{wishlist.length}</ItemsNum>
+              ) : null}
               {svg}
             </button>
           )}
@@ -132,6 +142,17 @@ items-center
 [&>a:hover+svg]:translate-x-1
 [&>a.active::after]:w-full
 [&>a.active+svg]:opacity-100
+`;
+
+const ItemsNum = tw.span`
+absolute
+-top-2
+-right-2
+rounded-full 
+bg-thickRed
+text-white
+px-1
+text-xs
 `;
 
 const navIcons = [

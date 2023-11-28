@@ -1,26 +1,13 @@
 import Modal from "../Modal";
 import tw from "tailwind-styled-components";
 import { AiOutlineClose } from "react-icons/ai";
-import ProductQuantity from "../ProductQTY";
 import { ProductBody } from "../pages/single product/sections/ProductFullDetails";
 import SwiperImages from "../Swiper";
 import { Pagination } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import LazyImage from "../LazyImage";
-import React from "react";
 
-function ProductModal({ product, onClose, isOpen }) {
-  const swiperProps = {
-    swiperVariants: {
-      grabCursor: true,
-      slidesPerView: 1,
-      pagination: { clickable: true },
-      modules: [Pagination],
-    },
-    swiperStyles: "h-full [&_.swiper-pagination]:bg-[#35816eb8]",
-    swiperImages: [...product.images],
-  };
-
+export default function ProductModal({ product, onClose, isOpen }) {
   return (
     <Modal {...{ onClose, isOpen }}>
       <ModalContainer>
@@ -30,20 +17,30 @@ function ProductModal({ product, onClose, isOpen }) {
         </CloseBtn>
         {/* swiper images */}
         <div className="h-full">
-          <SwiperImages swiperProps={swiperProps}>
+          <SwiperImages swiperProps={swiperModalProps}>
             {product.images.map((src) => (
               <SwiperSlide key={src}>
-                <LazyImage src={src} placeholder="placeholder" />
+                <LazyImage src={src} styles="h-full w-full" placeholder />
               </SwiperSlide>
             ))}
           </SwiperImages>
         </div>
         {/* card body content */}
-        <ProductBody product={product} QTY={<ProductQuantity />} />
+        <ProductBody product={product} quantity />
       </ModalContainer>
     </Modal>
   );
 }
+
+const swiperModalProps = {
+  swiperVariants: {
+    grabCursor: true,
+    slidesPerView: 1,
+    pagination: { clickable: true },
+    modules: [Pagination],
+  },
+  swiperStyles: "h-full [&_.swiper-pagination]:bg-[#35816eb8]",
+};
 
 const CloseBtn = tw.button`
 absolute 
@@ -61,4 +58,4 @@ items-center
 gap-x-6
 min-h-[600px] 
 `;
-export default React.memo(ProductModal)
+

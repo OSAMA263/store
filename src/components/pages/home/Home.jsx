@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchCategories } from "../../../state/slices/client/CategoriesSlice";
 import SwiperImgs from "./sections/SwiperImgs";
+import NavigateAnimation from "../../layout/NavigateAnimation";
+import ContentContainer from "../../layout/ContentContainer";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -15,10 +17,12 @@ export default function Home() {
   }, [categorieState]);
 
   return (
-    <>
+    <NavigateAnimation>
       <SwiperImgs />
-      <NewProducts />
-      <Discount />
-    </>
+      <ContentContainer>
+        <NewProducts />
+        <Discount />
+      </ContentContainer>
+    </NavigateAnimation>
   );
 }

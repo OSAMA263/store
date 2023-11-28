@@ -16,10 +16,10 @@ export default function SlideBody({ drawer }) {
   const [products, setProducts] = useState([]);
 
   // handle removeing product
-  const removeProductHandler = (product) => {
+  const removeProductHandler = (id) => {
     drawer === "cart"
-      ? dispatch(removeFromCart(product))
-      : dispatch(removeFromWishlist(product));
+      ? dispatch(removeFromCart(id))
+      : dispatch(removeFromWishlist(id));
   };
 
   // which products to display and updateing the array
@@ -35,33 +35,33 @@ export default function SlideBody({ drawer }) {
 
   return (
     <Container className="drawer-scrollbar">
-      <AnimatePresence >
+      <AnimatePresence>
         {products.length > 0 ? (
-          products.map((pro) => (
-            <Product {...productVarints} layout key={pro.id}>
+          products.map(({ id, thumbnail, title, brand, QTY, price }) => (
+            <Product {...productVarints} layout key={id}>
               {/* {product details} */}
               <div className="flex items-start gap-x-2">
-                <NavLink to={"/shop/"+pro.id}>
+                <NavLink to={"/shop/" + id}>
                   <img
                     className="object-cover w-20 h-24"
-                    src={pro.thumbnail}
+                    src={thumbnail}
                     alt="product-image"
                   />
                 </NavLink>
                 <div className="space-y-1">
-                  <h1 className="font-bold ">{pro.title}</h1>
-                  <p>{pro.brand}</p>
+                  <h1 className="font-bold ">{title}</h1>
+                  <p>{brand}</p>
                   <p>
-                    <span className="text-sm font-semibold">${pro.price}</span>
+                    <span className="text-sm font-semibold">${price.toLocaleString("en")}</span>
                     {drawer === "cart" && (
-                      <small className="text-xs"> x{pro.QTY} </small>
+                      <small className="text-xs"> x{QTY} </small>
                     )}
                   </p>
                 </div>
               </div>
               {/* remove button */}
               <button
-                onClick={() => removeProductHandler(pro)}
+                onClick={() => removeProductHandler(id)}
                 className="text-xs duration-75 hover:text-thickRed"
               >
                 <AiOutlineClose />

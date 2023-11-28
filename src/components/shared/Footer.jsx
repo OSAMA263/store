@@ -30,16 +30,16 @@ export default function Footer() {
             <span className="font-bold text-black"> (+20) 123 567890</span> |
             <a href="/"> contact@osama.com</a>
           </h1>
-          <img src="public/pay.png" alt="" />
+          <img src="/pay.png" alt="ways-to-pay" />
         </Div>
       </div>
     </Toes>
   );
 }
 
-const SocialContact = () => {
+export const SocialContact = () => {
   return (
-    <div className="flex gap-x-4 text-[#333333] text-xl">
+    <div className="flex gap-x-3 text-[#333333] text-xl">
       {social.map(({ icon, label, url }, i) => (
         <Tooltip label={label} hasArrow placement="top" key={"social"+i}>
           <a

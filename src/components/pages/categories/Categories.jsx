@@ -3,11 +3,13 @@ import PageHero from "../../PageHero";
 import tw from "tailwind-styled-components";
 import PageHeader from "../../PageHeader";
 import SpecialDeal from "./sections/SpecialDeal";
+import NavigateAnimation from "../../layout/NavigateAnimation";
+import { Spinner } from "@chakra-ui/react";
+import { images } from "./data";
 
-export default function Categories() { 
-
+export default function Categories() {
   return (
-    <>
+    <NavigateAnimation>
       <PageHero title="Product Categories">
         <h1 className="text-lightGray">Categories</h1>
       </PageHero>
@@ -17,7 +19,7 @@ export default function Categories() {
       />
       <GridSection />
       <SpecialDeal />
-    </>
+    </NavigateAnimation>
   );
 }
 
@@ -31,19 +33,20 @@ const GridSection = () => {
       {category != null ? (
         category.map((cat, i) => (
           <CardContainer
-            className={(i + 1) % 2 == 0 ? "flex-col-reverse" : "flex-col"}
+            className={i % 2 == 0 ? "flex-col-reverse" : "flex-col"}
             key={i}
           >
-            <CategoryCard productsAmount={20} name={cat}></CategoryCard>
+            <CategoryCard thumbnail={images[i]} cat={cat}></CategoryCard>
           </CardContainer>
         ))
       ) : (
-        <span className="h-screen">loading</span>
+        <span className="h-screen flex justify-center items-center">
+          <Spinner />
+        </span>
       )}
     </Grid>
   );
 };
-// function returns span > "pls wait loading "*after 1sec* "if this taking too long relod bitch"<
 const Grid = tw.div`
 grid
 grid-cols-4
@@ -57,9 +60,9 @@ const CardContainer = tw.div`
 [&_.btn-visible]:hover:-translate-y-4
 [&_h1]:hover:opacity-0
 [&_h1]:hover:invisible
-[&_button]:hover:!opacity-100
+[&_a]:hover:!opacity-100
 [&_img]:hover:scale-150
-[&_img]:hover:brightness-90
+[&_img]:hover:brightness-50
 [&_.img-border]:hover:border-white
 flex
 `;

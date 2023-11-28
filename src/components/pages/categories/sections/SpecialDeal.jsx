@@ -1,31 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import tw from "tailwind-styled-components";
+import GetRemainingTime from "./GetRemainingTime";
 
 export default function SpecialDeal() {
   return (
     <Container>
       {/* img of left */}
       <img
-        src="public/bg.png"
-        className="h-[400px] w-full"
+        src="/categories/countdown.jpg"
+        className="h-[400px] "
         alt="countdown-img"
       />
       {/* the counter down */}
       <div className="text-center space-y-10 ">
         <h1 className="text-5xl">Deal of the day</h1>
-        <Countdown />
+        <Countdown timeStamp={1731276000000}/>
       </div>
     </Container>
   );
 }
 
-const Countdown = () => {
+const Countdown = ({timeStamp}) => {
   const [remainingTime, setRemainingTime] = useState({
     days: "00",
     hours: "00",
     minutes: "00",
     seconds: "00",
   });
+
+  useEffect(() => {
+    const updateTime = setInterval(() => {
+      updateRemainingTime(timeStamp);
+    }, 1000);
+    return () => {
+      clearInterval(updateTime);
+    };
+  }, [timeStamp]);
+
+  const updateRemainingTime = (countdown) => {
+    setRemainingTime(GetRemainingTime(countdown))
+  };
+
   const timeLabel = ["days", "hours", "minutes", "seconds"];
 
   return (
@@ -58,9 +73,9 @@ const Container = tw.div`
 my-52
 w-[95%]
 mx-auto
-grid
-grid-cols-2
+flex
+justify-evenly
 gap-x-20
-bg-[#f5f5f5]
+bg-[#f8f8f8]
 items-center
 `;

@@ -25,5 +25,4 @@ flex
 flex-col
 justify-center
 items-center
-my-20
 `;

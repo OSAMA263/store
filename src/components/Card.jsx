@@ -7,7 +7,8 @@ import { NavLink } from "react-router-dom";
 import { useUserState } from "../state/useStates";
 import LazyImage from "./LazyImage";
 import { motion } from "framer-motion";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Toast from "./Toast";
 
 function Card({ product, gridCols }) {
   const { id, title, discountPercentage, price, thumbnail } = product;
@@ -15,7 +16,10 @@ function Card({ product, gridCols }) {
   const orignalPrice = Math.floor(
     price / (1 - Math.floor(discountPercentage) / 100)
   );
-
+  // title
+  // orignalPrice
+  // price
+  // product
   return (
     <CardContainer id={id} {...cardVariants} layout $oneColumn={gridCols}>
       <ItemImage
@@ -30,13 +34,7 @@ function Card({ product, gridCols }) {
         <ProductBody product={product} />
       ) : (
         <div className="flex flex-col gap-y-4 justify-end mt-4 h-[20%]">
-          <ItemDetails
-            sharedBtnText="to cart"
-            name={title}
-            small1={"$" + orignalPrice}
-            small2={"$" + price}
-            product={product}
-          />
+          <ItemDetails {...{ title, orignalPrice, price, product }} />
         </div>
       )}
     </CardContainer>
@@ -65,7 +63,7 @@ export const ItemImage = (props) => {
             effect
             styles="img-1 z-[2] absolute w-full !h-full"
           />
-          <div className="transition-all duration-700 absolute img-2 opacity-0 top-0 w-full h-full">
+          <div className="absolute top-0 w-full h-full transition-all duration-700 opacity-0 img-2">
             <LazyImage
               src={thumbnail.img2}
               styles="w-full !h-full"
@@ -81,60 +79,63 @@ export const ItemImage = (props) => {
 };
 
 export const ItemDetails = (props) => {
-  const { sharedBtnText, name, small1, small2, product } = props;
+  const { title, orignalPrice, price, product } = props;
   const dispatch = useDispatch();
   const { cart } = useUserState();
-  const [btnText, setBtnText] = useState("+ Add to cart"); /*context*/
+  const [btnText, setBtnText] = useState("");
 
-  // check if the product is already added and update the button text
+  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
+  const toastProps = {
+    title: product.title,
+    state: "cart",
+    action: "add",
+  };
 
-  // a big function resuable
-  const findedProduct = cart.find((pro) => pro.id === Number(product.id));
+  // update button text
   useEffect(() => {
-    if (findedProduct) {
-      setBtnText("+ Added to cart");
-      if (findedProduct.QTY === findedProduct.stock) {
+    if (foundInCart) {
+      setBtnText(`(${foundInCart.QTY}) Item in cart`);
+      if (foundInCart.QTY === foundInCart.stock) {
         setBtnText("- Out of stock");
       }
     } else {
       setBtnText("+ Add to cart");
     }
-  }, [findedProduct, cart]);
-
-  const handleAddToCart = (product, qty = 1) => {
-    if (findedProduct) {
-      if (findedProduct.QTY === findedProduct.stock) {
-        console.log("out of stock");
+  }, [foundInCart, cart]);
+  // handle add to cart and the toast
+  const handleAddToCart = () => {
+    if (foundInCart) {
+      if (foundInCart.QTY === foundInCart.stock) {
+        Toast({ ...toastProps, action: "maxmum" });
         return;
+      } else {
+        dispatch(addToCart({ product }));
+        Toast({ ...toastProps, action: "added" });
       }
+    } else {
+      dispatch(addToCart({ product }));
+      Toast({ ...toastProps });
     }
-    dispatch(addToCart({ product, qty }));
   };
 
   return (
     <>
       {/*cardProduct name & buy btn */}
       <NameWrapper>
-        <h1 className="block text-lg font-semibold text-lightGray">{name}</h1>
+        <h1 className="block text-lg font-semibold text-lightGray">{title}</h1>
         <RedTextBtn>
-          {sharedBtnText === "to cart" ? (
-            <button
-              className={findedProduct && "text-black"}
-              onClick={() => handleAddToCart(product)}
-            >
-              {btnText}
-            </button>
-          ) : (
-            <NavLink to="/shop">+ Online store</NavLink>
-          )}
+          <button
+            className={foundInCart && "text-black"}
+            onClick={() => handleAddToCart(product)}
+          >
+            {btnText}
+          </button>
         </RedTextBtn>
       </NameWrapper>
       {/* price */}
       <p className="flex items-center space-x-2 font-bold">
-        <small className="line-through opacity-50">
-          {small1 ?? <Smallline />}
-        </small>
-        <small>{small2}</small>
+        <small className="line-through opacity-50">{orignalPrice.toLocaleString("en")}</small>
+        <small>{price.toLocaleString("en")}</small>
       </p>
     </>
   );
@@ -148,13 +149,6 @@ text-lg
 absolute
 opacity-0 
 text-[#d7122a]
-`;
-
-const Smallline = tw.span`
-w-10
-h-[1px]
-bg-[#777777]
-block
 `;
 
 const NameWrapper = tw.div`
