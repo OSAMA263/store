@@ -5,6 +5,7 @@ import MainButton from "../../shared/MainButton";
 import { useUserState } from "../../../state/useStates";
 import { clearCart } from "../../../state/slices/client/UsersSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 export default function Checkout() {
   return (
@@ -24,9 +25,11 @@ export default function Checkout() {
 // form niputs-----------------
 const Form = () => {
   const dispatch = useDispatch();
-
-  const handleSubmit = () => {
+const navigate=useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault()
     dispatch(clearCart());
+    navigate("/")
   };
   return (
     <div>

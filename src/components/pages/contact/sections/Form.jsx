@@ -6,7 +6,7 @@ export default function Form() {
   return (
     <Container>
       <PageHeader title="Get in touch" text="" />
-      <FormWrapper>
+      <TheForm onSubmit={(e)=>e.preventDefault()}>
         <div className="flex gap-x-4">
           <input
             type="text"
@@ -38,7 +38,7 @@ export default function Form() {
         <MainButton>
           <button>SUBMIT</button>
         </MainButton>
-      </FormWrapper>
+      </TheForm>
     </Container>
   );
 }
@@ -49,7 +49,7 @@ text-center
 [&_textarea]:w-full
 `;
 
-const FormWrapper = tw.form`
+const TheForm = tw.form`
 flex
 flex-col
 gap-y-20
