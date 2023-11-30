@@ -22,7 +22,7 @@ export default function PageHero({ title, children }) {
 }
 
 const Hero = tw.div`
-bg-[url('/home/page-hero-bg.png')]
+bg-[url('/home/page-hero-bg.webp')]
 bg-cover 
 bg-center
 py-28

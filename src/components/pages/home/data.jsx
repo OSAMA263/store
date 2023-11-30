@@ -1,17 +1,17 @@
 export const swiperImgs = [
   {
-    src: "/public/home/home-slide1.png",
-    bg: "/public/home/bg1.png",
+    src: "home/home-slide1.webp",
+    bg: "home/bg1.webp",
     title: "MEN COLLECTION",
   },
   {
-    src: "/public/home/home-slide2.png",
-    bg: "/public/home/bg2.png",
+    src: "home/home-slide2.webp",
+    bg: "home/bg2.webp",
     title: "WOMEN COLLECTION",
   },
   {
-    src: "/public/home/home-slide3.png",
-    bg: "/public/home/bg3.png",
+    src: "home/home-slide3.webp",
+    bg: "home/bg3.webp",
     title: "SPORT COLLECTION",
   },
 ]

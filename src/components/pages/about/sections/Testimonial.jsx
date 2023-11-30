@@ -57,5 +57,5 @@ const swiperProps = {
 
 const Container = tw.div`
 py-28
-bg-[url('/about/testimonials-bg.png')]
+bg-[url('/about/testimonials-bg.webp')]
 `;

@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        lightGray: "#7e7e7e",
+        lightGray: "#75758a",
         thickRed: "#d3122a",
       },
     },

@@ -11,10 +11,10 @@ export default function Video() {
     <Container>
       <Link className="-left-10 rotate-[-90deg]">link</Link>
       <Thumbnail>
-        <div className="absolute img-wrapper -z-10 h-full">
+        <div className="absolute h-full img-wrapper -z-10">
           <LazyImage
             effect
-            src="/public/about/video-thumbnail.png"
+            src="about/video-thumbnail.webp"
             styles="h-full -z-10"
           />
         </div>
@@ -29,7 +29,7 @@ export default function Video() {
         <div className="relative"></div>
         <button aria-label="close-video-modal"
           onClick={onClose}
-          className="absolute -top-12 text-white right-0 text-4xl"
+          className="absolute right-0 text-4xl text-white -top-12"
         >
           <AiOutlineClose />
         </button>

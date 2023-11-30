@@ -10,7 +10,7 @@ export default function LoadingPage() {
 
   return (
     <div className="bg-white h-[100dvh] w-full flex justify-center items-center">
-      <img src="public/loading.gif" alt="loading please wait" />
+      <img src="loading.gif" alt="loading please wait" />
     </div>
   );
 }

@@ -46,7 +46,7 @@ const Navbar = () => {
       <Header $isSticky={isSticky}>
         <Nav>
           <NavLink aria-label="home" to="/">
-            <img height={60} width={60} src="/public/logo.png" alt="logo" />
+            <img src="logo.webp" height={48} width={48} alt="logo" />
           </NavLink>
           {/* navbar links */}
           <ul className="flex py-6 gap-x-10">
@@ -82,8 +82,7 @@ const NavbarButtons = ({ handleClick }) => {
           ) : (
             <button
               onClick={() => handleClick(label)}
-              className="hover:scale-110 relative"
-              aria-label={label}
+              className="relative hover:scale-110"
             >
               {label === "cart" ? (
                 <ItemsNum>{cart.length}</ItemsNum>

@@ -7,13 +7,13 @@ export default function SpecialDeal() {
     <Container>
       {/* img of left */}
       <img
-        src="/public/categories/countdown.jpg"
+        src="categories/countdown.webp"
         className="h-[400px] "
         loading="lazy"
         alt="countdown-img"
       />
       {/* the counter down */}
-      <div className="text-center space-y-10 ">
+      <div className="space-y-10 text-center ">
         <h1 className="text-5xl">Deal of the day</h1>
         <Countdown timeStamp={1735682400000}/>
       </div>
@@ -46,7 +46,7 @@ const Countdown = ({timeStamp}) => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex gap-x-8 items-center">
+      <div className="flex items-center gap-x-8">
         {/* DAYS */}
         {timeLabel.map((time, i) => (
           <div className="flex gap-x-8" key={i}>

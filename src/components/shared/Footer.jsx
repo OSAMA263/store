@@ -25,12 +25,12 @@ export default function Footer() {
         </Div>
         {/*Rights and imgs */}
         <Div>
-          <h1 className="text-[#7e7e7e] text-sm">
+          <h1 className="text-lightGray text-sm">
             © 2023 lezada. All Rights Reserved |
             <span className="font-bold text-black"> (+20) 123 567890</span> |
             <a href="/"> contact@osama.com</a>
           </h1>
-          <img src="/public/pay.png" alt="ways-to-pay" />
+          <img src="pay.webp" width={200} height={32} alt="ways-to-pay" />
         </Div>
       </div>
     </Toes>
@@ -39,7 +39,7 @@ export default function Footer() {
 
 export const SocialContact = () => {
   return (
-    <div className="flex gap-x-3 text-[#333333] text-xl">
+    <div className="flex gap-x-3 text-[#333333] text-2xl">
       {social.map(({ icon, label, url }, i) => (
         <Tooltip label={label} hasArrow placement="top" key={"social"+i}>
           <a
