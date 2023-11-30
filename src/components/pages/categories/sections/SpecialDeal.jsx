@@ -7,7 +7,7 @@ export default function SpecialDeal() {
     <Container>
       {/* img of left */}
       <img
-        src="public/categories/countdown.jpg"
+        src="/public/categories/countdown.jpg"
         className="h-[400px] "
         loading="lazy"
         alt="countdown-img"
@@ -15,7 +15,7 @@ export default function SpecialDeal() {
       {/* the counter down */}
       <div className="text-center space-y-10 ">
         <h1 className="text-5xl">Deal of the day</h1>
-        <Countdown timeStamp={1731276000000}/>
+        <Countdown timeStamp={1735682400000}/>
       </div>
     </Container>
   );

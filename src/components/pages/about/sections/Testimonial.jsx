@@ -25,7 +25,12 @@ const Slider = () => {
               {description}
             </h1>
             <div className="flex gap-x-4">
-              <img src={img} loading="lazy" className="w-16 h-16 rounded-full" alt={img} />
+              <img
+                src={img}
+                loading="lazy"
+                className="w-16 h-16 rounded-full"
+                alt={role}
+              />
               <div className="font-semibold">
                 <h1 className="font-bold">{name}</h1>
                 <h1 className="text-lightGray">/ {role}</h1>

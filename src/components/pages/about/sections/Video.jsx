@@ -14,7 +14,7 @@ export default function Video() {
         <div className="absolute img-wrapper -z-10 h-full">
           <LazyImage
             effect
-            src="public/about/video-thumbnail.png"
+            src="/public/about/video-thumbnail.png"
             styles="h-full -z-10"
           />
         </div>
