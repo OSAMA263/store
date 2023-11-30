@@ -4,6 +4,7 @@ import {
   AccordionPanel,
   AccordionItem,
   AccordionButton,
+  AccordionIcon,
 } from "@chakra-ui/react";
 import { Fragment } from "react";
 import ContentContainer from "../../../layout/ContentContainer";
@@ -21,12 +22,14 @@ export default function Accordions() {
                   <AccordionItem mb={2} border={0}>
                     <AccordionButton
                       py={4}
+                      justifyContent="space-between"
                       color="#a8a8a8"
                       fontSize={23}
                       _hover={{ color: "black" }}
                       _expanded={{ bg: "#", color: "black" }}
                     >
                       {question}
+                      <AccordionIcon/>
                     </AccordionButton>
                     <AccordionPanel bg="#f8f8f8b9">
                       <small className="text-base font-semibold">

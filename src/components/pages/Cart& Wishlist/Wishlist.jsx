@@ -63,7 +63,9 @@ const TBodyContent = ({ product }) => {
       <Td>
         <span className="flex justify-center">
           <MainButton>
-            <button onClick={handleClick}>{productInCart?"ALREADY IN CART":"ADD TO CART"}</button>
+            <button onClick={handleClick}>
+              {productInCart ? "ALREADY IN CART" : "ADD TO CART"}
+            </button>
           </MainButton>
         </span>
       </Td>

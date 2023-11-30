@@ -40,10 +40,7 @@ export default function ProductsTable(props) {
   return (
     <>
       {products.length > 0 ? (
-        <TableContainer
-          border="1px solid #dbd9d9"
-          borderRadius="20px"
-        >
+        <TableContainer border="1px solid #dbd9d9" borderRadius="20px">
           <Table
             style={{ borderCollapse: "separate", borderSpacing: "1rem" }}
             variant="simple"
@@ -66,11 +63,16 @@ export default function ProductsTable(props) {
                     <Td>
                       <Product pro={pro} />
                     </Td>
-                    <Td fontWeight="semibold">${pro.price.toLocaleString("en")}</Td>
+                    <Td fontWeight="semibold">
+                      ${pro.price.toLocaleString("en")}
+                    </Td>
                     {/* THE PROPS */}
                     <TBodyContent product={pro} />
                     <Td>
-                      <RemoveButton onClick={() => removeProductHandler(pro)}>
+                      <RemoveButton
+                        aria-label="remove-product"
+                        onClick={() => removeProductHandler(pro)}
+                      >
                         <AiOutlineClose />
                       </RemoveButton>
                     </Td>

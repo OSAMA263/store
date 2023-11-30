@@ -14,11 +14,11 @@ export default function Video() {
         <div className="absolute img-wrapper -z-10 h-full">
           <LazyImage
             effect
-            src="/about/video-thumbnail.png"
+            src="public/about/video-thumbnail.png"
             styles="h-full -z-10"
           />
         </div>
-        <button onClick={onOpen} className="hover:[&>svg]:scale-125 text-8xl">
+        <button aria-label="open-video-modal" onClick={onOpen} className="hover:[&>svg]:scale-125 text-8xl">
           <AiOutlinePlayCircle />
         </button>
         <h1 className="tracking-widest"> OUR STORY</h1>
@@ -27,7 +27,7 @@ export default function Video() {
       {/* // modal viedo */}
       <Modal {...{ onOpen, isOpen, onClose }}>
         <div className="relative"></div>
-        <button
+        <button aria-label="close-video-modal"
           onClick={onClose}
           className="absolute -top-12 text-white right-0 text-4xl"
         >

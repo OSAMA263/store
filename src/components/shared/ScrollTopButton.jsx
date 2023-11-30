@@ -7,7 +7,7 @@ export default function ScrollTopButton({ isSticky }) {
   };
 
   return (
-    <Button onClick={handleClick} $isSticky={isSticky}>
+    <Button aria-label="top-page" onClick={handleClick} $isSticky={isSticky}>
       <BsArrowUpShort/>
     </Button>
   );

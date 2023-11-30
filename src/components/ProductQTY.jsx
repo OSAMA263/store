@@ -33,6 +33,7 @@ export default function ProductQuantity(props) {
         className={disableDecrease ? "opacity-40" : ""}
         disabled={disableDecrease}
         onClick={cartMinus ?? handleDecreaseQTY}
+        aria-label="decrease-product-quantity"
       >
         -
       </button>
@@ -41,6 +42,7 @@ export default function ProductQuantity(props) {
         className={disableIncrease ? "opacity-40" : ""}
         disabled={disableIncrease}
         onClick={cartPlus ?? handleIncreaseQTY}
+        aria-label="increase-product-quantity"
       >
         +
       </button>

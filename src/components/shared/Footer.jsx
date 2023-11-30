@@ -30,7 +30,7 @@ export default function Footer() {
             <span className="font-bold text-black"> (+20) 123 567890</span> |
             <a href="/"> contact@osama.com</a>
           </h1>
-          <img src="/pay.png" alt="ways-to-pay" />
+          <img src="public/pay.png" alt="ways-to-pay" />
         </Div>
       </div>
     </Toes>

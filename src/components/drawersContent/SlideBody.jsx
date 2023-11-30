@@ -52,7 +52,9 @@ export default function SlideBody({ drawer }) {
                   <h1 className="font-bold ">{title}</h1>
                   <p>{brand}</p>
                   <p>
-                    <span className="text-sm font-semibold">${price.toLocaleString("en")}</span>
+                    <span className="text-sm font-semibold">
+                      ${price.toLocaleString("en")}
+                    </span>
                     {drawer === "cart" && (
                       <small className="text-xs"> x{QTY} </small>
                     )}
@@ -61,6 +63,7 @@ export default function SlideBody({ drawer }) {
               </div>
               {/* remove button */}
               <button
+              aria-label="remove-product"
                 onClick={() => removeProductHandler(id)}
                 className="text-xs duration-75 hover:text-thickRed"
               >
@@ -69,7 +72,7 @@ export default function SlideBody({ drawer }) {
             </Product>
           ))
         ) : (
-          <span className="text-lightGray">No items foun in {drawer}</span>
+          <span className="text-lightGray">Your {drawer} is empty.</span>
         )}
       </AnimatePresence>
     </Container>

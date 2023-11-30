@@ -45,7 +45,7 @@ const Contact = lazy(() => import("./components/pages/contact/Contact"));
 const NotFound = lazy(() => import("./components/pages/404Error/NotFound"));
 const Shop = lazy(() => import("./components/pages/shop/Shop"));
 const ProductPage = lazy(() =>
-  import("./components/pages/single product//ProductPage")
+  import("./components/pages/single product/ProductPage")
 );
 const Categories = lazy(() =>
   import("./components/pages/categories/Categories")

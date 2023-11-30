@@ -4,7 +4,7 @@ import tw from "tailwind-styled-components";
 export default function SearchDrawer({ handleClick }) {
   return (
     <Container>
-      <CloseBtn aria-label="close" onClick={handleClick}>
+      <CloseBtn aria-label="close-search" onClick={handleClick}>
         <AiOutlineClose />
       </CloseBtn>
       {/* search input */}

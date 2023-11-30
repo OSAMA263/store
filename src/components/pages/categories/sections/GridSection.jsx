@@ -12,7 +12,7 @@ export default function GridSection(){
             className={(i + 1) % 2 == 0 ? "flex-col-reverse" : "flex-col"}
             key={i}
           >
-            <CategoryCard productsAmount={20} name={cat}></CategoryCard>
+            <CategoryCard name={cat}/>
           </CardContainer>
         ))
       ) : (
@@ -21,7 +21,7 @@ export default function GridSection(){
     </Grid>
   );
 }
-// function returns span > "pls wait loading "*after 1sec* "if this taking too long relod bitch"<
+//returns span > "pls wait loading "*after 1sec* "if this taking too long relod bitch"<
 const Grid = tw.div`
 grid
 grid-cols-4

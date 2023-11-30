@@ -24,10 +24,10 @@ export default function SwiperImages({ swiperProps, children }) {
 export const SwiperNavigateBtns = () => {
   return (
     <>
-      <Button className="right-0 mr-16" id="next">
+      <Button aria-label="next-button" className="right-0 mr-16" id="next">
         <MdKeyboardDoubleArrowRight />
       </Button>
-      <Button className="left-0 ml-16" id="prev">
+      <Button aria-label="prev-button" className="left-0 ml-16" id="prev">
         <MdKeyboardDoubleArrowLeft />
       </Button>
     </>

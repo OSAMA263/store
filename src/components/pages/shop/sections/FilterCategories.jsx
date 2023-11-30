@@ -82,7 +82,7 @@ const SerachInput = ({ handleFilterName }) => {
             placeholder="Search products..."
           />
           <InputRightElement className="!justify-end !w-fit">
-            <SearchButton>
+            <SearchButton aria-label="search-button">
               <TfiSearch />
             </SearchButton>
           </InputRightElement>

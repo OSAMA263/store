@@ -7,8 +7,9 @@ export default function SpecialDeal() {
     <Container>
       {/* img of left */}
       <img
-        src="/categories/countdown.jpg"
+        src="public/categories/countdown.jpg"
         className="h-[400px] "
+        loading="lazy"
         alt="countdown-img"
       />
       {/* the counter down */}

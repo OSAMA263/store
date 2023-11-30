@@ -74,6 +74,7 @@ export const CardOptions = ({ product }) => {
             <Btn
               $action={action}
               $inWishlist={inWishlist}
+              aria-label={label+"button"}
               onClick={() => handleClick(action)}
             >
               {icon}

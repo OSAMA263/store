@@ -5,7 +5,7 @@ export default function SlideHeader({ handleCloseDrawer, drawer }) {
   return (
     <Container>
       <h1>{drawer === "cart" ? "Cart" : "Wishlist"}</h1>
-      <button onClick={handleCloseDrawer} className="hover:[&>svg]:rotate-90">
+      <button aria-label="close-drawer" onClick={handleCloseDrawer} className="hover:[&>svg]:rotate-90">
         <AiOutlineClose />
       </button>
     </Container>

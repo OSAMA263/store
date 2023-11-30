@@ -127,10 +127,11 @@ const ModalButtons = ({ product, qty, setQty }) => {
       <OptionBtn
         className={inWishlist && "bg-[#333333] text-white"}
         onClick={handleWishlist}
+        aria-label="wishlist"
       >
         <AiOutlineHeart />
       </OptionBtn>
-      <OptionBtn>
+      <OptionBtn aria-label="compare">
         <LuGitCompare />
       </OptionBtn>
     </div>

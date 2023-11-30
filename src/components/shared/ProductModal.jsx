@@ -12,7 +12,7 @@ export default function ProductModal({ product, onClose, isOpen }) {
     <Modal {...{ onClose, isOpen }}>
       <ModalContainer>
         {/* modal close button */}
-        <CloseBtn onClick={onClose}>
+        <CloseBtn aria-label="close-product-modal" onClick={onClose}>
           <AiOutlineClose />
         </CloseBtn>
         {/* swiper images */}

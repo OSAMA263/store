@@ -44,7 +44,7 @@ const Brands = () => {
       <ul className="flex justify-evenly gap-x-20">
         {brandsData.map((img, i) => (
           <li key={i}>
-            <img src={img} alt={"brand-" + i} />
+            <img src={img} loading="lazy" alt={"brand-" + i} />
           </li>
         ))}
       </ul>

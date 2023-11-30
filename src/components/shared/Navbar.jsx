@@ -45,8 +45,8 @@ const Navbar = () => {
       <ScrollTopButton isSticky={isSticky} />
       <Header $isSticky={isSticky}>
         <Nav>
-          <NavLink to="/">
-            <img height={60} width={60} src="/logo.png" alt="logo" />
+          <NavLink aria-label="home" to="/">
+            <img height={60} width={60} src="public//logo.png" alt="logo" />
           </NavLink>
           {/* navbar links */}
           <ul className="flex py-6 gap-x-10">
