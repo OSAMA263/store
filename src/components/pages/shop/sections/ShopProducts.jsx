@@ -47,9 +47,10 @@ ${({ $columns }) =>
     ? "grid-cols-4"
     : "grid-cols-1"}
 grid 
-gap-x-4
+lg:gap-x-4
+gap-x-2
 gap-y-8
-w-[80%]
+lg:w-[80%]
 `;
 
 const NoProducts = tw.div`

@@ -12,8 +12,9 @@ export default function Form(props) {
     inpRefs.current.map((inp) => {
       setUser((prev) => ({ ...prev, [inp.name]: inp.value }));
     });
+    console.log(user);
   };
-
+  
   return (
     <Container className={bg}>
       {/* header text */}

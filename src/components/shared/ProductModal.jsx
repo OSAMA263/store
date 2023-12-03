@@ -20,7 +20,7 @@ export default function ProductModal({ product, onClose, isOpen }) {
           <SwiperImages swiperProps={swiperModalProps}>
             {product.images.map((src) => (
               <SwiperSlide key={src}>
-                <LazyImage src={src} styles="h-full w-full" placeholder />
+                <LazyImage src={src} styles="h-full w-full md:object-fill !object-cover" placeholder />
               </SwiperSlide>
             ))}
           </SwiperImages>

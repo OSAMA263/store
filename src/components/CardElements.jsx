@@ -1,4 +1,4 @@
-import { Tooltip, useDisclosure } from "@chakra-ui/react";
+import { Tooltip, useDisclosure, useMediaQuery } from "@chakra-ui/react";
 import { AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { LuGitCompare } from "react-icons/lu";
 import tw from "tailwind-styled-components";
@@ -39,6 +39,7 @@ export const CardOptions = ({ product }) => {
     state: "wishlist",
     action: "add",
   };
+  const [disableModal] = useMediaQuery("(max-width: 714px)", { ssr: false });
 
   const handleWishlist = () => {
     if (inWishlist) {
@@ -61,29 +62,33 @@ export const CardOptions = ({ product }) => {
   return (
     <>
       <OptionsBtns>
-        {options.map(({ icon, label, action }, i) => (
-          <Tooltip
-            zIndex="66"
-            hasArrow
-            placement="left"
-            label={
-              action === "wishlist" && inWishlist ? "Added in wishlist" : label
-            }
-            key={i}
-          >
-            <Btn
-              $action={action}
-              $inWishlist={inWishlist}
-              aria-label={label+"button"}
-              onClick={() => handleClick(action)}
+        {options.map(({ icon, label, action }, i) =>
+          disableModal && action === "view" ? null : (
+            <Tooltip
+              zIndex="66"
+              hasArrow
+              placement="left"
+              label={
+                action === "wishlist" && inWishlist
+                  ? "Added in wishlist"
+                  : label
+              }
+              key={i}
             >
-              {icon}
-            </Btn>
-          </Tooltip>
-        ))}
+              <Btn
+                $action={action}
+                $inWishlist={inWishlist}
+                aria-label={label + "button"}
+                onClick={() => handleClick(action)}
+              >
+                {icon}
+              </Btn>
+            </Tooltip>
+          )
+        )}
       </OptionsBtns>
       {/* product modal */}
-      <ProductModal {...{ product, isOpen, onClose }} />
+      {!disableModal && <ProductModal {...{ product, isOpen, onClose }} />}
     </>
   );
 };

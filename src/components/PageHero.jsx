@@ -6,8 +6,8 @@ import tw from "tailwind-styled-components";
 export default function PageHero({ title, children }) {
   return (
     <Hero>
-      <div className="w-[60%] mx-auto space-y-10">
-        <h1 className="text-5xl">{title}</h1>
+      <Container>
+        <h1 className="text-xl lg:text-5xl sm:text-3xl">{title}</h1>
         <Breadcrumb>
           <BreadcrumbItem>
             <NavLink to="/">Home</NavLink>
@@ -16,7 +16,7 @@ export default function PageHero({ title, children }) {
             return <BreadcrumbItem>{cloneElement(child)}</BreadcrumbItem>;
           })}
         </Breadcrumb>
-      </div>
+      </Container>
     </Hero>
   );
 }
@@ -26,4 +26,17 @@ bg-[url('/home/page-hero-bg.webp')]
 bg-cover 
 bg-center
 py-28
+overflow-hidden
+relative
 `;
+
+const Container=tw.div`
+2xl:w-[65%]
+xl:w-[80%]
+lg:w-[90%]
+md:w-[95%]
+container
+sm:mx-auto 
+mx-4
+space-y-10
+`

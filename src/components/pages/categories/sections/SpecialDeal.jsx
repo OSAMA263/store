@@ -8,13 +8,13 @@ export default function SpecialDeal() {
       {/* img of left */}
       <img
         src="categories/countdown.webp"
-        className="h-[400px] "
+        className="max-h-[360px] lg:block hidden"
         loading="lazy"
         alt="countdown-img"
       />
       {/* the counter down */}
       <div className="space-y-10 text-center ">
-        <h1 className="text-5xl">Deal of the day</h1>
+        <h1 className="text-3xl md:text-5xl">Deal of the day</h1>
         <Countdown timeStamp={1735682400000}/>
       </div>
     </Container>
@@ -28,7 +28,7 @@ const Countdown = ({timeStamp}) => {
     minutes: "00",
     seconds: "00",
   });
-
+// update the time every 1sec
   useEffect(() => {
     const updateTime = setInterval(() => {
       updateRemainingTime(timeStamp);
@@ -46,12 +46,12 @@ const Countdown = ({timeStamp}) => {
 
   return (
     <div className="flex justify-center">
-      <div className="flex items-center gap-x-8">
+      <div className="flex items-center md:gap-x-8">
         {/* DAYS */}
         {timeLabel.map((time, i) => (
           <div className="flex gap-x-8" key={i}>
             <Number>
-              <span className="text-3xl">{remainingTime[time]}</span>
+              <span>{remainingTime[time]}</span>
               <span className="uppercase">{time}</span>
             </Number>
             {i !== timeLabel.length - 1 && <span className="text-2xl">:</span>}
@@ -68,15 +68,17 @@ flex-col
 gap-y-6 
 text-center
 text-[#7e7e7e]
+text-lg 
+md:text-3xl
 `;
 
 const Container = tw.div`
 my-52
 w-[95%]
 mx-auto
+py-4
 flex
 justify-evenly
-gap-x-20
 bg-[#f8f8f8]
 items-center
 `;

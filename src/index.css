@@ -34,6 +34,9 @@ textarea {
 small {
   color: #949393;
 }
+.text-balance{
+  text-wrap: balance;
+}
 /* table styles */
 tr th:not(:first-child),
 td:not(:first-child) {

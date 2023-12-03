@@ -3,7 +3,6 @@ import { FaCartShopping } from "react-icons/fa6";
 import { MdFavorite } from "react-icons/md";
 
 export default function Toast(props) {
-  // const {toastContent}=useUserState()
   const { title, state, qty=1, action } = props;
   const { toast } = createStandaloneToast();
 

@@ -6,8 +6,12 @@ import FilterCategories from "./sections/FilterCategories";
 import ShopContextProvider from "../../context/ShopContextProvider";
 import NavigateAnimation from "../../layout/NavigateAnimation";
 import ContentContainer from "../../layout/ContentContainer";
+import { useMediaQuery } from "@chakra-ui/react";
 
 export default function Shop() {
+  const [isMdDevice] = useMediaQuery("(max-width: 1024px)", {
+    ssr: false,
+  });
 
   return (
     <NavigateAnimation>
@@ -20,7 +24,7 @@ export default function Shop() {
         {/* products grid && filter categories */}
         <ContentContainer>
           <MainSection>
-            <FilterCategories />
+            {!isMdDevice && <FilterCategories />}
             {/* products grid */}
             <ShopProducts />
           </MainSection>
@@ -29,8 +33,11 @@ export default function Shop() {
     </NavigateAnimation>
   );
 }
-
+// header >filter on click dropdown with the filter cats
+//
 const MainSection = tw.div`
 flex 
 gap-x-4
+lg:justify-between
+justify-center
 `;

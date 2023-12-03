@@ -14,7 +14,7 @@ export default function Checkout() {
         <h1 className="text-lightGray">Checkout</h1>
       </PageHero>
       <ContentContainer>
-        <div className="grid grid-cols-2 gap-x-4">
+        <div className="grid gap-y-10 lg:grid-cols-2 gap-x-4">
           <Form />
           <CheckoutCart />
         </div>
@@ -33,16 +33,16 @@ const navigate=useNavigate()
   };
   return (
     <div>
-      <h1 className="mb-10 font-bold w-fit text-lg  border-b-2 border-black">
+      <h1 className="mb-10 text-lg font-bold border-b-2 border-black w-fit">
         Billing Address
       </h1>
       <form onSubmit={handleSubmit} className="space-y-10">
         {formInputs.map((inp, i) => (
-          <div className="flex gap-x-4 text-lg" key={i}>
+          <div className="space-y-4 text-lg sm:space-y-0 sm:flex gap-x-4" key={i}>
             {inp.map(({ name, label, type }) => (
               <div className="flex flex-col w-full" key={name}>
                 <label
-                  className="uppercase font-medium tracking-wider text-sm"
+                  className="text-sm font-medium tracking-wider uppercase"
                   htmlFor={name}
                 >
                   {label}*
@@ -75,19 +75,19 @@ const CheckoutCart = () => {
 
   return (
     <div>
-      <h1 className="mb-10 font-bold w-fit text-lg border-b-2 border-black">
+      <h1 className="mb-10 text-lg font-bold border-b-2 border-black w-fit">
         Cart Total
       </h1>
       <div className="p-8 space-y-3 [&_div]:flex [&_div]:justify-between bg-[#f2f2f2]">
-        <div className="font-bold text-2xl mb-5">
+        <div className="mb-5 text-2xl font-bold">
           <h1>Product</h1>
           <h1>Total</h1>
         </div>
         {/* products names and prices */}
         {cart.map(({ title, QTY, price }) => (
           <div className="text-sm" key={title}>
-            <h1 className="capitalize text-lightGray font-medium">
-              {title} <small className="text-black font-bold"> x{QTY}</small>
+            <h1 className="font-medium capitalize text-lightGray">
+              {title} <small className="font-bold text-black"> x{QTY}</small>
             </h1>
             <h1 className="font-medium">
               ${Math.floor(price * QTY).toLocaleString("en")}
@@ -95,11 +95,11 @@ const CheckoutCart = () => {
           </div>
         ))}
         {/* sub total------- */}
-        <div className="border-y border-gray-700 py-2 font-semibold text-gray-500">
+        <div className="py-2 font-semibold text-gray-500 border-gray-700 border-y">
           <h1>Sub Total</h1>
           <h1>${TOTAL}</h1>
         </div>
-        <div className="font-bold text-2xl">
+        <div className="text-2xl font-bold">
           <h1>Grand Total</h1>
           <h1>${TOTAL}</h1>
         </div>

@@ -27,8 +27,11 @@ export default function ContactDetails() {
 
 const Container = tw.div`
 grid
-grid-cols-3
-gap-x-20
+sm:grid-cols-3
+grid-cols-1
+gap-y-8
+justify-between
+gap-x-4
 `;
 
 const GridCol = tw.div`

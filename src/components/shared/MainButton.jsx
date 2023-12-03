@@ -19,7 +19,8 @@ text-center
 bg-[#333333]
 text-white
 font-semibold
-!text-sm
+sm:!text-sm
+text-xs
 tracking-widest
 hover:bg-transparent
 hover:text-[#333333]
@@ -30,10 +31,12 @@ flex
 items-center
 self-center
 relative
-[&_button]:px-10
-[&_button]:py-3
-[&_a]:px-10
-[&_a]:py-3
+sm:[&_button]:px-10
+sm:[&_button]:py-3
+sm:[&_a]:px-10
+sm:[&_a]:py-3
+[&_button]:p-2
+[&_a]:p-2
 [&>#r-line]:hover:h-full
 [&>#b-line]:hover:w-full
 [&>#l-line]:hover:h-full

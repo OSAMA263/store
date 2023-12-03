@@ -16,10 +16,7 @@ function Card({ product, gridCols }) {
   const orignalPrice = Math.floor(
     price / (1 - Math.floor(discountPercentage) / 100)
   );
-  // title
-  // orignalPrice
-  // price
-  // product
+
   return (
     <CardContainer id={id} {...cardVariants} layout $oneColumn={gridCols}>
       <ItemImage
@@ -53,7 +50,7 @@ export const ItemImage = (props) => {
       {/* ------------images------ */}
       <div
         className={`${
-          gridCols === 1 ? "h-[500px]" : "h-[300px]"
+          gridCols !== 1 ? "h-[300px]":"lg:h-[500px] h-[400px]"
         } cursor-pointer relative`}
       >
         <NavLink className="[&_img]:object-cover" to={"/shop/" + productID}>
@@ -73,6 +70,7 @@ export const ItemImage = (props) => {
           </div>
         </NavLink>
       </div>
+      {/* card buttons options cart/wishlist... */}
       {children}
     </div>
   );
@@ -176,7 +174,7 @@ h-fit
 overflow-hidden
 relative
 ${({ $oneColumn }) =>
-  $oneColumn === 1 && "grid grid-cols-2 gap-x-6 items-center"}
+  $oneColumn === 1 && "grid gap-y-4 sm:grid-cols-2 sm:gap-x-6 items-center"}
 `;
 const cardVariants = {
   initial: { opacity: 0 },

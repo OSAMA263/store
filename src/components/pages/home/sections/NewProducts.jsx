@@ -16,15 +16,14 @@ export default function NewProducts() {
       <Grid products={filteredProducts} />
       {filteredProducts.length > 0 ? (
         <div className="flex justify-center">
+          {/* the button will load more new products */}
           <button className="mt-10 font-bold transition-all hover:text-[#d7122a]">
             + SEE MORE ...
           </button>
         </div>
       ) : (
-        <h1 className="text-3xl text-center">no new products available</h1>
+        <h1 className="text-center sm:text-3xl">no new products available</h1>
       )}
-
-      {/* the button will load more new products */}
     </Container>
   );
 }

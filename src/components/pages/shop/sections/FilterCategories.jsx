@@ -34,16 +34,14 @@ export default function FilterCategories() {
     e.target.value === "" && cat === "All Categories"
       ? setShownProducts(products)
       : setShownProducts(FilteredProducts);
-  }
+  };
 
   return (
-    <div className="space-y-10 pe-6 sticky top-40 h-fit">
-      {/* search input */}
-      <SerachInput handleFilterName={handleFilterName} />
-      <h1 className="text-2xl">Categories</h1>
-      {/* categories options */}
+    <Wrapper>
+      <SearchInput handleFilterName={handleFilterName} />
+      <h1 className="text-lg md:text-2xl">Categories</h1>
       <Filters handleFilterCategory={handleFilterCategory} />
-    </div>
+    </Wrapper>
   );
 }
 
@@ -51,9 +49,9 @@ const Filters = ({ handleFilterCategory }) => {
   const categories = ["All Categories", ...JSON.parse(localStorage.categories)];
 
   return (
-    <ul className="flex flex-col gap-y-4">
+    <ul className="flex flex-col text-sm capitalize md:text-base gap-y-4 ">
       {categories.map((cat) => (
-        <li className="capitalize" key={cat}>
+        <li key={cat}>
           <CategoryOption htmlFor={cat}>
             <input
               onClick={handleFilterCategory}
@@ -71,7 +69,7 @@ const Filters = ({ handleFilterCategory }) => {
   );
 };
 
-const SerachInput = ({ handleFilterName }) => {
+const SearchInput = ({ handleFilterName }) => {
   return (
     <>
       <InputGroup>
@@ -91,6 +89,17 @@ const SerachInput = ({ handleFilterName }) => {
     </>
   );
 };
+
+const Wrapper = tw.div`
+lg:overflow-y-hidden
+overflow-y-scroll
+sticky 
+space-y-10 
+lg:pe-6 
+top-44
+lg:h-fit 
+h-[400px]
+`;
 
 const SearchButton = tw.button`
 text-lightGray 

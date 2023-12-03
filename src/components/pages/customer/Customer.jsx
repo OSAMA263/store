@@ -57,6 +57,8 @@ const RegisterForm = () => {
 
 const Container = tw.div`
 grid 
-grid-cols-2
-gap-x-20
+md:grid-cols-2
+gap-y-8
+lg:gap-x-20
+gap-x-3
 `;

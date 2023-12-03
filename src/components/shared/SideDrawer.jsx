@@ -6,13 +6,14 @@ import SlideCartFooter from "../drawersContent/SlideCartFooter";
 import SearchDrawer from "../drawersContent/SearchDrawer";
 import SlideHeader from "../drawersContent/SlideHeader";
 import React, { useEffect } from "react";
+import { SocialContact } from "./Footer";
 
 function SideDrawer(props) {
-  const { isOpen, setIsOpen, drawer, setDrawer } = props;
+  const { drawerIsOpen, setDrawerIsOpen, drawer, setDrawer } = props;
   const { pathname } = useLocation();
 
   const handleCloseDrawer = () => {
-    setIsOpen(false);
+    setDrawerIsOpen(false);
     setDrawer("");
   };
 
@@ -23,14 +24,17 @@ function SideDrawer(props) {
   return (
     <>
       {drawer !== "search" && (
-        <Overlay $isOpen={isOpen} onClick={handleCloseDrawer} />
+        <Overlay $drawerIsOpen={drawerIsOpen} onClick={handleCloseDrawer} />
       )}
       <Slide
         className={`z-[6969696996] !h-screen ${
-          drawer !== "search" ? "!max-w-[380px]" : "bg-white w-screen"
+          drawer !== "search"
+            ? "!w-full md:!max-w-[380px]"
+            : "bg-white w-screen"
         }`}
         direction="right"
-        in={isOpen}
+        in={drawerIsOpen}
+        transition={{ enter: { duration: 0.5 }, exit: { duration: 0.5 } }}
       >
         {drawer === "search" ? (
           <SearchDrawer handleClick={handleCloseDrawer} />
@@ -42,11 +46,13 @@ function SideDrawer(props) {
             <SlideBody {...{ drawer }}></SlideBody>
             {/* FOOTER */}
             <SlideFooter>
+              {/* wishlist side slider */}
               {drawer === "wishlist" ? (
                 <NavLink onClick={handleCloseDrawer} to="/wishlist">
                   VIEW WISHLIST
                 </NavLink>
-              ) : (
+              ) : // cart side slider
+              drawer === "cart" ? (
                 <SlideCartFooter>
                   <NavLink onClick={handleCloseDrawer} to="/cart">
                     VIEW CART
@@ -55,7 +61,13 @@ function SideDrawer(props) {
                     CHECKOUT
                   </NavLink>
                 </SlideCartFooter>
-              )}
+              ) : drawer === "navlinks" ? (
+                // side navbar social links
+                <div className="flex flex-col gap-y-8 items-center !text-black">
+                  <h1>get in touch with us </h1>
+                  <SocialContact />
+                </div>
+              ) : null}
             </SlideFooter>
           </SlideContainer>
         )}
@@ -95,7 +107,7 @@ w-screen
 h-full
 transition-all
 duration-300
-${({ $isOpen }) =>
-  $isOpen ? "bg-opacity-25" : "bg-opacity-0 invisible !-z-10"}
+${({ $drawerIsOpen }) =>
+  $drawerIsOpen ? "bg-opacity-25" : "bg-opacity-0 invisible !-z-10"}
 `;
 export default React.memo(SideDrawer);

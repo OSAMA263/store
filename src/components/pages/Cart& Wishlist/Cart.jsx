@@ -37,10 +37,10 @@ export default function Cart() {
         />
         {/* GO TO CHECKOUT PRODUCTS */}
         <CartTotal>
-          <h1 className="text-4xl font-medium">Cart totals</h1>
+          <h1 className="sm:text-4xl text-lg font-medium">Cart totals</h1>
           <div className="flex gap-y-5 items-center w-full justify-between ">
             <h1>SUBTOTAL:</h1>
-            <h1 className="text-4xl font-semibold">${Total}</h1>
+            <h1 className="sm:text-4xl font-semibold">${Total}</h1>
           </div>
           <MainButton>
             <NavLink to="/checkout" className="tracking-wider">PROCEED TO CHECKOUT</NavLink>
@@ -109,7 +109,7 @@ px-20
 flex 
 flex-col
 items-center
-w-fit 
+md:w-fit 
 justify-between 
 space-y-10
 `;

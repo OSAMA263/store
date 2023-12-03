@@ -11,27 +11,30 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import SideDrawer from "./SideDrawer";
 import ScrollTopButton from "./ScrollTopButton";
 import { useUserState } from "../../state/useStates";
+import { useMediaQuery } from "@chakra-ui/react";
+import { CiMenuKebab } from "react-icons/ci";
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const [drawer, setDrawer] = useState("");
-
+  const [isMedium] = useMediaQuery("(max-width: 800px)");
   // which drawer is clicked
   const handleClick = (label) => {
-    label != "customer" && setIsOpen(true);
+    label != "customer" && setDrawerIsOpen(true);
     setDrawer(label);
   };
   useEffect(() => {
-    isOpen
+    drawerIsOpen
       ? (document.body.style.overflowY = "hidden")
       : (document.body.style.overflowY = "");
-  }, [isOpen]);
+  }, [drawerIsOpen]);
 
   // navbar become sticky
   const handleScroll = () => {
     window.scrollY > 10 ? setIsSticky(true) : setIsSticky(false);
   };
+  // scroll to top button
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -49,17 +52,29 @@ const Navbar = () => {
             <img src="logo.webp" height={48} width={48} alt="logo" />
           </NavLink>
           {/* navbar links */}
-          <ul className="flex py-6 gap-x-10">
-            {navigation.map((link) => (
-              <Link link={link} key={"nav" + link.label}></Link>
-            ))}
-          </ul>
+          {!isMedium && (
+            <ul className="flex py-6 gap-x-10">
+              {navigationLinks.map((link) => (
+                <Link link={link} key={"nav" + link.label}></Link>
+              ))}
+            </ul>
+          )}
           {/* navbar icon buttons */}
           <NavbarButtons handleClick={handleClick} />
+          {/* toggle navbar button */}
+          {isMedium && (
+            <button
+              className="text-3xl"
+              aria-label="toggle-navlinks-menu"
+              onClick={() => handleClick("navlinks")}
+            >
+              <CiMenuKebab />
+            </button>
+          )}
         </Nav>
       </Header>
-      {/* DRAWER */}
-      <SideDrawer {...{ isOpen, setIsOpen, drawer, setDrawer }} />
+      {/* DRAWERs */}
+      <SideDrawer {...{ drawerIsOpen, setDrawerIsOpen, drawer, setDrawer }} />
     </>
   );
 };
@@ -83,6 +98,7 @@ const NavbarButtons = ({ handleClick }) => {
             <button
               onClick={() => handleClick(label)}
               className="relative hover:scale-110"
+              aria-label={label === "search" && "search"}
             >
               {label === "cart" ? (
                 <ItemsNum>{cart.length}</ItemsNum>
@@ -129,7 +145,7 @@ const Nav = tw.nav`
 flex
 items-center
 justify-between
-w-[90%]
+w-[95%]
 mx-auto
 `;
 
@@ -161,7 +177,7 @@ const navIcons = [
   { label: "cart", svg: <AiOutlineShoppingCart /> },
 ];
 
-const navigation = [
+export const navigationLinks = [
   { label: "Home", url: "/" },
   { label: "Shop", url: "/shop" },
   { label: "Categories", url: "/categories" },

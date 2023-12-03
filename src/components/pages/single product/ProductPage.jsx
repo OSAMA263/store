@@ -1,6 +1,5 @@
 import { NavLink, useParams } from "react-router-dom";
 import PageHero from "../../PageHero";
-import ProductQuantity from "../../ProductQTY";
 import tw from "tailwind-styled-components";
 import { CardBadges } from "../../CardElements";
 import { ProductBody } from "./sections/ProductFullDetails";
@@ -10,9 +9,8 @@ import ContentContainer from "../../layout/ContentContainer";
 import { SocialContact } from "../../shared/Footer";
 import SwiperImages from "../../Swiper";
 import { SwiperSlide } from "swiper/react";
-import "swiper/css/navigation";
 import "swiper/css/effect-fade";
-import { Pagination, EffectFade, Navigation } from "swiper/modules";
+import { Pagination, EffectFade } from "swiper/modules";
 import LazyImage from "../../LazyImage";
 // fetch single product?
 
@@ -31,10 +29,9 @@ export default function ProductPage() {
       slidesPerView: 1,
       pagination: { clickable: true },
       effect: "fade",
-      modules: [Pagination, EffectFade, Navigation],
-      navigation: true,
+      modules: [Pagination, EffectFade],
     },
-    swiperStyles: "h-[600px] [&_.swiper-pagination]:bg-[#35816e49]",
+    swiperStyles: "md:h-[600px] h-full [&_.swiper-pagination]:!bg-[#19413748]",
   };
 
   return (
@@ -51,7 +48,11 @@ export default function ProductPage() {
             <SwiperImages swiperProps={swiperImgs}>
               {images.map((src) => (
                 <SwiperSlide key={src}>
-                  <LazyImage src={src} styles="h-full w-full" placeholder />
+                  <LazyImage
+                    src={src}
+                    styles="h-full w-full lg:object-fill"
+                    placeholder
+                  />
                 </SwiperSlide>
               ))}
             </SwiperImages>
@@ -68,22 +69,19 @@ export default function ProductPage() {
 
 const ProductDetails = ({ product }) => {
   return (
-    <div className="space-y-8 h-fit">
-      <ProductBody
-        quantity={<ProductQuantity product={product} />}
-        product={product}
-      ></ProductBody>
+    <div className="flex flex-col justify-between">
+      <ProductBody quantity product={product}></ProductBody>
       {/* ---- Social links and product type---- */}
       <ProductInfo>
-        <div className="grid grid-cols-2 w-1/2">
+        <div className="grid grid-cols-2 lg:w-1/2">
           <h1>Brand :</h1>
           <h2>{product.brand}</h2>
         </div>
-        <div className="grid grid-cols-2 w-1/2">
+        <div className="grid grid-cols-2 lg:w-1/2">
           <h1>Category :</h1>
           <h2>{product.category}</h2>
         </div>
-        <div className="grid grid-cols-2 w-1/2 items-end">
+        <div className="grid items-end grid-cols-2 lg:w-1/2">
           <h1>Share on :</h1>
           <SocialContact />
         </div>
@@ -104,7 +102,10 @@ font-medium
 
 const Container = tw.div`
 grid 
-grid-cols-2
+md:grid-cols-2
 grid-rows-auto
-gap-6
+grid-cols-1
+xl:gap-6
+gap-x-2
+gap-y-20
 `;

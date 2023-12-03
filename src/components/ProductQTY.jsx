@@ -24,7 +24,6 @@ export default function ProductQuantity(props) {
   const disableIncrease =
     qty === availableQTY ||
     (foundInCart ? foundInCart.QTY === foundInCart.stock : false);
-
   const disableDecrease = qty === 1 || qty === 0;
 
   return (
@@ -52,7 +51,8 @@ export default function ProductQuantity(props) {
 
 const QuentityWrapper = tw.div`
 [&>button]:text-black
-[&>button]:text-2xl
+[&>button]:sm:text-2xl
+[&>button]:text-lg
 flex 
 items-center 
 justify-between 

@@ -18,8 +18,8 @@ ${({ $isSticky }) =>
   $isSticky ? "opacity-100 visible" : "opacity-0 invisible"}
 fixed
 bg-[#333333]
-w-14
-h-14
+sm:p-4
+p-1
 rounded-full
 bottom-10
 right-10
@@ -31,5 +31,6 @@ text-white
 flex
 justify-center
 items-center
-text-4xl
+sm:text-4xl
+text-2xl
 `;

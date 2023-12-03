@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import MainButton from "../../shared/MainButton";
 import NavigateAnimation from "../../layout/NavigateAnimation";
 import ContentContainer from "../../layout/ContentContainer";
+import tw from "tailwind-styled-components";
 
 export default function About() {
   return (
@@ -23,7 +24,7 @@ export default function About() {
 const MainContent = () => {
   return (
     <>
-      <ContentContainer className="">
+      <ContentContainer>
         <h1 className="text-[#333333] text-center font-semibold">
           SIMPLY OR WHITE
         </h1>
@@ -40,21 +41,21 @@ const MainContent = () => {
 const Brands = () => {
   return (
     <div className="my-32 space-y-20 text-center">
-      <h1 className="text-5xl">Our Brands</h1>
-      <ul className="flex justify-evenly gap-x-20">
+      <h1 className="text-3xl sm:text-5xl">Our Brands</h1>
+      <BrandsGrid>
         {brandsData.map((img, i) => (
-          <li key={i}>
-            <img src={img} loading="lazy" alt={"brand-" + i} />
+          <li className="flex justify-center" key={i}>
+            <img src={img} className="w-24 sm:w-auto" loading="lazy" alt={"brand-" + i} />
           </li>
         ))}
-      </ul>
+      </BrandsGrid>
     </div>
   );
 };
 
 const ContactInfo = () => {
   return (
-    <div className="grid grid-cols-2 gap-x-28">
+    <div className="grid gap-x-4 gap-y-12 md:grid-cols-2">
       <ul className="space-y-6 text-sm font-semibold">
         {contactData.map(({ contact, info }, i) => (
           <Fragment key={i}>
@@ -77,3 +78,15 @@ const ContactInfo = () => {
     </div>
   );
 };
+
+const BrandsGrid=tw.div`
+grid 
+items-center 
+md:grid-cols-6 
+grid-cols-3
+
+space-y-2 
+justify-evenly 
+lg:gap-x-20
+sm:gap-x-10 
+`

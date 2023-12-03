@@ -9,7 +9,7 @@ export default function Video() {
 
   return (
     <Container>
-      <Link className="-left-10 rotate-[-90deg]">link</Link>
+      <Link className="md:-left-6 rotate-[-90deg]">link</Link>
       <Thumbnail>
         <div className="absolute h-full img-wrapper -z-10">
           <LazyImage
@@ -18,12 +18,12 @@ export default function Video() {
             styles="h-full -z-10"
           />
         </div>
-        <button aria-label="open-video-modal" onClick={onOpen} className="hover:[&>svg]:scale-125 text-8xl">
+        <button aria-label="open-video-modal" onClick={onOpen} className="hover:[&>svg]:scale-125 sm:text-8xl text-4xl">
           <AiOutlinePlayCircle />
         </button>
         <h1 className="tracking-widest"> OUR STORY</h1>
       </Thumbnail>
-      <Link className="rotate-[90deg] -right-10">link</Link>
+      <Link className="rotate-[90deg] md:-right-6 right-0">link</Link>
       {/* // modal viedo */}
       <Modal {...{ onOpen, isOpen, onClose }}>
         <div className="relative"></div>
@@ -66,7 +66,8 @@ w-full
 flex 
 flex-col
 gap-y-10
-text-5xl
+sm:text-5xl
+text-4xl
 text-white
 items-center
 justify-center

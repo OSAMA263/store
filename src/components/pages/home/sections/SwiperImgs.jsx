@@ -39,6 +39,7 @@ export default function SwiperImgs() {
           style={{
             backgroundImage: `url('${bg}')`,
             backgroundRepeat: "no-repeat",
+            backgroundPosition:"center"
           }}
           key={i}
         >
@@ -46,10 +47,10 @@ export default function SwiperImgs() {
             {/* text--------------- */}
             <SlideContent>
               <SlideElement custom={{ delay: 1, i, activeSlide }}>
-                <h1>{title}</h1>
+                <h1 className="text-sm sm:text-base">{title}</h1>
               </SlideElement>
               <SlideElement custom={{ delay: 2, i, activeSlide }}>
-                <h1 className="text-5xl">
+                <h1 className="text-2xl sm:text-3xl xl:text-5xl">
                   Feeling relax day, <br /> Enjoy weekend
                 </h1>
               </SlideElement>
@@ -61,7 +62,7 @@ export default function SwiperImgs() {
             </SlideContent>
             {/* img------------- */}
             <motion.div {...ImgAnimation} custom={{ i, activeSlide }}>
-              <LazyImage src={src} styles="h-[440px] w-[480px]" />
+              <LazyImage src={src} styles="xl:h-[460px] xl:w-[440px]" />
             </motion.div>
           </SlideContainer>
         </SwiperSlide>
@@ -119,9 +120,11 @@ space-y-6
 const SlideContainer = tw.div`
 grid
 grid-cols-2
-gap-x-20
+sm:gap-x-20
 h-full
 items-center
-w-[60%]
+2xl:w-[60%]
+lg:w-[80%]
+w-[95%]
 mx-auto
 `;

@@ -7,8 +7,8 @@ import { Autoplay } from "swiper/modules";
 export default function Testimonial() {
   return (
     <Container>
-      <div className="mx-auto w-[60%] space-y-16">
-        <h1 className="text-5xl text-center">Testimonial</h1>
+      <div className="mx-auto 2xl:w-[65%] xl:w-[80%] lg:w-[90%] md:w-[95%] container space-y-16">
+        <h1 className="text-3xl text-center sm:text-5xl">Testimonial</h1>
         <Slider />
       </div>
     </Container>
@@ -44,13 +44,20 @@ const Slider = () => {
 };
 
 const swiperProps = {
-  slidesPerView: 3,
   centeredSlides: true,
   spaceBetween: 40,
   loop: true,
   grabCursor: true,
   autoplay: {
     delay: 2000,
+  },
+  breakpoints: {
+    1024: {
+      slidesPerView: 3,
+    },
+    764: {
+      slidesPerView: 2,
+    },
   },
   modules: [Autoplay],
 };

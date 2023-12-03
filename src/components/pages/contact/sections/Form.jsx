@@ -52,5 +52,6 @@ text-center
 const TheForm = tw.form`
 flex
 flex-col
-gap-y-20
+sm:gap-y-20
+gap-y-6
 `;

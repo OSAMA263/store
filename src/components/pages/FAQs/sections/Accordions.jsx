@@ -14,19 +14,17 @@ export default function Accordions() {
     <ContentContainer>
         {data.map(({ title, Q_A }, i) => (
           <Fragment key={"topic" + i}>
-            <div  className="text-4xl">
+            <div  className="sm:text-2xl lg:text-4xl">
               <h1 className="font-semibold mb-6">{title}</h1>
               {/* questions and answers */}
               {Q_A.map(({ question, answer }, i) => (
                 <Accordion ml={5} allowToggle key={"question" + i}>
                   <AccordionItem mb={2} border={0}>
                     <AccordionButton
-                      py={4}
-                      justifyContent="space-between"
-                      color="#a8a8a8"
-                      fontSize={23}
+                    color="#a8a8a8"
+                      className="lg:!text-2xl !p-4 !justify-between"
                       _hover={{ color: "black" }}
-                      _expanded={{ bg: "#", color: "black" }}
+                      _expanded={{ bg: "#a8a8a8", color: "black" }}
                     >
                       {question}
                       <AccordionIcon/>

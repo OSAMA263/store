@@ -16,7 +16,7 @@ export default function GridSection(){
           </CardContainer>
         ))
       ) : (
-        <span className="h-screen">loading</span>
+        <span className="h-screen">loading?</span>
       )}
     </Grid>
   );

@@ -11,12 +11,12 @@ import { Tooltip } from "@chakra-ui/react";
 export default function Footer() {
   return (
     <Toes>
-      <div className="w-[60%] space-y-6 mx-auto">
+      <div className="2xl:w-[60%] sm:w-[80%] w-[90%] space-y-6 mx-auto">
         {/* footer links & social links  */}
         <Div>
-          <ul className="flex gap-x-8">
+          <ul className="flex flex-wrap gap-x-8">
             {navigation.map(({ label, url }) => (
-              <Link key={"fotter"+url}>
+              <Link key={"footer"+url}>
                 <NavLink to={url}>{label}</NavLink>
               </Link>
             ))}
@@ -25,7 +25,7 @@ export default function Footer() {
         </Div>
         {/*Rights and imgs */}
         <Div>
-          <h1 className="text-lightGray text-sm">
+          <h1 className="text-sm text-lightGray">
             © 2023 lezada. All Rights Reserved |
             <span className="font-bold text-black"> (+20) 123 567890</span> |
             <a href="/"> contact@osama.com</a>
@@ -39,7 +39,7 @@ export default function Footer() {
 
 export const SocialContact = () => {
   return (
-    <div className="flex gap-x-3 text-[#333333] text-2xl">
+    <div className="flex gap-x-4 md:text-black text-[#333333] text-3xl">
       {social.map(({ icon, label, url }, i) => (
         <Tooltip label={label} hasArrow placement="top" key={"social"+i}>
           <a
@@ -68,14 +68,16 @@ font-semibold
 `;
 
 const Div = tw.div`
-flex
+sm:flex
+space-y-10
 justify-between
 items-center
 w-full
 `;
 
 const Toes = tw.footer`
-py-28
+sm:py-28
+py-10
 space-y-4
 bg-[#f8f8f8]
 `;

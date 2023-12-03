@@ -8,10 +8,10 @@ const {pathname}=useLocation()
 
   return (
     <div className="w-[60%] mx-auto flex flex-col justify-center items-center space-y-8 my-28">
-      <span className="text-6xl text-gray-800">
+      <span className="sm:text-6xl text-4xl text-gray-800">
         {pathname === "/wishlist" ? <MdFavorite /> : <FaCartShopping />}
       </span>
-      <h1 className="text-2xl text-lightGray">
+      <h1 className="sm:text-2xl text-lg text-lightGray text-center">
         No items found in
         {pathname === "/wishlist"  ? " wishlist" : " cart"}
       </h1>

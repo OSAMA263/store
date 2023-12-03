@@ -15,18 +15,7 @@ import { useState } from "react";
 import Toast from "../../../Toast";
 
 export default function ProductFullDetails() {
-  const product = {
-    title: "sad",
-    discountPercentage: "sad",
-    price: "sad",
-    description: "sad",
-  };
-  return (
-    <div>
-      <img src="/bg.png" alt="" />
-      <ProductBody product={product} />
-    </div>
-  );
+  return null;
 }
 
 export const ProductBody = ({ quantity, product }) => {
@@ -48,7 +37,7 @@ export const ProductBody = ({ quantity, product }) => {
       {/* product name & price */}
       <div className="flex flex-col font-semibold gap-y-2">
         <Rating rating={rating} />
-        <h2 className="text-3xl">{title}</h2>
+        <h2 className="text-2xl sm:text-3xl">{title}</h2>
         <small>{brand}</small>
         <p>available stocks:{availableQTY}</p>
       </div>
@@ -60,7 +49,7 @@ export const ProductBody = ({ quantity, product }) => {
       </h2>
 
       {/* product description */}
-      <p className="font-medium leading-relaxed text-lightGray">
+      <p className="leading-relaxed sm:font-medium text-lightGray">
         {description}
       </p>
       {/* prodcut button options */}
@@ -100,7 +89,7 @@ const ModalButtons = ({ product, qty, setQty }) => {
     }
   };
 
-  // toast and adding th product and stuff ..yeah
+  // toast and adding th product to the satet and stuff ..yeah
   const handleAddToCart = () => {
     if (foundInCart) {
       if (foundInCart.QTY === foundInCart.stock) {
@@ -151,7 +140,7 @@ const Rating = ({ rating }) => {
         </small>
       ))}
       {stars.slice(rate, stars.length).map((_, i) => (
-        <small key={"unfilled" + i}>
+        <small key={"unfilled star" + i}>
           <IoIosStarOutline />
         </small>
       ))}
@@ -160,7 +149,8 @@ const Rating = ({ rating }) => {
 };
 
 const OptionBtn = tw.button`
-p-3
+sm:p-3
+p-2
 border
 border-gray-500
 `;

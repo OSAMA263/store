@@ -40,7 +40,7 @@ const GridSection = () => {
           </CardContainer>
         ))
       ) : (
-        <span className="h-screen flex justify-center items-center">
+        <span className="flex items-center justify-center h-screen">
           <Spinner />
         </span>
       )}
@@ -49,7 +49,9 @@ const GridSection = () => {
 };
 const Grid = tw.div`
 grid
-grid-cols-4
+lg:grid-cols-4
+sm:grid-cols-3
+grid-cols-2
 gap-x-10
 gap-y-20
 w-[95%]
@@ -65,4 +67,5 @@ const CardContainer = tw.div`
 [&_img]:hover:brightness-50
 [&_.img-border]:hover:border-white
 flex
+
 `;

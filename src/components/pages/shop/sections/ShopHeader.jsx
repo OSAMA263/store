@@ -6,19 +6,31 @@ import {
 } from "react-icons/tfi";
 import { useContext } from "react";
 import ShopContext from "../../../context/ShopContext";
+import { RiMenu5Fill } from "react-icons/ri";
+import { Collapse, useDisclosure } from "@chakra-ui/react";
+import FilterCategories from "./FilterCategories";
 
 export default function ShopHeader() {
-  const {  visibleCards ,products} = useContext(ShopContext);
+  const { visibleCards, products, isSmallDevice,isMdDevice } = useContext(ShopContext);
+  const { isOpen, onToggle } = useDisclosure();
 
   return (
     <Container>
       <Wrapper>
-        <h1 className="text-lightGray">Showing {visibleCards} of {products.length} result</h1>
+        <h1 className="text-lightGray">
+          Showing {visibleCards} of {products.length} result
+        </h1>
         {/* icons on the right */}
         <div className="flex items-center gap-x-10">
-          <FilterPrice />
-          <ChangeGridStyle />
+          <FilterPrice onToggle={onToggle} />
+          {!isSmallDevice && <ChangeGridStyle />}
         </div>
+        {/* collapse filters in mobiles */}
+        {isMdDevice && (
+          <Collapse in={isOpen}>
+            <FilterCategories />
+          </Collapse>
+        )}
       </Wrapper>
     </Container>
   );
@@ -33,7 +45,7 @@ const ChangeGridStyle = () => {
 
   return (
     <div className="flex gap-x-4 ">
-      {icons.map(({ svg, val }) => (
+      {gridIcons.map(({ svg, val }) => (
         <GridBtn htmlFor={val + "column"} key={val}>
           <input
             className="hidden"
@@ -51,10 +63,11 @@ const ChangeGridStyle = () => {
   );
 };
 
-const FilterPrice = () => {
-  const { setShownProducts, shownProducts, products } = useContext(ShopContext);
+const FilterPrice = ({ onToggle }) => {
+  const { setShownProducts, shownProducts, products, isMdDevice } =
+    useContext(ShopContext);
   const cloneproducts = [...products];
-
+  
   const handleFilter = (e) => {
     const filteredProducts =
       e.target.value === "low"
@@ -71,15 +84,37 @@ const FilterPrice = () => {
   };
 
   return (
-    <select className="cursor-pointer" onChange={handleFilter}>
-      <Option value="default">Default</Option>
-      <Option value="recent">recent</Option>
-      <Option value="low-stock">stocks - low to high</Option>
-      <Option value="high">price - high to low</Option>
-      <Option value="low">price - low to high</Option>
-    </select>
+    <>
+      <div className="flex gap-x-4 items-center max-[770px]:justify-evenly w-full">
+        <select className="cursor-pointer" onChange={handleFilter}>
+          <Option value="default">Default</Option>
+          <Option value="recent">recent</Option>
+          <Option value="low-stock">stocks - low to high</Option>
+          <Option value="high">price - high to low</Option>
+          <Option value="low">price - low to high</Option>
+        </select>
+        {isMdDevice && (
+          <FilterButton onClick={onToggle}>
+            <RiMenu5Fill />
+            Filter
+          </FilterButton>
+        )}
+      </div>
+    </>
   );
 };
+
+const FilterButton = tw.button`
+border-b-2
+border-lightGray
+transition-all
+duration-700
+hover:border-black
+flex 
+gap-x-2
+[&>svg]:text-lg
+items-center
+`;
 
 const Option = tw.option`
 checked:!text-black
@@ -96,22 +131,34 @@ hover:[&_svg]:text-black
 const Container = tw.div`
 shadow-sm
 py-6
+max-[800px]:top-10
 top-16
 border-y
-mb-20
 sticky
 z-[66669]
 bg-white
+sm:text-base
+text-sm
+w-full
+flex 
+justify-center
 `;
 
 const Wrapper = tw.div`
-w-[60%]
-mx-auto
-flex
+2xl:w-[65%]
+xl:w-[80%]
+lg:w-[90%]
+md:w-[95%]
+mx-4
+lg:flex
+text-center
 justify-between
+w-full
 items-center
+space-y-4
 `;
-const icons = [
+
+const gridIcons = [
   { svg: <TfiLayoutGrid3Alt />, val: 3 },
   { svg: <TfiLayoutGrid4Alt />, val: 4 },
   { svg: <TfiMenuAlt />, val: 1 },
