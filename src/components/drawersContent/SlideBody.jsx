@@ -108,10 +108,10 @@ py-4
 const Container = tw.div`
 drawer-scrollbar
 overflow-y-scroll
-border-b
 divide-y-[1px]
 mb-auto
 pe-1
+h-full
 `;
 
 const NavLinks=tw.ul`
