@@ -51,7 +51,7 @@ export default function SwiperImgs() {
               </SlideElement>
               <SlideElement custom={{ delay: 2, i, activeSlide }}>
                 <h1 className="text-2xl sm:text-3xl xl:text-5xl">
-                  Feeling relax day, <br /> Enjoy weekend
+                  Feeling relax day, <br className="max-[600px]:none" /> Enjoy weekend
                 </h1>
               </SlideElement>
               <SlideElement custom={{ delay: 3, i, activeSlide }}>
