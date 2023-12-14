@@ -62,7 +62,7 @@ export default function SwiperImgs() {
             </SlideContent>
             {/* img------------- */}
             <motion.div {...ImgAnimation} custom={{ i, activeSlide }}>
-              <LazyImage src={src} styles="xl:h-[460px] xl:w-[440px]" />
+              <img alt={src} src={src} className="xl:h-[460px] xl:w-[440px]" />
             </motion.div>
           </SlideContainer>
         </SwiperSlide>
