@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useUserState } from "../state/useStates";
 import Toast from "./Toast";
+import { useNavigate } from "react-router";
 
 export default function CardElements({ product }) {
   return (
@@ -32,22 +33,28 @@ export const CardBadges = ({ discount, isNew }) => {
 export const CardOptions = ({ product }) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const { wishlist } = useUserState();
-  const inWishlist = wishlist.find((pro) => pro.id === Number(product.id));
+  const navigate = useNavigate();
+  const { auth } = useUserState();
+  const inWishlist = auth.wishlist.find((pro) => pro.id === Number(product.id));
+  const [disableModal] = useMediaQuery("(max-width: 714px)", { ssr: false });
+
   const toastProps = {
     title: product.title,
     state: "wishlist",
     action: "add",
   };
-  const [disableModal] = useMediaQuery("(max-width: 714px)", { ssr: false });
 
   const handleWishlist = () => {
-    if (inWishlist) {
-      Toast({ ...toastProps, action: "remove" });
-      dispatch(removeFromWishlist(product.id));
+    if (auth.isLoggedIn) {
+      if (inWishlist) {
+        Toast({ ...toastProps, action: "remove" });
+        dispatch(removeFromWishlist(product.id));
+      } else {
+        Toast({ ...toastProps, action: "add" });
+        dispatch(addToWishlist(product));
+      }
     } else {
-      Toast({ ...toastProps, action: "add" });
-      dispatch(addToWishlist(product));
+      navigate("/customer");
     }
   };
 

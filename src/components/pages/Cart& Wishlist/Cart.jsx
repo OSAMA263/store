@@ -16,9 +16,9 @@ import { NavLink } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 export default function Cart() {
-  const { cart } = useUserState();
+  const { auth } = useUserState();
   const Total = Math.floor(
-    cart.reduce((curr, pro) => curr + pro.price * pro.QTY, 0)
+    auth.cart.reduce((curr, pro) => curr + pro.price * pro.QTY, 0)
   ).toLocaleString("en");
 
   return (
@@ -32,7 +32,7 @@ export default function Cart() {
             TBodyContent,
             THeadContent,
             TFootContent,
-            products: cart,
+            products: auth.cart,
           }}
         />
         {/* GO TO CHECKOUT PRODUCTS */}

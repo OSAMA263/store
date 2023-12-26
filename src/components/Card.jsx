@@ -3,7 +3,7 @@ import CardElements from "./CardElements";
 import { ProductBody } from "./pages/single product/sections/ProductFullDetails";
 import { addToCart } from "../state/slices/client/UsersSlice";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useUserState } from "../state/useStates";
 import LazyImage from "./LazyImage";
 import { motion } from "framer-motion";
@@ -50,7 +50,7 @@ export const ItemImage = (props) => {
       {/* ------------images------ */}
       <div
         className={`${
-          gridCols !== 1 ? "h-[300px]":"lg:h-[500px] h-[400px]"
+          gridCols !== 1 ? "h-[300px]" : "lg:h-[500px] h-[400px]"
         } cursor-pointer relative`}
       >
         <NavLink className="[&_img]:object-cover" to={"/shop/" + productID}>
@@ -79,10 +79,11 @@ export const ItemImage = (props) => {
 export const ItemDetails = (props) => {
   const { title, orignalPrice, price, product } = props;
   const dispatch = useDispatch();
-  const { cart } = useUserState();
+  const { auth } = useUserState();
   const [btnText, setBtnText] = useState("");
+  const navigate = useNavigate();
 
-  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
+  const foundInCart = auth.cart.find((pro) => pro.id === Number(product.id));
   const toastProps = {
     title: product.title,
     state: "cart",
@@ -99,20 +100,25 @@ export const ItemDetails = (props) => {
     } else {
       setBtnText("+ Add to cart");
     }
-  }, [foundInCart, cart]);
+  }, [foundInCart, auth.cart]);
+
   // handle add to cart and the toast
   const handleAddToCart = () => {
-    if (foundInCart) {
-      if (foundInCart.QTY === foundInCart.stock) {
-        Toast({ ...toastProps, action: "maxmum" });
-        return;
+    if (auth.isLoggedIn) {
+      if (foundInCart) {
+        if (foundInCart.QTY === foundInCart.stock) {
+          Toast({ ...toastProps, action: "maxmum" });
+          return;
+        } else {
+          dispatch(addToCart({ product }));
+          Toast({ ...toastProps, action: "added" });
+        }
       } else {
         dispatch(addToCart({ product }));
-        Toast({ ...toastProps, action: "added" });
+        Toast({ ...toastProps });
       }
     } else {
-      dispatch(addToCart({ product }));
-      Toast({ ...toastProps });
+      navigate("/customer");
     }
   };
 
@@ -132,7 +138,9 @@ export const ItemDetails = (props) => {
       </NameWrapper>
       {/* price */}
       <p className="flex items-center space-x-2 font-bold">
-        <small className="line-through opacity-50">{orignalPrice.toLocaleString("en")}</small>
+        <small className="line-through opacity-50">
+          {orignalPrice.toLocaleString("en")}
+        </small>
         <small>{price.toLocaleString("en")}</small>
       </p>
     </>

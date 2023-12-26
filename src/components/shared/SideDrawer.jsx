@@ -9,12 +9,11 @@ import React, { useEffect } from "react";
 import { SocialContact } from "./Footer";
 
 function SideDrawer(props) {
-  const { drawerIsOpen, setDrawerIsOpen, drawer, setDrawer } = props;
+  const { drawerIsOpen, setDrawerIsOpen, drawer } = props;
   const { pathname } = useLocation();
 
   const handleCloseDrawer = () => {
     setDrawerIsOpen(false);
-    setDrawer("");
   };
 
   useEffect(() => {

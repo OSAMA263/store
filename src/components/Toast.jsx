@@ -29,7 +29,6 @@ export default function Toast(props) {
     isClosable: true,
     duration: 3000,
     position: "bottom-left",
-    variant: "subtle",
     icon: state==="cart" ? <FaCartShopping />: <MdFavorite />
   };
   return toast(toastProps);

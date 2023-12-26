@@ -18,11 +18,11 @@ export default function Accordions() {
               <h1 className="font-semibold mb-6">{title}</h1>
               {/* questions and answers */}
               {Q_A.map(({ question, answer }, i) => (
-                <Accordion ml={5} allowToggle key={"question" + i}>
+                <Accordion  allowToggle key={"question" + i}>
                   <AccordionItem mb={2} border={0}>
                     <AccordionButton
                     color="#a8a8a8"
-                      className="lg:!text-2xl !p-4 !justify-between"
+                      className="lg:!text-2xl md:!p-4 text-start !items-start !justify-between"
                       _hover={{ color: "black" }}
                       _expanded={{ bg: "#a8a8a8", color: "black" }}
                     >
@@ -30,7 +30,7 @@ export default function Accordions() {
                       <AccordionIcon/>
                     </AccordionButton>
                     <AccordionPanel bg="#f8f8f8b9">
-                      <small className="text-base font-semibold">
+                      <small className="md:text-base md:font-semibold">
                         {answer}
                       </small>
                     </AccordionPanel>

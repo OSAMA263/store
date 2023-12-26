@@ -2,9 +2,9 @@ import tw from "tailwind-styled-components";
 import { useUserState } from "../../state/useStates";
 
 export default function SlideCartFooter({ children }) {
-  const { cart } = useUserState();
+  const { auth } = useUserState();
 
-  const TOTAL = cart.reduce((acc, pro) => acc + pro.price * pro.QTY,0).toLocaleString("en");
+  const TOTAL = auth.cart.reduce((acc, pro) => acc + pro.price * pro.QTY,0).toLocaleString("en");
   return (
     <>
       <Container>

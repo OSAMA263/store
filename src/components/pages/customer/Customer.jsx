@@ -12,7 +12,6 @@ export default function Customer() {
       </PageHero>
       {/* forms */}
       <ContentContainer>
-        im still working on it mate:)
         <Container>
           <LoginForm />
           <RegisterForm />
@@ -32,8 +31,8 @@ const LoginForm = () => {
 
   return (
     <Form {...formProps}>
-      <input name="name" type="text" placeholder="Username or email address" />
-      <input name="password" type="text" placeholder="Password" />
+      <input name="name_email" type="text" placeholder="Username or email address" />
+      <input name="password" type="password" placeholder="Password" />
     </Form>
   );
 };
@@ -50,14 +49,14 @@ const RegisterForm = () => {
     <Form {...formProps}>
       <input name="name" type="text" placeholder="Username" />
       <input name="email" type="text" placeholder="Email address" />
-      <input name="password" type="text" placeholder="Password" />
+      <input name="password" type="password" placeholder="Password" />
     </Form>
   );
 };
 
 const Container = tw.div`
 grid 
-md:grid-cols-2
+lg:grid-cols-2
 gap-y-8
 lg:gap-x-20
 gap-x-3

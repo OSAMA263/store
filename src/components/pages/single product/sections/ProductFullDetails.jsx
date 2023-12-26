@@ -13,6 +13,7 @@ import { useUserState } from "../../../../state/useStates";
 import ProductQuantity from "../../../ProductQTY";
 import { useState } from "react";
 import Toast from "../../../Toast";
+import { useNavigate } from "react-router";
 
 export default function ProductFullDetails() {
   return null;
@@ -21,13 +22,13 @@ export default function ProductFullDetails() {
 export const ProductBody = ({ quantity, product }) => {
   const { title, discountPercentage, price, description, rating, brand } =
     product;
-  const { cart } = useUserState();
+  const { auth } = useUserState();
   const [qty, setQty] = useState(1);
   const orignalPrice = Math.floor(
     price / (1 - Math.floor(discountPercentage) / 100)
   );
 
-  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
+  const foundInCart = auth.cart.find((pro) => pro.id === Number(product.id));
   const availableQTY = foundInCart
     ? foundInCart.stock - (foundInCart.QTY ?? 0)
     : product.stock;
@@ -69,9 +70,11 @@ export const ProductBody = ({ quantity, product }) => {
 // modal action buttons--------
 const ModalButtons = ({ product, qty, setQty }) => {
   const dispatch = useDispatch();
-  const { cart, wishlist } = useUserState();
-  const foundInCart = cart.find((pro) => pro.id === Number(product.id));
-  const inWishlist = wishlist.find((pro) => pro.id === Number(product.id));
+  const { auth } = useUserState();
+  const navigate = useNavigate();
+  const foundInCart = auth.cart.find((pro) => pro.id === Number(product.id));
+  const inWishlist = auth.wishlist.find((pro) => pro.id === Number(product.id));
+
   const toastProps = {
     title: product.title,
     state: "cart",
@@ -80,28 +83,36 @@ const ModalButtons = ({ product, qty, setQty }) => {
   };
 
   const handleWishlist = () => {
-    if (inWishlist) {
-      Toast({ ...toastProps, state: "wishlist", action: "remove" });
-      dispatch(removeFromWishlist(product.id));
+    if (auth.isLoggedIn) {
+      if (inWishlist) {
+        Toast({ ...toastProps, state: "wishlist", action: "remove" });
+        dispatch(removeFromWishlist(product.id));
+      } else {
+        Toast({ ...toastProps, state: "wishlist", action: "add" });
+        dispatch(addToWishlist(product));
+      }
     } else {
-      Toast({ ...toastProps, state: "wishlist", action: "add" });
-      dispatch(addToWishlist(product));
+      navigate("/customer");
     }
   };
 
   // toast and adding th product to the satet and stuff ..yeah
   const handleAddToCart = () => {
-    if (foundInCart) {
-      if (foundInCart.QTY === foundInCart.stock) {
-        Toast({ ...toastProps, action: "maxmum" });
-        return;
+    if (auth.isLoggedIn) {
+      if (foundInCart) {
+        if (foundInCart.QTY === foundInCart.stock) {
+          Toast({ ...toastProps, action: "maxmum" });
+          return;
+        } else {
+          dispatch(addToCart({ product, qty }));
+          Toast({ ...toastProps, action: "added" });
+        }
       } else {
         dispatch(addToCart({ product, qty }));
-        Toast({ ...toastProps, action: "added" });
+        Toast({ ...toastProps });
       }
     } else {
-      dispatch(addToCart({ product, qty }));
-      Toast({ ...toastProps });
+      navigate("/customer");
     }
     setQty(1);
   };

@@ -12,7 +12,8 @@ import { NavLink } from "react-router-dom";
 import { navigationLinks } from "../shared/Navbar";
 
 export default function SlideBody({ drawer }) {
-  const { cart, wishlist } = useUserState();
+  const { auth } = useUserState();
+  const {cart,wishlist}=auth
   const dispatch = useDispatch();
   const [products, setProducts] = useState([]);
 

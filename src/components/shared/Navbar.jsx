@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import {
   AiOutlineSearch,
@@ -11,8 +11,16 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 import SideDrawer from "./SideDrawer";
 import ScrollTopButton from "./ScrollTopButton";
 import { useUserState } from "../../state/useStates";
-import { useMediaQuery } from "@chakra-ui/react";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverContent,
+  PopoverTrigger,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { CiMenuKebab } from "react-icons/ci";
+import { useDispatch } from "react-redux";
+import { LogOut } from "../../state/slices/client/UsersSlice";
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -74,19 +82,20 @@ const Navbar = () => {
         </Nav>
       </Header>
       {/* DRAWERs */}
-      <SideDrawer {...{ drawerIsOpen, setDrawerIsOpen, drawer, setDrawer }} />
+      <SideDrawer {...{ drawerIsOpen, setDrawerIsOpen, drawer }} />
     </>
   );
 };
 
 const NavbarButtons = ({ handleClick }) => {
-  const { wishlist, cart } = useUserState();
+  const { auth } = useUserState();
+  const { wishlist, cart, isLoggedIn, name } = auth;
 
   return (
     <div className="flex text-xl gap-x-6">
       {navIcons.map(({ label, svg }, i) => (
         <Fragment key={"navicon" + i}>
-          {label === "customer" ? (
+          {label === "customer" && !isLoggedIn ? (
             <NavLink
               className="hover:scale-110"
               aria-label={label}
@@ -94,6 +103,8 @@ const NavbarButtons = ({ handleClick }) => {
             >
               {svg}
             </NavLink>
+          ) : label === "customer" && isLoggedIn ? (
+            <PopoverCustomer icon={svg} authName={name} />
           ) : (
             <button
               onClick={() => handleClick(label)}
@@ -111,6 +122,36 @@ const NavbarButtons = ({ handleClick }) => {
         </Fragment>
       ))}
     </div>
+  );
+};
+
+// customer popover
+const PopoverCustomer = ({ icon, authName }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(LogOut());
+    navigate("/customer");
+  };
+
+  return (
+    <Popover placement="bottom">
+      <PopoverTrigger>
+        <button>{icon}</button>
+      </PopoverTrigger>
+      <PopoverContent bg="#dfdfdd" w="fit-content" px={6} py={2} fontSize={18}>
+        <div className="space-y-1">
+          <PopoverArrow bg="#dfdfdd" />
+          <h2 className="text-lg text-[#335f55] font-semibold"> {authName}</h2>
+          <h1 className="text-sm text-[#a1a1af]">
+            <button onClick={handleLogout} className="hover:text-black">
+              logout?
+            </button>
+          </h1>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };
 

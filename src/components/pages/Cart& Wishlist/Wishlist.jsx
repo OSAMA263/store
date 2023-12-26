@@ -10,7 +10,7 @@ import { addToCart } from "../../../state/slices/client/UsersSlice";
 import Toast from "../../Toast";
 
 export default function Wishlist() {
-  const { wishlist } = useUserState();
+  const { auth } = useUserState();
 
   return (
     <NavigateAnimation>
@@ -23,7 +23,7 @@ export default function Wishlist() {
             TBodyContent,
             THeadContent,
             TFootContent,
-            products: wishlist,
+            products: auth.wishlist,
           }}
         />
       </ContentContainer>
@@ -41,8 +41,8 @@ const THeadContent = () => {
 };
 const TBodyContent = ({ product }) => {
   const dispatch = useDispatch();
-  const { cart } = useUserState();
-  const productInCart = cart.find((pro) => pro.id === product.id);
+  const { auth } = useUserState();
+  const productInCart = auth.cart.find((pro) => pro.id === product.id);
   const toastProps = {
     title: product.title,
     state: "cart",

@@ -11,8 +11,8 @@ const useCategoriesState = () => {
 };
 
 const useUserState = () => {
-  const { cart, wishlist, isLoggedIn } = useSelector((state) => state.user);
-  return { cart, wishlist, isLoggedIn };
+  const { users, auth } = useSelector((state) => state.user);
+  return { users, auth };
 };
 
 export { useProductsState, useCategoriesState, useUserState };

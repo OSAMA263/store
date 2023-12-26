@@ -25,11 +25,11 @@ export default function Checkout() {
 // form niputs-----------------
 const Form = () => {
   const dispatch = useDispatch();
-const navigate=useNavigate()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     dispatch(clearCart());
-    navigate("/")
+    navigate("/");
   };
   return (
     <div>
@@ -38,7 +38,10 @@ const navigate=useNavigate()
       </h1>
       <form onSubmit={handleSubmit} className="space-y-10">
         {formInputs.map((inp, i) => (
-          <div className="space-y-4 text-lg sm:space-y-0 sm:flex gap-x-4" key={i}>
+          <div
+            className="space-y-4 text-lg sm:space-y-0 sm:flex gap-x-4"
+            key={i}
+          >
             {inp.map(({ name, label, type }) => (
               <div className="flex flex-col w-full" key={name}>
                 <label
@@ -68,8 +71,8 @@ const navigate=useNavigate()
 };
 // user products information
 const CheckoutCart = () => {
-  const { cart } = useUserState();
-  const TOTAL = cart
+  const { auth } = useUserState();
+  const TOTAL = auth.cart
     .reduce((acc, pro) => acc + Math.floor(pro.price * pro.QTY), 0)
     .toLocaleString("en");
 
@@ -84,7 +87,7 @@ const CheckoutCart = () => {
           <h1>Total</h1>
         </div>
         {/* products names and prices */}
-        {cart.map(({ title, QTY, price }) => (
+        {auth.cart.map(({ title, QTY, price }) => (
           <div className="text-sm" key={title}>
             <h1 className="font-medium capitalize text-lightGray">
               {title} <small className="font-bold text-black"> x{QTY}</small>
