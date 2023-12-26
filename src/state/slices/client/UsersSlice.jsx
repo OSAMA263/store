@@ -39,7 +39,7 @@ const UserSlice = createSlice({
       const findProduct = auth.cart.find((pro) => pro.id === payload);
       findProduct.QTY -= 1;
     },
-    clearWishlist: (auth) => {
+    clearWishlist: ({auth}) => {
       auth.wishlist = [];
     },
     // CREATE A USER ACCOUNT
