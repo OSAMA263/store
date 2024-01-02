@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import ShopContext from "./ShopContext";
-import { useDispatch } from "react-redux";
 import { useProductsState } from "../../state/useStates";
-import { fetchProducts } from "../../state/slices/client/ProductsSlice";
 import { useMediaQuery } from "@chakra-ui/react";
 
 export default function ShopContextProvider({ children }) {
-  const dispatch = useDispatch();
   const products = useProductsState();
   const [gridCols, setGridCols] = useState(4);
   const [shownProducts, setShownProducts] = useState([...products]);
@@ -23,12 +20,9 @@ export default function ShopContextProvider({ children }) {
     isSmallDevice ? setGridCols(1) : setGridCols(4);
   }, [isSmallDevice]);
 
-  // store the products in the ls
-  // why?so we dont have to fetch the prodcut every time the user inther the fuckin page..iguess
+  // update the displayed products
   useEffect(() => {
-    !localStorage.products && dispatch(fetchProducts());
-    localStorage.setItem("products", JSON.stringify(products));
-    setShownProducts([...products]);
+    localStorage.products && setShownProducts([...products]);
   }, [products]);
 
   return (

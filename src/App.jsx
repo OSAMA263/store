@@ -6,21 +6,31 @@ import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer";
 import { AnimatePresence } from "framer-motion";
 import LoadingPage from "./components/shared/LoadingPage";
-import { useUserState } from "./state/useStates";
+import { useProductsState, useUserState } from "./state/useStates";
 import { UpdateUsers } from "./state/slices/client/UsersSlice";
+import { fetchProducts } from "./state/slices/client/ProductsSlice";
 
 function App() {
   const location = useLocation();
   const { auth, users } = useUserState();
+  const products = useProductsState();
   const dispatch = useDispatch();
-  // get th prodcut in cart & wishlist from the localStoagre
+
+  // fetch products and store them in the ls
+  // why?so we dont have to fetch the prodcut every time the user inther the fuckin page..iguess
+  useEffect(() => {
+    !localStorage.products && dispatch(fetchProducts());
+    localStorage.setItem("products", JSON.stringify(products));
+  }, [products]);
+
+  // get th logged in user cart & wishlist
   useEffect(() => {
     auth.isLoggedIn && dispatch(UpdateUsers(auth));
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("auth", JSON.stringify(auth));
   }, [auth, users]);
 
-  // scroll top top when between routing
+  // scroll top top during routing
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location.pathname]);
@@ -31,7 +41,7 @@ function App() {
       <Suspense fallback={<LoadingPage />}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            {components.map(({ path, component }) => (
+            {pages.map(({ path, component }) => (
               <Route key={path} path={path} element={component} />
             ))}
           </Routes>
@@ -59,8 +69,9 @@ const Wishlist = lazy(() =>
 );
 const Cart = lazy(() => import("./components/pages/Cart& Wishlist/Cart"));
 const Checkout = lazy(() => import("./components/pages/checkout/Checkout"));
+const Dashboard = lazy(() => import("./components/pages/dashboard/Dashboard"));
 
-const components = [
+const pages = [
   { path: "/", component: <Home /> },
   { path: "/shop", component: <Shop /> },
   { path: "/categories", component: <Categories /> },
@@ -68,6 +79,7 @@ const components = [
   { path: "/contact-us", component: <Contact /> },
   { path: "/FAQ", component: <FQA /> },
   { path: "/customer", component: <Customer /> },
+  { path: "/customer/dashboard", component: <Dashboard /> },
   { path: "/shop/:productID", component: <ProductPage /> },
   { path: "/cart", component: <Cart /> },
   { path: "/wishlist", component: <Wishlist /> },

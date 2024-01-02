@@ -7,7 +7,6 @@ import { swiperImgs } from "../data";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import LazyImage from "../../../LazyImage";
 
 export default function SwiperImgs() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -18,7 +17,7 @@ export default function SwiperImgs() {
       speed: 1500,
       allowTouchMove: false,
       autoplay: {
-        delay: 5000,
+        delay: 4000,
       },
       pagination: { clickable: true },
       navigation: {

@@ -171,15 +171,17 @@ const Link = ({ link }) => {
 };
 // ---------tailwind
 const Header = tw.header`
-${({ $isSticky }) => ($isSticky ? "!bg-white shadow" : "backdrop-blur-sm")}
+${({ $isSticky }) =>
+  $isSticky
+    ? "!bg-white border-b-gray-300"
+    : "backdrop-blur-sm border-b-transparent"}
 transition-all
 duration-700
 fixed
 border-b
-border-b-gray-300
 w-full
 z-[69696969]
-
+shadow
 `;
 
 const Nav = tw.nav`
