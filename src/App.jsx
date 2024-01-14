@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import LoadingPage from "./components/shared/LoadingPage";
 import { useProductsState, useUserState } from "./state/useStates";
 import { UpdateUsers } from "./state/slices/client/UsersSlice";
-import { fetchProducts } from "./state/slices/client/ProductsSlice";
+import { fetchProducts } from "./state/slices/admin/ProductsSlice";
 
 function App() {
   const location = useLocation();
@@ -16,8 +16,8 @@ function App() {
   const products = useProductsState();
   const dispatch = useDispatch();
 
-  // fetch products and store them in the ls
-  // why?so we dont have to fetch the prodcut every time the user inther the fuckin page..iguess
+  // fetch products and store them in the LS
+  // why?so we dont have to fetch the prodcut every time the user enther the fuckin page..iguess
   useEffect(() => {
     !localStorage.products && dispatch(fetchProducts());
     localStorage.setItem("products", JSON.stringify(products));

@@ -49,7 +49,6 @@ select,
 input {
   outline: none;
   padding: 4px;
-  text-transform: capitalize;
   color: #7e7e7e;
   border-bottom: 2px solid gray;
 }

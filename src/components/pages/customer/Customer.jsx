@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import PageHero from "../../PageHero";
 import ContentContainer from "../../layout/ContentContainer";
 import NavigateAnimation from "../../layout/NavigateAnimation";
@@ -12,6 +13,7 @@ export default function Customer() {
       </PageHero>
       {/* forms */}
       <ContentContainer>
+        <NavLink to="dashboard" className="text-blue-900 underline">Admin dashboard</NavLink>
         <Container>
           <LoginForm />
           <RegisterForm />

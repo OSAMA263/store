@@ -4,11 +4,9 @@ import { FaPencilRuler, FaUsers } from "react-icons/fa";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { BsFiles } from "react-icons/bs";
 import Products from "./panels/Products";
-import { useState } from "react";
 
 export default function Dashboard() {
   // build the table with futures
-  // display the products from LS
   // add the filtering ? and the actions
 
   return (

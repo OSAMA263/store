@@ -11,7 +11,7 @@ const UserSlice = createSlice({
 
   name: "user",
   reducers: {
-    // ADD PRODUCT TO CART
+    // CART ACTIONS------
     addToCart: ({ auth }, { payload }) => {
       const { product, qty = 1 } = payload;
       // check if the product already in the fuckin cart
@@ -20,27 +20,26 @@ const UserSlice = createSlice({
         ? (findedProduct.QTY += qty)
         : auth.cart.push({ ...product, QTY: qty });
     },
-    // REMOVE PRODUCT FROM THE CART
     removeFromCart: ({ auth }, { payload }) => {
       auth.cart = auth.cart.filter((product) => product.id !== payload);
     },
     clearCart: ({ auth }) => {
       auth.cart = [];
     },
-    // wishlist actions---------
+    // WISHLIST ACTIONS---------
     addToWishlist: ({ auth }, { payload }) => {
       auth.wishlist.push(payload);
     },
     removeFromWishlist: ({ auth }, { payload }) => {
       auth.wishlist = auth.wishlist.filter((product) => product.id !== payload);
     },
+    clearWishlist: ({auth}) => {
+      auth.wishlist = [];
+    },
     // DECREACE QUANTITY PRODUCT IN THE CART
     decreaseProductQTY: ({ auth }, { payload }) => {
       const findProduct = auth.cart.find((pro) => pro.id === payload);
       findProduct.QTY -= 1;
-    },
-    clearWishlist: ({auth}) => {
-      auth.wishlist = [];
     },
     // CREATE A USER ACCOUNT
     CreateUser: ({ users }, { payload }) => {

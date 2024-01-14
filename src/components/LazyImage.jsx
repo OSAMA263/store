@@ -4,15 +4,15 @@ import tw from "tailwind-styled-components";
 import "react-lazy-load-image-component/src/effects/black-and-white.css";
 
 export default function LazyImage(props) {
-  const { effect,src, placeholder,styles } = props;
+  const { effect, src, alt = src, placeholder, styles } = props;
 
   return (
     <LazyLoadImage
       src={src}
-      alt={src}
+      alt={alt}
       loading="lazy"
-      placeholder={placeholder&&<Loader/>}
-      effect={effect&&"black-and-white"}
+      placeholder={placeholder && <Loader />}
+      effect={effect && "black-and-white"}
       className={`${styles} `}
     />
   );
@@ -21,11 +21,7 @@ export default function LazyImage(props) {
 const Loader = () => {
   return (
     <Container>
-      <Spinner
-        speed=".4s"
-        thickness="2px"
-        emptyColor="#000000"
-      />
+      <Spinner speed=".4s" thickness="2px" emptyColor="#000000" />
     </Container>
   );
 };

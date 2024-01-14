@@ -23,6 +23,7 @@ function Card({ product, gridCols }) {
         gridCols={gridCols}
         productID={product.id}
         thumbnail={{ img1: thumbnail, img2: product.images[1] }}
+        title={title}
       >
         <CardElements product={product} />
       </ItemImage>
@@ -39,8 +40,7 @@ function Card({ product, gridCols }) {
 }
 
 export const ItemImage = (props) => {
-  const { gridCols, thumbnail, children, productID } = props;
-
+  const { gridCols, thumbnail, children, productID ,title} = props;
   return (
     <div
       className={`${
@@ -63,6 +63,7 @@ export const ItemImage = (props) => {
           <div className="absolute top-0 w-full h-full transition-all duration-700 opacity-0 img-2">
             <LazyImage
               src={thumbnail.img2}
+              alt={title}
               styles="w-full !h-full"
               placeholder
               effect
