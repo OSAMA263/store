@@ -6,8 +6,8 @@ const TableItems = (props) => {
   return (
     <TableContainer>
       <Table
-        variant="simple"
-        className="[&_td]:!text-start [&_th]:!text-start [&_input]:!p-0"
+        variant="simple" 
+        className="[&_input]:!p-0"
       >
         <TableCaption>
           <div className="flex items-center justify-center gap-x-4">
@@ -50,14 +50,9 @@ const useItemsPerPage = ({ data, itemsPerPage = 15 }) => {
   const [currPage, setCurrPage] = useState(1);
   const lastIndex = currPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
-
   const [displayedData, setDisplayedData] = useState(
     data.slice(firstIndex, lastIndex)
   );
-  // update displayed items in page in page
-  useEffect(() => {
-    setDisplayedData(data.slice(firstIndex, lastIndex));
-  }, [data, currPage]);
 
   // checkboxes
   const [checkedItems, setCheckedItems] = useState(
@@ -79,14 +74,13 @@ const useItemsPerPage = ({ data, itemsPerPage = 15 }) => {
     setCheckedItems(updatedCheckedItems);
   };
   // reset selected items if user used pagination
+  // update displayed items in page in page
   useEffect(() => {
     setCheckedItems(Array(itemsPerPage).fill(false));
+    setDisplayedData(data.slice(firstIndex, lastIndex));
   }, [currPage, data]);
-
   return {
     currPage,
-    displayedData,
-    setDisplayedData,
     pages,
     setCurrPage,
     checkedItems,
@@ -95,8 +89,8 @@ const useItemsPerPage = ({ data, itemsPerPage = 15 }) => {
     isIndeterminate,
     itemsPerPage,
     checkboxHandler,
+    displayedData,
   };
 };
 
 export { useItemsPerPage, TableItems };
-

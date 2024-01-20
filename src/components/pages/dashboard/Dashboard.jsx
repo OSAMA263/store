@@ -2,8 +2,8 @@ import tw from "tailwind-styled-components";
 import NavigateAnimation from "../../layout/NavigateAnimation";
 import { FaPencilRuler, FaUsers } from "react-icons/fa";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
-import { BsFiles } from "react-icons/bs";
 import Products from "./panels/Products";
+import Customers from "./panels/Customers";
 
 export default function Dashboard() {
   // build the table with futures
@@ -37,8 +37,9 @@ export default function Dashboard() {
             <TabPanel>
               <Products />
             </TabPanel>
-            <TabPanel>working on it mate</TabPanel>
-            <TabPanel>working on it mate</TabPanel>
+            <TabPanel>
+              <Customers />
+            </TabPanel>
           </TabPanels>
         </Tabs>
       </ContentSection>
@@ -91,6 +92,5 @@ relative
 
 const tabs = [
   { title: "products", icon: <FaPencilRuler /> },
-  { title: "orders", icon: <BsFiles /> },
   { title: "customers", icon: <FaUsers /> },
 ];

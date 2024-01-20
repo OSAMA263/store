@@ -13,11 +13,15 @@ import {
   useDisclosure,
   Input,
   Button,
-  AlertDialogHeader,
-  AlertDialogFooter,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverFooter,
+  PopoverBody,
 } from "@chakra-ui/react";
 import { useItemsPerPage, TableItems } from "../TablePagination";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   ADD,
@@ -30,7 +34,6 @@ export default function Products() {
   const dispatch = useDispatch();
   const products = useProductsState();
   const {
-    displayedData,
     checkedItems,
     setCheckedItems,
     allChecked,
@@ -40,11 +43,11 @@ export default function Products() {
     currPage,
     pages,
     setCurrPage,
+    displayedData,
   } = useItemsPerPage({
     data: products,
   });
 
-  const [clonedItems, setClonedItems] = useState([...displayedData]);
   // update item values
   const [edit, setEdit] = useState({});
   const updateItemHandler = (e) => {
@@ -57,13 +60,9 @@ export default function Products() {
       setEdit({});
     }
   };
-  // update the the displayedData after an action
-  useEffect(() => {
-    setClonedItems([...displayedData]);
-  }, [currPage, displayedData]);
   return (
-    <div className="my-2">
-      <TableOptions {...{ clonedItems, checkedItems, products }} />
+    <div className="my-2 [&_td]:!text-start [&_th]:!text-start ">
+      <TableOptions {...{ displayedData, checkedItems, products }} />
       <TableItems {...{ currPage, pages, setCurrPage }}>
         <Thead>
           <Tr>
@@ -86,13 +85,14 @@ export default function Products() {
           </Tr>
         </Thead>
         <Tbody>
-          {clonedItems.map(({ thumbnail, title, price, category, id }, i) => (
+          {displayedData.map(({ thumbnail, title, price, category, id }, i) => (
             <Tr key={"product" + id}>
               <Td>
                 <Checkbox
                   borderColor="blackAlpha.400"
                   className="[&_*]:!shadow-none"
                   isChecked={checkedItems[i]}
+                  name={"checkbox" + id}
                   onChange={(e) => {
                     checkboxHandler(e, i);
                   }}
@@ -107,6 +107,7 @@ export default function Products() {
                     <Input
                       required
                       name="title"
+                      type="text"
                       onChange={updateItemHandler}
                       defaultValue={edit.title}
                       placeholder="title"
@@ -125,6 +126,7 @@ export default function Products() {
                   <Td>
                     <Input
                       required
+                      type="text"
                       name="category"
                       onChange={updateItemHandler}
                       defaultValue={edit.category}
@@ -159,7 +161,7 @@ export default function Products() {
                   <Td>
                     <Button
                       colorScheme="blue"
-                      onClick={() => setEdit(clonedItems[i])}
+                      onClick={() => setEdit(displayedData[i])}
                     >
                       edit
                     </Button>
@@ -174,14 +176,14 @@ export default function Products() {
   );
 }
 
-const TableOptions = (props) => {
-  const { products, checkedItems, clonedItems, setClonedItems } = props;
+const TableOptions = memo((props) => {
+  const { products, checkedItems, displayedData } = props;
   const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // update selected items
+  // update displayed items
   const [removedProducts, setRemovedProducts] = useState([]);
   useEffect(() => {
-    const newItems = clonedItems.filter((item, i) => checkedItems[i] && item);
+    const newItems = displayedData.filter((item, i) => checkedItems[i] && item);
     setRemovedProducts([...newItems]);
   }, [checkedItems]);
   // Add new product
@@ -201,34 +203,29 @@ const TableOptions = (props) => {
           "default-product.png",
         ],
       })
-    )
+    );
   };
-  // collecting product data 
-  const handleChange=(e)=>{
+  // collecting product data
+  const handleChange = (e) => {
     setNewPro({
       ...newPro,
       [e.target.name]:
         e.target.type === "number"
           ? parseFloat(e.target.value)
           : e.target.value,
-    })
-    console.log(e.target.value)
-  }
+    });
+  };
+  // delete selected products
+  const handleDelete = () => {
+    checkedItems.some(Boolean) && dispatch(DELETE(removedProducts));
+  };
   return (
     <>
       <div className="flex items-center gap-x-2">
         <h1>
-          ({clonedItems.length})item - All({products.length})
+          ({displayedData.length})item - All({products.length})
         </h1>
-        <Button
-          colorScheme="red"
-          onClick={() => {
-            checkedItems.some(Boolean) && dispatch(DELETE(removedProducts));
-          }}
-          type="submit"
-        >
-          delete
-        </Button>
+        <PopoverConfirmgDelete handleDelete={handleDelete} />
         <Button colorScheme="green" onClick={onOpen} type="submit">
           new
         </Button>
@@ -266,6 +263,36 @@ const TableOptions = (props) => {
       </AlertDialog>
       {/* filter by category && seacrh by name */}
     </>
+  );
+});
+
+const PopoverConfirmgDelete = ({ handleDelete }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+      <PopoverTrigger>
+        <Button colorScheme="red">delete</Button>
+      </PopoverTrigger>
+      <PopoverContent bg="gray.500">
+        <PopoverArrow bg="gray.500" />
+        <PopoverBody>
+          are you sure u wanna delete the selected products?
+        </PopoverBody>
+        <PopoverFooter>
+          <Button onClick={onClose}>cancel</Button>
+          <Button
+            onClick={() => {
+              handleDelete();
+              onClose();
+            }}
+            colorScheme="red"
+            ml={2}
+          >
+            delete
+          </Button>
+        </PopoverFooter>
+      </PopoverContent>
+    </Popover>
   );
 };
 const inputsProps = [
