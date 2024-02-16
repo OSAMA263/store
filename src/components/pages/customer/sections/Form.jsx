@@ -79,8 +79,8 @@ export default function Form(props) {
 
 // inputs with validation
 const FormInputs = (props) => {
-  const [showPasswrod, setShowPassword] = useState("password");
   const { children, formik, updateUserData } = props;
+  const [showPasswrod, setShowPassword] = useState("password");
   const { handleBlur, values, touched, errors } = formik;
 
   const showPasswordhanlder = () => {
@@ -92,7 +92,13 @@ const FormInputs = (props) => {
       {React.Children.map(children, (child) => {
         return (
           <div>
-            {child.props.type === "password" ? (
+            {child.props.type !== "password" ? (
+              React.cloneElement(child, {
+                value: values[child.props.name],
+                onChange: updateUserData,
+                onBlur: handleBlur,
+              })
+            ) : (
               <InputGroup>
                 {React.cloneElement(child, {
                   value: values[child.props.name],
@@ -100,25 +106,21 @@ const FormInputs = (props) => {
                   onBlur: handleBlur,
                   type: showPasswrod,
                 })}
-                <InputRightElement  justifyContent="end">
+                <InputRightElement justifyContent="end">
                   <button
                     className="text-xl bg-white"
                     onClick={showPasswordhanlder}
+                    type="button"
+                    aria-label="show password"
                   >
                     {showPasswrod === "password" ? (
-                          <IoIosEyeOff />
+                      <IoIosEyeOff />
                     ) : (
                       <IoIosEye />
                     )}
                   </button>
                 </InputRightElement>
               </InputGroup>
-            ) : (
-              React.cloneElement(child, {
-                value: values[child.props.name],
-                onChange: updateUserData,
-                onBlur: handleBlur,
-              })
             )}
             {/* validate */}
             <p>

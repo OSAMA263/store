@@ -45,9 +45,14 @@ const loginValidationSchema = object({
     .required("username or email required!"),
 
   password: string()
-    .test("", "Incorrect password", (val) =>
-      users.find((user) => user.password === val)
-    )
+    .test("", "Incorrect passworda", function (value) {
+      const name_emailVal = this.parent.name_email; // Access the password field value
+      return users.find(
+        (user) =>
+          (user.password === value && user.name === name_emailVal) ||
+          (user.password === value && user.email === name_emailVal)
+      );
+    })
     .required("password is required"),
 });
 
