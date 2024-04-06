@@ -34,7 +34,7 @@ export const ProductBody = ({ quantity, product }) => {
     : product.stock;
 
   return (
-    <div className="space-y-6">
+    <div className="sm:space-y-6 space-y-2">
       {/* product name & price */}
       <div className="flex flex-col font-semibold gap-y-2">
         <Rating rating={rating} />
@@ -144,7 +144,7 @@ const Rating = ({ rating }) => {
   const rate = Math.floor(Number(rating));
 
   return (
-    <span className="flex text-2xl gap--1">
+    <span className="flex text-2xl gap-1">
       {stars.slice(0, rate).map((_, i) => (
         <small key={"star" + i}>
           <IoIosStar className="!text-yellow-300" />

@@ -80,7 +80,7 @@ const ProductsSlice = createSlice({
         (item) => !unWantedProducts.includes(item.category)
       );
       const defalutProduct = {id:102,
-        title: "Product",
+        title: "Demo Product",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, quibusdam adipisci! Nemo ipsum velit eligendi repudiandae.",
         price: 1000,

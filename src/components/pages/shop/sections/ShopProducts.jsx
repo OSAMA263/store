@@ -10,7 +10,7 @@ export default function ShopProducts() {
     useContext(ShopContext);
 
   return (
-    <AnimatePresence mode="sync">
+    <AnimatePresence>
       <Container $columns={gridCols}>
         {products.length > 0 ? (
           shownProducts.length > 0 ? (

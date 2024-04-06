@@ -5,16 +5,17 @@ import { useMediaQuery } from "@chakra-ui/react";
 
 export default function ShopContextProvider({ children }) {
   const products = useProductsState();
-  const [gridCols, setGridCols] = useState(4);
-  const [shownProducts, setShownProducts] = useState([...products]);
-  const [visibleCards, setVisibleCards] = useState(20);
-  const [QTY, setQTY] = useState(1);
   const [isSmallDevice] = useMediaQuery("(max-width: 770px)", {
     ssr: false,
   });
   const [isMdDevice] = useMediaQuery("(max-width: 1024px)", {
     ssr: false,
   });
+  const [gridCols, setGridCols] = useState(isSmallDevice?1:4);
+  const [shownProducts, setShownProducts] = useState([...products]);
+  const [visibleCards, setVisibleCards] = useState(20);
+  const [QTY, setQTY] = useState(1);
+
   // change the productsshop for small devices
   useEffect(() => {
     isSmallDevice ? setGridCols(1) : setGridCols(4);

@@ -3,10 +3,27 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const UserSlice = createSlice({
   initialState: {
-    users: localStorage.users ? JSON.parse(localStorage.users) : [],
+    users: localStorage.users
+      ? JSON.parse(localStorage.users)
+      : [
+          {
+            cart: [],
+            name: "user",
+            email: "user@gmail.com",
+            password: 123456,
+            wishlist: [],
+          },
+        ],
     auth: localStorage.auth
       ? JSON.parse(localStorage.auth)
-      : { isLoggedIn: false, cart: [], wishlist: [] },
+      : {
+          isLoggedIn: true,
+          cart: [],
+          name: "user",
+          email: "user@gmail.com",
+          password: 123456,
+          wishlist: [],
+        },
   },
 
   name: "user",
@@ -33,7 +50,7 @@ const UserSlice = createSlice({
     removeFromWishlist: ({ auth }, { payload }) => {
       auth.wishlist = auth.wishlist.filter((product) => product.id !== payload);
     },
-    clearWishlist: ({auth}) => {
+    clearWishlist: ({ auth }) => {
       auth.wishlist = [];
     },
     // DECREACE QUANTITY PRODUCT IN THE CART

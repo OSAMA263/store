@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DashboardContext from "./DashboardContext";
 
 export default function DashboardContextProvider({ children,dataArray }) {

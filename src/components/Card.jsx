@@ -44,13 +44,13 @@ export const ItemImage = (props) => {
   return (
     <div
       className={`${
-        gridCols === 1 && "!h-full [&_img]:!object-fill"
+        gridCols === 1 && "[&_img]:!object-fill"
       } h-[80%] overflow-hidden relative`}
     >
       {/* ------------images------ */}
       <div
         className={`${
-          gridCols !== 1 ? "h-[300px]" : "lg:h-[500px] h-[400px]"
+          gridCols !== 1 ? "h-[300px]" : "lg:h-[500px] h-[300px]"
         } cursor-pointer relative`}
       >
         <NavLink className="[&_img]:object-cover" to={"/shop/" + productID}>
@@ -132,6 +132,7 @@ export const ItemDetails = (props) => {
           <button
             className={foundInCart && "text-black"}
             onClick={() => handleAddToCart(product)}
+            disabled={btnText === "- Out of stock"}
           >
             {btnText}
           </button>
@@ -179,7 +180,6 @@ const CardContainer = tw(motion.div)`
 [&_h1]:hover:invisible
 [&_span]:hover:!opacity-100
 rounded-sm
-h-fit
 overflow-hidden
 relative
 ${({ $oneColumn }) =>
