@@ -226,6 +226,7 @@ export const navigationLinks = [
   { label: "Categories", url: "/categories" },
   { label: "About", url: "/about-us" },
   { label: "Contact", url: "/contact-us" },
+  { label: "Dashboard", url: "/dashboard" },
 ];
 
 export default React.memo(Navbar);

@@ -21,14 +21,14 @@ function App() {
   useEffect(() => {
     !localStorage.products && dispatch(fetchProducts());
     localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
+  }, [products,dispatch]);
 
   // get th logged in user cart & wishlist
   useEffect(() => {
     auth.isLoggedIn && dispatch(UpdateUsers(auth));
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("auth", JSON.stringify(auth));
-  }, [auth, users]);
+  }, [auth, users,dispatch]);
 
   // scroll top top during routing
   useEffect(() => {
@@ -79,7 +79,7 @@ const pages = [
   { path: "/contact-us", component: <Contact /> },
   { path: "/FAQ", component: <FQA /> },
   { path: "/customer", component: <Customer /> },
-  { path: "/customer/dashboard", component: <Dashboard /> },
+  { path: "/dashboard", component: <Dashboard /> },
   { path: "/shop/:productID", component: <ProductPage /> },
   { path: "/cart", component: <Cart /> },
   { path: "/wishlist", component: <Wishlist /> },
