@@ -131,9 +131,9 @@ const ModalButtons = ({ product, qty, setQty }) => {
       >
         <AiOutlineHeart />
       </OptionBtn>
-      <OptionBtn aria-label="compare">
+      {/* <OptionBtn aria-label="compare">
         <LuGitCompare />
-      </OptionBtn>
+      </OptionBtn> */}
     </div>
   );
 };

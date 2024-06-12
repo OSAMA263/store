@@ -22,7 +22,7 @@ function Card({ product, gridCols }) {
       <ItemImage
         gridCols={gridCols}
         productID={product.id}
-        thumbnail={{ img1: thumbnail, img2: product.images[1] }}
+        thumbnail={{ img1: thumbnail, img2: product.images[1] ?? thumbnail }}
         title={title}
       >
         <CardElements product={product} />
@@ -31,7 +31,7 @@ function Card({ product, gridCols }) {
       {gridCols === 1 ? (
         <ProductBody product={product} />
       ) : (
-        <div className="flex flex-col gap-y-4 justify-end mt-4 h-[20%]">
+        <div className="flex flex-col gap-y-4 justify-end mt-4">
           <ItemDetails {...{ title, orignalPrice, price, product }} />
         </div>
       )}
@@ -40,12 +40,12 @@ function Card({ product, gridCols }) {
 }
 
 export const ItemImage = (props) => {
-  const { gridCols, thumbnail, children, productID ,title} = props;
+  const { gridCols, thumbnail, children, productID, title } = props;
   return (
     <div
       className={`${
         gridCols === 1 && "[&_img]:!object-fill"
-      } h-[80%] overflow-hidden relative`}
+      } h-[8 overflow-hidden relative`}
     >
       {/* ------------images------ */}
       <div
@@ -128,23 +128,25 @@ export const ItemDetails = (props) => {
       {/*cardProduct name & buy btn */}
       <NameWrapper>
         <h1 className="block text-lg font-semibold text-lightGray">{title}</h1>
-        <RedTextBtn>
-          <button
-            className={foundInCart && "text-black"}
-            onClick={() => handleAddToCart(product)}
-            disabled={btnText === "- Out of stock"}
-          >
-            {btnText}
-          </button>
-        </RedTextBtn>
+        <div className="flex flex-col gap-y-3">
+          <RedTextBtn>
+            <button
+              className={foundInCart && "text-black"}
+              onClick={() => handleAddToCart(product)}
+              disabled={btnText === "- Out of stock"}
+            >
+              {btnText}
+            </button>
+          </RedTextBtn>
+          {/* price */}
+          <div className="flex items-center space-x-2 font-bold p">
+            <small className="line-through opacity-50">
+              {orignalPrice.toLocaleString("en")}
+            </small>
+            <small>{price.toLocaleString("en")}</small>
+          </div>
+        </div>
       </NameWrapper>
-      {/* price */}
-      <p className="flex items-center space-x-2 font-bold">
-        <small className="line-through opacity-50">
-          {orignalPrice.toLocaleString("en")}
-        </small>
-        <small>{price.toLocaleString("en")}</small>
-      </p>
     </>
   );
 };
@@ -153,15 +155,20 @@ const RedTextBtn = tw.span`
 min-w-max 
 font-medium 
 text-lg 
--bottom-4 
+-bottom-6
 absolute
 opacity-0 
+transition-all
+duration-300
 text-[#d7122a]
 `;
 
 const NameWrapper = tw.div`
 btn-visible
 duration-700 
+flex
+flex-col
+justify-between
 transition-all 
 relative
 [&>*]:transition-all
@@ -169,13 +176,13 @@ relative
 `;
 
 const CardContainer = tw(motion.div)`
-[&_.img-1]:hover:opacity-0
+[&_.img-1]:hover:!opacity-0
 [&_.img-2]:hover:!opacity-100
 [&_.img-2]:hover:brightness-95
 [&_.options]:hover:!opacity-100
 [&_.options]:hover:gap-y-4
 [&_.options]:hover:mt-4
-[&_.btn-visible]:hover:-translate-y-4
+[&_.btn-visible]:hover:-translate-y-full
 [&_h1]:hover:opacity-0
 [&_h1]:hover:invisible
 [&_span]:hover:!opacity-100

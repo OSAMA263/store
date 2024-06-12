@@ -5,7 +5,7 @@ export const fetchProducts = createAsyncThunk(
   "products/fetchProducts",
   async (_, thunkAPI) => {
     try {
-      const res = await fetch("https://dummyjson.com/products?limit=150");
+      const res = await fetch("https://dummyjson.com/products?limit=200");
       const data = await res.json();
       return data.products;
     } catch (error) {
@@ -79,7 +79,7 @@ const ProductsSlice = createSlice({
       const products = payload.filter(
         (item) => !unWantedProducts.includes(item.category)
       );
-      const defalutProduct = {id:102,
+      const defalutProduct = {id:200,
         title: "Demo Product",
         description:
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, quibusdam adipisci! Nemo ipsum velit eligendi repudiandae.",
@@ -106,12 +106,12 @@ export default ProductsSlice.reducer;
 
 // avoid these ugly looking images
 export const unWantedProducts = [
-  "skincare",
+  // "Women
   "groceries",
-  "tops",
-  "womens-shoes",
-  "automotive",
-  "motorcycle",
-  "womens-dresses",
-  "home-decoration",
+  // "tops",
+  // "womens-shoes",
+  // "automotive",
+  // "motorcycle",
+  // "womens-dresses",
+  // "home-decoration",
 ];

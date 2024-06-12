@@ -37,7 +37,8 @@ export default function Shop() {
 //
 const MainSection = tw.div`
 flex 
-gap-x-4
+gap-x-10
 lg:justify-between
 justify-center
+items-start
 `;

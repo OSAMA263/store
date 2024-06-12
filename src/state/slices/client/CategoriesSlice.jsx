@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { unWantedProducts } from "../admin/ProductsSlice";
 
 export const fetchCategories = createAsyncThunk(
   "fetchCategories/categories",
@@ -7,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
     try {
       const res = await fetch("https://dummyjson.com/products/categories");
       const data = await res.json();
-      return data;
+      return data.map(({slug})=>slug)
     } catch (err) {
       thunkAPI.rejectWithValue(err.message);
     }
@@ -25,7 +24,7 @@ const CategoriesSlice = createSlice({
     builder.addCase(fetchCategories.pending);
     // fulfiled
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      const data = action.payload.filter((cat) => !unWantedProducts.includes(cat));
+      const data = action.payload
       return state=[...data]
     });
     // rejected

@@ -5,7 +5,7 @@ import PageHeader from "../../PageHeader";
 import SpecialDeal from "./sections/SpecialDeal";
 import NavigateAnimation from "../../layout/NavigateAnimation";
 import { Spinner } from "@chakra-ui/react";
-import { images } from "./data";
+import { categories } from "./data";
 
 export default function Categories() {
   return (
@@ -31,12 +31,12 @@ const GridSection = () => {
   return (
     <Grid>
       {category != null ? (
-        category.map((cat, i) => (
+        categories.map(({ thumbnail, cat }, i) => (
           <CardContainer
             className={i % 2 == 0 ? "flex-col-reverse" : "flex-col"}
             key={i}
           >
-            <CategoryCard thumbnail={images[i]} cat={cat}></CategoryCard>
+            <CategoryCard thumbnail={thumbnail} cat={cat}></CategoryCard>
           </CardContainer>
         ))
       ) : (
@@ -63,9 +63,8 @@ const CardContainer = tw.div`
 [&_h1]:hover:opacity-0
 [&_h1]:hover:invisible
 [&_a]:hover:!opacity-100
-[&_img]:hover:scale-150
+[&_img]:hover:scale-125
 [&_img]:hover:brightness-50
 [&_.img-border]:hover:border-white
 flex
-
 `;

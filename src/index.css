@@ -34,14 +34,14 @@ textarea {
 small {
   color: #949393;
 }
-.text-balance{
+.text-balance {
   text-wrap: balance;
 }
 /* table styles */
 tr th:not(:first-child),
 td:not(:first-child) {
-  text-align: center ;
-  vertical-align: middle ;
+  text-align: center;
+  vertical-align: middle;
 }
 /* input style */
 textarea,
@@ -79,12 +79,22 @@ input:focus {
   width: 100%;
   left: 0;
 }
+.filters-scrollbar {
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: Gray;
+    border-radius: 20px;
+  }
+}
 /* swiper */
-.swiper-button-prev,.swiper-button-next{
-  color: black!important;
+.swiper-button-prev,
+.swiper-button-next {
+  color: black !important;
   background-color: #fff;
   padding-inline: 20px;
-  padding-block:30px;
+  padding-block: 30px;
 }
 .swiper-pagination {
   margin-bottom: 25px;
@@ -120,7 +130,7 @@ input:focus {
 .drawer-scrollbar::-webkit-scrollbar {
   width: 6px;
   height: 50px;
-  transition: background-color .9s;
+  transition: background-color 0.9s;
 }
 .drawer-scrollbar::-webkit-scrollbar-thumb {
   background-color: transparent;

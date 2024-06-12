@@ -37,7 +37,7 @@ export default function FilterCategories() {
   };
 
   return (
-    <Wrapper>
+    <Wrapper className="filters-scrollbar">
       <SearchInput handleFilterName={handleFilterName} />
       <h1 className="text-lg md:text-2xl">Categories</h1>
       <Filters handleFilterCategory={handleFilterCategory} />
@@ -91,13 +91,12 @@ const SearchInput = ({ handleFilterName }) => {
 };
 
 const Wrapper = tw.div`
-lg:overflow-y-hidden
 overflow-y-scroll
-sticky 
+sticky
 space-y-10 
-lg:pe-6 
+lg:pe-6
 top-44
-lg:h-fit 
+lg:h-[696px]
 h-[400px]
 `;
 

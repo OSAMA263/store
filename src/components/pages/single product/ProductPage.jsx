@@ -44,7 +44,7 @@ export default function ProductPage() {
       <ContentContainer>
         <Container>
           {/* swiper images */}
-          <div className="relative">
+          <div className="relative [&_.swiper-slide:not(.swiper-slide-active)]:!opacity-0">
             <SwiperImages swiperProps={swiperImgs}>
               {images.map((src) => (
                 <SwiperSlide key={src}>

@@ -150,5 +150,5 @@ flex-col
 const options = [
   { action: "wishlist", icon: <AiOutlineHeart />, label: "Add to wishlist" },
   { action: "view", icon: <AiOutlineSearch />, label: "Quick view" },
-  { action: "compare", icon: <LuGitCompare />, label: "Add to compare" },
+  // { action: "compare", icon: <LuGitCompare />, label: "Add to compare" },
 ];

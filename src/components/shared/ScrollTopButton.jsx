@@ -18,7 +18,7 @@ ${({ $isSticky }) =>
   $isSticky ? "opacity-100 visible" : "opacity-0 invisible"}
 fixed
 bg-[#333333]
-sm:p-4
+sm:p-3
 p-1
 rounded-full
 bottom-10
