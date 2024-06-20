@@ -20,7 +20,7 @@ const Slider = () => {
     <Swiper {...swiperProps}>
       {sliderData.map(({ description, name, role, img }) => (
         <SwiperSlide key={name}>
-          <div className="grid grid-rows-2 space-y-10">
+          <div className="grid max-sm:!px-2 grid-rows-2 space-y-10">
             <h1 className="font-semibold leading-loose text-lightGray">
               {description}
             </h1>
@@ -65,4 +65,6 @@ const swiperProps = {
 const Container = tw.div`
 py-28
 bg-[url('/about/testimonials-bg.webp')]
+bg-cover
+bg-center
 `;

@@ -54,7 +54,7 @@ export const ProductBody = ({ quantity, product }) => {
         {description}
       </p>
       {/* prodcut button options */}
-      <div className="flex items-center gap-x-20">
+      <div className="flex items-center gap-x-5">
         {quantity && (
           <>
             <h1 className="font-semibold">Quantity</h1>

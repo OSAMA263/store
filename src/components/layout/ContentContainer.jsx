@@ -5,7 +5,8 @@ export default function ContentContainer({ children }) {
 }
 
 const Container = tw.div`
-space-y-24
+sm:space-y-24
+space-y-14
 my-40
 2xl:w-[70%]
 xl:w-[80%]

@@ -39,7 +39,8 @@ const Grid = ({ products }) => {
 };
 
 const GridWrapper = tw.div`
-grid
+lg:grid
+flexflex-col
 grid-cols-3
 gap-12
 `;

@@ -109,16 +109,16 @@ export default function ProductsTable(props) {
 
 const Product = ({ pro }) => {
   return (
-    <div className="flex items-center gap-x-8 [&>span]:!w-auto ">
+    <div className="flex max-lg:flex-col max-lg:justify-center items-center gap-x-8 [&>span]:!w-auto ">
       <NavLink to={"/shop/" + pro.id}>
         <LazyImage
           effect
-          styles="!w-24 !h-32 object-cover"
+          styles="!w-24 object-cover"
           src={pro.thumbnail}
         />
       </NavLink>
       <div>
-        <h1 className="font-semibold">{pro.title}</h1>
+        <h1 className="font-semibold max-sm:hidden">{pro.title}</h1>
         <h1 className="font-sm text-lightGray">{pro.brand}</h1>
       </div>
     </div>
