@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import {
   Tbody,
   Thead,
@@ -19,9 +20,10 @@ import {
   PopoverArrow,
   PopoverFooter,
   PopoverBody,
+  Select,
 } from "@chakra-ui/react";
 import { useItemsPerPage, TableItems } from "../TablePagination";
-import { memo, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   ADD,
@@ -29,6 +31,7 @@ import {
   EDIT,
 } from "../../../../state/slices/admin/ProductsSlice";
 import { useProductsState } from "../../../../state/useStates";
+const categories = JSON.parse(localStorage.categories);
 
 export default function Products() {
   const dispatch = useDispatch();
@@ -124,14 +127,19 @@ export default function Products() {
                     />
                   </Td>
                   <Td>
-                    <Input
+                    <Select
                       required
                       type="text"
                       name="category"
                       onChange={updateItemHandler}
                       defaultValue={edit.category}
-                      placeholder="category"
-                    />
+                    >
+                      {categories.map((cat) => (
+                        <option value={cat} key={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </Select>
                   </Td>
                   <Td>
                     <div className="flex flex-col">
@@ -244,16 +252,34 @@ const TableOptions = memo((props) => {
             <AlertDialogBody py={12}>
               <form className="space-y-4" onSubmit={handleSubmit}>
                 {inputsProps.map(({ name, type }) => (
-                  <Input
-                    key={name}
-                    name={name}
-                    placeholder={name}
-                    type={type}
-                    required={type !== "file"}
-                    min={type === "number" ? 1 : null}
-                    step="any"
-                    onChange={handleChange}
-                  />
+                  <Fragment key={name ?? "category"}>
+                    {name ? (
+                      <Input
+                        key={name}
+                        name={name}
+                        placeholder={name}
+                        type={type}
+                        required={type !== "file"}
+                        min={type === "number" ? 1 : null}
+                        step="any"
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      <Select
+                        required
+                        type="text"
+                        name="category"
+                        placeholder="category"
+                        onChange={handleChange}
+                      >
+                        {categories.map((cat) => (
+                          <option value={cat} key={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </Select>
+                    )}
+                  </Fragment>
                 ))}
                 <Button type="submit">submit</Button>
               </form>
@@ -301,10 +327,11 @@ const inputsProps = [
   { type: "number", name: "price" },
   { type: "number", name: "discountPercentage" },
   { type: "text", name: "brand" },
-  { type: "text", name: "category" },
   { type: "number", name: "rating" },
+  {
+    /*category options*/
+  },
   { type: "number", name: "stock" },
   { type: "file", name: "thumbnail" },
   { type: "file", name: "images", images: ["", "", ""] },
 ];
-// allow to edit multiple product at one time?
