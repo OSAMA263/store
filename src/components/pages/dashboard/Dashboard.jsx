@@ -4,45 +4,49 @@ import { FaPencilRuler, FaUsers } from "react-icons/fa";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import Products from "./panels/Products";
 import Customers from "./panels/Customers";
+import Authentication from "./Authentication";
 
 export default function Dashboard() {
-  // build the table with futures
-  // add the filtering ? and the actions
-
   return (
     <NavigateAnimation>
-      <Hero>Admin</Hero>
-      <ContentSection>
-        <Tabs>
-          <TabsListWrapper>
-            <TabList columnGap={8} border={0}>
-              {tabs.map(({ icon, title }, i) => (
-                <Tab
-                  _selected={{
-                    bg: "#d4d2d2",
-                    borderBottom: "2px solid #5f6df1",
-                  }}
-                  p={0}
-                  flexDirection="column"
-                  rowGap={2}
-                  key={i}
-                >
-                  <i>{icon}</i>
-                  <h1>{title}</h1>
-                </Tab>
-              ))}
-            </TabList>
-          </TabsListWrapper>
-          <TabPanels pt={20}>
-            <TabPanel>
-              <Products />
-            </TabPanel>
-            <TabPanel>
-              <Customers />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </ContentSection>
+      {localStorage.demo_admin ? (
+        <>
+          <Hero>Admin</Hero>
+          <ContentSection>
+            <Tabs>
+              <TabsListWrapper>
+                <TabList columnGap={8} border={0}>
+                  {tabs.map(({ icon, title }, i) => (
+                    <Tab
+                      _selected={{
+                        bg: "#d4d2d2",
+                        borderBottom: "2px solid #5f6df1",
+                      }}
+                      p={0}
+                      flexDirection="column"
+                      rowGap={2}
+                      key={i}
+                    >
+                      <i>{icon}</i>
+                      <h1>{title}</h1>
+                    </Tab>
+                  ))}
+                </TabList>
+              </TabsListWrapper>
+              <TabPanels pt={20}>
+                <TabPanel>
+                  <Products />
+                </TabPanel>
+                <TabPanel>
+                  <Customers />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </ContentSection>
+        </>
+      ) : (
+        <Authentication />
+      )}
     </NavigateAnimation>
   );
 }

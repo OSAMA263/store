@@ -1,7 +1,7 @@
 import tw from "tailwind-styled-components";
 
-export default function ContentContainer({ children }) {
-  return <Container>{children}</Container>;
+export default function ContentContainer({ children, className = "" }) {
+  return <Container className={className}>{children}</Container>;
 }
 
 const Container = tw.div`

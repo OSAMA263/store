@@ -146,7 +146,7 @@ md:space-y-12
 space-y-4
 `;
 
-const InputsWrapper = tw.div`
+export const InputsWrapper = tw.div`
 [&_input]:outline-none
 [&_input]:border-b-2
 [&_input]:pe-6
